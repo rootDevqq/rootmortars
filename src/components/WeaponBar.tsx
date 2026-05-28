@@ -153,11 +153,11 @@ export function WeaponBar() {
         {/* Global Backup & Restore buttons */}
         <div className="flex gap-1 items-center shrink-0 ml-1">
           <label className="btn-secondary" style={{ fontSize: 11, padding: '5px 8px', cursor: 'pointer', margin: 0 }} title="Импортировать полный бэкап (JSON)">
-            📥 Бэкап
+            📥 Импорт
             <input type="file" accept=".json" onChange={handleImportAll} style={{ display: 'none' }} />
           </label>
           <button className="btn-secondary" style={{ fontSize: 11, padding: '5px 8px' }} onClick={exportAll} title="Экспортировать полный бэкап (JSON)">
-            📤 Скачать
+            📤 Экспорт
           </button>
         </div>
       </div>
