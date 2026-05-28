@@ -11,7 +11,31 @@ export function GunPositionManager() {
     updateGun,
     deleteGun,
     loadGunAsPosition,
+    importGuns,
   } = useAppStore();
+
+  const exportGuns = () => {
+    const cleanGuns = savedGuns.map(({ id, ...rest }) => rest);
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cleanGuns, null, 2));
+    const a = document.createElement('a');
+    a.setAttribute('href', dataStr);
+    a.setAttribute('download', 'rootmortars_guns.json');
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  const handleImportGuns = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target?.result as string);
+        importGuns(Array.isArray(parsed) ? parsed : [parsed]);
+      } catch { alert('Ошибка при чтении JSON-файла позиций.'); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
 
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
@@ -60,32 +84,26 @@ export function GunPositionManager() {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-1.5">
         <span className="section-label mb-0">Позиции орудий ({savedGuns.length})</span>
-        <div className="flex gap-1.5">
+        <div className="flex gap-1.5 items-center flex-wrap">
+          <label className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px', cursor: 'pointer', margin: 0 }} title="Импорт позиций">
+            📥 Импорт
+            <input type="file" accept=".json" onChange={handleImportGuns} style={{ display: 'none' }} />
+          </label>
+          <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px' }} onClick={exportGuns} title="Экспорт позиций">
+            📤 Экспорт
+          </button>
           {hasCurrentPos && !showForm && (
-            <button
-              className="btn-secondary"
-              style={{ fontSize: 11, padding: '3px 10px' }}
-              onClick={() => openNew(true)}
-              title="Сохранить текущую позицию"
-            >
+            <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 10px' }} onClick={() => openNew(true)} title="Сохранить текущую позицию">
               💾 Текущую
             </button>
           )}
           {!showForm && (
-            <button
-              className="btn-secondary"
-              style={{ fontSize: 11, padding: '3px 10px' }}
-              onClick={() => openNew(false)}
-            >
+            <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 10px' }} onClick={() => openNew(false)}>
               + Новая
             </button>
           )}
           {showForm && (
-            <button
-              className="btn-ghost"
-              style={{ fontSize: 11, padding: '3px 10px' }}
-              onClick={handleCancel}
-            >
+            <button className="btn-ghost" style={{ fontSize: 11, padding: '3px 10px' }} onClick={handleCancel}>
               ✕ Отмена
             </button>
           )}

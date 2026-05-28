@@ -71,7 +71,30 @@ function ZoneChips({
 // ─── Map Manager ──────────────────────────────────────────────────────────────
 
 export function MapManager() {
-  const { maps, selectedMapId, setSelectedMap, addMap, updateMap, deleteMap } = useAppStore();
+  const { maps, selectedMapId, setSelectedMap, addMap, updateMap, deleteMap, importMaps } = useAppStore();
+
+  const exportMaps = () => {
+    const cleanMaps = maps.map(({ id, ...rest }) => rest);
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cleanMaps, null, 2));
+    const a = document.createElement('a');
+    a.setAttribute('href', dataStr);
+    a.setAttribute('download', 'rootmortars_maps.json');
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  const handleImportMaps = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target?.result as string);
+        importMaps(Array.isArray(parsed) ? parsed : [parsed]);
+      } catch { alert('Ошибка при чтении JSON-файла карт.'); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
 
   const [showForm,     setShowForm]     = useState(false);
   const [editId,       setEditId]       = useState<string | null>(null);
@@ -142,26 +165,27 @@ export function MapManager() {
     <div className="flex flex-col gap-3">
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-1">
         <span className="section-label mb-0">Карты ({maps.length})</span>
-        {!showForm && (
-          <button
-            className="btn-secondary"
-            style={{ fontSize: 11, padding: '3px 10px' }}
-            onClick={openNew}
-          >
-            + Добавить
+        <div className="flex gap-1 items-center shrink-0">
+          <label className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px', cursor: 'pointer', margin: 0 }} title="Импорт карт">
+            📥 Импорт
+            <input type="file" accept=".json" onChange={handleImportMaps} style={{ display: 'none' }} />
+          </label>
+          <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px' }} onClick={exportMaps} title="Экспорт карт">
+            📤 Экспорт
           </button>
-        )}
-        {showForm && (
-          <button
-            className="btn-ghost"
-            style={{ fontSize: 11, padding: '3px 10px' }}
-            onClick={handleCancel}
-          >
-            ✕ Отмена
-          </button>
-        )}
+          {!showForm && (
+            <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 10px' }} onClick={openNew}>
+              + Добавить
+            </button>
+          )}
+          {showForm && (
+            <button className="btn-ghost" style={{ fontSize: 11, padding: '3px 10px' }} onClick={handleCancel}>
+              ✕ Отмена
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Add / Edit form */}
