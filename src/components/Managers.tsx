@@ -79,11 +79,11 @@ function MapManager() {
         <span className="section-label mb-0">Карты ({maps.length})</span>
         <div className="flex gap-1 items-center shrink-0">
           <label className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px', cursor: 'pointer', margin: 0 }} title="Импорт карт">
-            📥
+            📥 Импорт
             <input type="file" accept=".json" onChange={handleImportMaps} style={{ display: 'none' }} />
           </label>
           <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px' }} onClick={exportMaps} title="Экспорт карт">
-            📤
+            📤 Экспорт
           </button>
           <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 8px' }} onClick={openNew}>
             + Добавить
@@ -280,11 +280,11 @@ function GunManager() {
         <span className="section-label mb-0">Позиции орудий</span>
         <div className="flex gap-1.5 items-center">
           <label className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px', cursor: 'pointer', margin: 0 }} title="Импорт позиций">
-            📥
+            📥 Импорт
             <input type="file" accept=".json" onChange={handleImportGuns} style={{ display: 'none' }} />
           </label>
           <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px' }} onClick={exportGuns} title="Экспорт позиций">
-            📤
+            📤 Экспорт
           </button>
           {hasCurrentPos && (
             <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 8px' }}

@@ -289,11 +289,11 @@ export function PointsPanel() {
         </div>
         <div className="flex gap-1 items-center shrink-0">
           <label className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px', cursor: 'pointer', margin: 0 }} title="Импорт точек">
-            📥
+            📥 Импорт
             <input type="file" accept=".json" onChange={handleImportPoints} style={{ display: 'none' }} />
           </label>
           <button className="btn-secondary" style={{ fontSize: 11, padding: '3px 6px' }} onClick={exportPoints} title="Экспорт точек">
-            📤
+            📤 Экспорт
           </button>
           <button
             className="btn-secondary"
