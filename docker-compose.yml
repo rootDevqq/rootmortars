@@ -1,0 +1,9 @@
+services:
+  rootmortars:
+    build: .
+    container_name: rootmortars
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    labels:
+      - "com.rootmortars.description=Arma Reforger Artillery Calculator"
