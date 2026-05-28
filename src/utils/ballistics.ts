@@ -7,6 +7,8 @@ import type {
   ProjectileType,
   Charge,
   RangeTableEntry,
+  WindDatabase,
+  WindCharge,
 } from '../types';
 
 // ─── KEY FIX: milsPerCircle may be nested in milSystem ───────────────────────
@@ -92,7 +94,78 @@ export function getHowitzerAmmoGroups(weapon: WeaponSystem): HowitzerAmmoGroup[]
   return Array.from(map.values());
 }
 
+// ─── Wind correction ──────────────────────────────────────────────────────────
+//
+// windDir: degrees FROM which wind blows (0=N, 90=E — Arma convention after 1.7.0.41)
+// azimuthDeg: shot direction in degrees
+// Returns: { azDelta mils, rangeDelta m, dispersion m } or null if no wind data
+
+export interface WindCorrection {
+  azDelta: number;      // mils to add to azimuth (+ = right)
+  rangeDelta: number;   // m to add to effective range (+ = further/headwind)
+  dispersion: number;   // m
+}
+
+function interpolateWind(table: WindCharge['t'], distance: number): { wc: number; wl: number } {
+  const sorted = [...table].sort((a, b) => a.r - b.r);
+  if (!sorted.length) return { wc: 0, wl: 0 };
+  if (distance <= sorted[0].r) return { wc: sorted[0].wc, wl: sorted[0].wl };
+  const last = sorted[sorted.length - 1];
+  if (distance >= last.r) return { wc: last.wc, wl: last.wl };
+  for (let i = 0; i < sorted.length - 1; i++) {
+    const lo = sorted[i], hi = sorted[i + 1];
+    if (lo.r <= distance && distance <= hi.r) {
+      const t = (distance - lo.r) / (hi.r - lo.r);
+      return {
+        wc: lo.wc + t * (hi.wc - lo.wc),
+        wl: lo.wl + t * (hi.wl - lo.wl),
+      };
+    }
+  }
+  return { wc: 0, wl: 0 };
+}
+
+export function calcWindCorrection(
+  azimuthDeg: number,
+  distance: number,
+  windSpeed: number,
+  windDir: number,
+  chargeLevel: number,
+  weaponId: string,
+  ammoId: string,
+  windDb: WindDatabase,
+): WindCorrection | null {
+  if (windSpeed === 0) return null;
+
+  const charges = windDb.weapons[weaponId]?.[ammoId];
+  if (!charges) return null;
+
+  const charge = charges.find(c => c.ring === chargeLevel);
+  if (!charge) return null;
+
+  // Decompose wind relative to firing direction
+  // relAngle: angle of wind relative to shot (0 = headwind, 90 = wind from right)
+  const relAngleRad = (windDir - azimuthDeg) * (Math.PI / 180);
+  const W_head  = windSpeed * Math.cos(relAngleRad);  // + = headwind
+  const W_right = windSpeed * Math.sin(relAngleRad);  // + = from right
+
+  const { wc, wl } = interpolateWind(charge.t, distance);
+
+  // Wind from right → shell drifts left → aim right (+mils)
+  const azDelta = Math.round(wc * W_right / 10);
+  // Headwind → shell falls short → effectively need more range (+m)
+  const rangeDelta = Math.round(wl * W_head / 10);
+
+  return { azDelta, rangeDelta, dispersion: charge.d };
+}
+
 // ─── Main fire solution calculator ───────────────────────────────────────────
+
+export interface WindOpts {
+  speed: number;   // m/s
+  dir: number;     // degrees FROM which wind blows
+  db: WindDatabase;
+}
 
 export function calculateFireSolution(
   weapon: WeaponSystem,
@@ -100,6 +173,7 @@ export function calculateFireSolution(
   mode: MortarMode,
   gunPos: Position,
   targetPos: Position,
+  wind?: WindOpts,
 ): FireSolution | null {
   const gx = Number(gunPos.x), gy = Number(gunPos.y), gh = Number(gunPos.h);
   const tx = Number(targetPos.x), ty = Number(targetPos.y), th = Number(targetPos.h);
@@ -133,8 +207,42 @@ export function calculateFireSolution(
       };
     }
 
-    const interp = interpolateTable(charge.rangeTable, distance);
-    if (!interp) return { distance, azimuthMils, status: 'no_data', message: 'Ошибка интерполяции' };
+    // ── Wind correction ──
+    const azimuthDeg = (azimuthMils / mils) * 360;
+    let windAzDelta: number | undefined;
+    let windRangeDelta: number | undefined;
+    let dispersion: number | undefined;
+    let effectiveDistance = distance;
+
+    if (wind && wind.speed > 0) {
+      const wc = calcWindCorrection(
+        azimuthDeg, distance, wind.speed, wind.dir,
+        charge.level, weapon.id, ammoId, wind.db,
+      );
+      if (wc) {
+        windAzDelta    = wc.azDelta;
+        windRangeDelta = wc.rangeDelta;
+        dispersion     = wc.dispersion;
+        effectiveDistance = distance + wc.rangeDelta;
+      } else {
+        // No wind table for this ammo/charge — try to get dispersion only
+        const charges = wind.db.weapons[weapon.id]?.[ammoId];
+        const wCharge = charges?.find(c => c.ring === charge.level);
+        if (wCharge) dispersion = wCharge.d;
+      }
+    } else if (wind) {
+      // wind.speed === 0, still get dispersion
+      const charges = wind.db.weapons[weapon.id]?.[ammoId];
+      const wCharge = charges?.find(c => c.ring === charge.level);
+      if (wCharge) dispersion = wCharge.d;
+    }
+
+    const correctedAzMils = windAzDelta
+      ? ((azimuthMils + windAzDelta) % mils + mils) % mils
+      : azimuthMils;
+
+    const interp = interpolateTable(charge.rangeTable, effectiveDistance);
+    if (!interp) return { distance, azimuthMils: correctedAzMils, status: 'no_data', message: 'Ошибка интерполяции' };
 
     let elevation = interp.elevation;
     if (weapon.usesHeightCorrection) {
@@ -143,11 +251,14 @@ export function calculateFireSolution(
 
     return {
       distance,
-      azimuthMils,
+      azimuthMils: correctedAzMils,
       chargeLevel: charge.level,
       elevation,
       tof: interp.tof ?? undefined,
       status: 'ok',
+      windAzDelta,
+      windRangeDelta,
+      dispersion,
     };
   }
 
@@ -229,6 +340,32 @@ export function applyCorrection(
   const newX = tx + ux * rangeDelta + rx * lateralDist;
   const newY = ty + uy * rangeDelta + ry * lateralDist;
   return { x: Math.round(newX), y: Math.round(newY) };
+}
+
+// ─── Max range helper ─────────────────────────────────────────────────────────
+
+export function getMaxRange(
+  weapon: WeaponSystem,
+  ammoId: string,
+  mode: MortarMode,
+): number | null {
+  if (weapon.systemType === 'mortar') {
+    const ammo = weapon.ammo?.find(a => a.id === ammoId);
+    if (!ammo) return null;
+    const modeData = mode === 'adult_mortars' && ammo.modes.adult_mortars
+      ? ammo.modes.adult_mortars
+      : ammo.modes.original;
+    if (!modeData?.charges?.length) return null;
+    return Math.max(...modeData.charges.map(c => c.maxRange));
+  }
+  if (weapon.systemType === 'howitzer' || weapon.systemType === 'mlrs') {
+    const group = getHowitzerAmmoGroups(weapon).find(g => g.id === ammoId);
+    if (!group) return null;
+    const ranges = [group.lowAngle?.maxRange, group.highAngle?.maxRange]
+      .filter((v): v is number => v !== undefined);
+    return ranges.length ? Math.max(...ranges) : null;
+  }
+  return null;
 }
 
 // ─── Format helpers ───────────────────────────────────────────────────────────

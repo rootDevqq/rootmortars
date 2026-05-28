@@ -4,7 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 import { v4 as uuidv4 } from 'uuid';
 import {
   WeaponSystem, GameMap, MapPoint, SavedGunPosition,
-  Position, MortarMode, FireSolution,
+  Position, MortarMode, FireSolution, WindDatabase,
 } from '../types';
 import {
   calculateFireSolution, getHowitzerAmmoGroups,
@@ -35,6 +35,11 @@ interface AppState {
   savedGuns:     SavedGunPosition[];
 
   fireSolution: FireSolution | null;
+
+  // Wind
+  windSpeed: number;   // m/s, 0–20
+  windDir:   number;   // degrees FROM which wind blows (Arma 1.7 convention)
+  windDb:    WindDatabase | null;
 
   // UI tabs
   rightTab:  'points' | 'guns' | 'maps';   // desktop right panel
@@ -71,6 +76,9 @@ interface AppState {
   addGun:    (g: Omit<SavedGunPosition, 'id'>) => void;
   updateGun: (id: string, partial: Partial<SavedGunPosition>) => void;
   deleteGun: (id: string) => void;
+
+  setWindSpeed: (v: number) => void;
+  setWindDir:   (v: number) => void;
 
   setRightTab:  (t: AppState['rightTab'])  => void;
   setMobileTab: (t: AppState['mobileTab']) => void;
@@ -110,6 +118,10 @@ export const useAppStore = create<AppState>()(
       savedGuns: [],
       fireSolution: null,
 
+      windSpeed: 0,
+      windDir:   0,
+      windDb:    null,
+
       rightTab:  'points',
       mobileTab: 'calc',
 
@@ -118,17 +130,19 @@ export const useAppStore = create<AppState>()(
       loadData: async () => {
         if (get().dataLoaded) return;
         try {
-          const [wRes, mRes, pRes] = await Promise.all([
+          const [wRes, mRes, pRes, windRes] = await Promise.all([
             fetch(`${import.meta.env.BASE_URL}data/weapons.json`),
             fetch(`${import.meta.env.BASE_URL}data/maps.json`),
             fetch(`${import.meta.env.BASE_URL}data/points.json`),
+            fetch(`${import.meta.env.BASE_URL}data/wind.json`),
           ]);
-          const [wData, mData, pData] = await Promise.all([
-            wRes.json(), mRes.json(), pRes.json(),
+          const [wData, mData, pData, windData] = await Promise.all([
+            wRes.json(), mRes.json(), pRes.json(), windRes.json(),
           ]);
 
           set(s => {
             s.weaponSystems = wData.weaponSystems ?? [];
+            s.windDb = windData ?? null;
 
             if (s.maps.length === 0) {
               s.maps = (mData.maps ?? []).map((m: GameMap) => ({ ...m }));
@@ -237,13 +251,18 @@ export const useAppStore = create<AppState>()(
 
       resetCorrection: () => set(s => { s.correctionRange = 0; s.correctionAz = 0; }),
 
+      // ── wind ──────────────────────────────────────────────────────────────
+      setWindSpeed: (v) => set(s => { s.windSpeed = Math.max(0, Math.min(20, v)); }),
+      setWindDir:   (v) => set(s => { s.windDir = ((Math.round(v) % 360) + 360) % 360; }),
+
       // ── recalculate ───────────────────────────────────────────────────────
 
       recalculate: () => {
-        const { weaponSystems, selectedWeaponId, selectedAmmoId, mortarMode, gunPos, targetPos } = get();
+        const { weaponSystems, selectedWeaponId, selectedAmmoId, mortarMode, gunPos, targetPos, windSpeed, windDir, windDb } = get();
         const weapon = weaponSystems.find(w => w.id === selectedWeaponId);
         if (!weapon) { set(s => { s.fireSolution = null; }); return; }
-        const result = calculateFireSolution(weapon, selectedAmmoId, mortarMode, gunPos, targetPos);
+        const windOpts = windDb ? { speed: windSpeed, dir: windDir, db: windDb } : undefined;
+        const result = calculateFireSolution(weapon, selectedAmmoId, mortarMode, gunPos, targetPos, windOpts);
         set(s => { s.fireSolution = result; });
       },
 

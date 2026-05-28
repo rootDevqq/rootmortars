@@ -1,5 +1,5 @@
 import { useAppStore } from '../store/appStore';
-import { getHowitzerAmmoGroups, getMilsPerCircle } from '../utils/ballistics';
+import { getHowitzerAmmoGroups, getMilsPerCircle, getMaxRange } from '../utils/ballistics';
 
 export function WeaponBar() {
   const {
@@ -67,6 +67,7 @@ export function WeaponBar() {
 
   const hasAdultMortars = isMortar && weapon?.ammo?.some(a => a.modes.adult_mortars);
   const milsPerCircle = weapon ? getMilsPerCircle(weapon) : null;
+  const maxRange = weapon ? getMaxRange(weapon, selectedAmmoId, mortarMode) : null;
 
   return (
     <div className="flex flex-wrap items-center gap-2 w-full">
@@ -129,6 +130,11 @@ export function WeaponBar() {
             <span className="badge-muted">{milsPerCircle} mil</span>
           )}
           <span className="badge-muted uppercase">{weapon.systemType}</span>
+          {maxRange && (
+            <span className="badge-muted" style={{ color: '#22c55e' }}>
+              max {maxRange} м
+            </span>
+          )}
         </div>
       )}
 

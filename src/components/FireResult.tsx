@@ -110,7 +110,38 @@ function buildCopyText(sol: FireSolution, mils: number, isMortar: boolean): stri
     if (sol.elevationHigh !== undefined) parts.push(`HIGH: ${sol.elevationHigh} mil`);
   }
   if (sol.tof != null) parts.push(`TOF: ${sol.tof.toFixed(1)} с`);
+  if (sol.windAzDelta !== undefined) parts.push(`ΔAz(ветер): ${sol.windAzDelta > 0 ? '+' : ''}${sol.windAzDelta} mil`);
   return parts.join(' | ');
+}
+
+// ─── Wind correction badge ────────────────────────────────────────────────────
+
+function WindBadge({ azDelta, rangeDelta }: { azDelta?: number; rangeDelta?: number }) {
+  if (azDelta === undefined && rangeDelta === undefined) return null;
+  return (
+    <div style={{
+      display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 4,
+      padding: '4px 8px', borderRadius: 4, background: '#0c4a6e20',
+      border: '1px solid #0c4a6e',
+    }}>
+      <span style={{ fontSize: 9, color: '#38bdf8', fontWeight: 700, fontFamily: 'JetBrains Mono', letterSpacing: '0.05em' }}>
+        ПОПРАВКА ВЕТЕР
+      </span>
+      {azDelta !== undefined && azDelta !== 0 && (
+        <span style={{ fontSize: 10, color: '#7dd3fc', fontFamily: 'JetBrains Mono' }}>
+          Az {azDelta > 0 ? '+' : ''}{azDelta} mil
+        </span>
+      )}
+      {rangeDelta !== undefined && rangeDelta !== 0 && (
+        <span style={{ fontSize: 10, color: '#7dd3fc', fontFamily: 'JetBrains Mono' }}>
+          Д {rangeDelta > 0 ? '+' : ''}{rangeDelta} м
+        </span>
+      )}
+      {((azDelta === 0 || azDelta === undefined) && (rangeDelta === 0 || rangeDelta === undefined)) && (
+        <span style={{ fontSize: 10, color: '#334155', fontFamily: 'JetBrains Mono' }}>0 (штиль)</span>
+      )}
+    </div>
+  );
 }
 
 // ─── Degree badge ─────────────────────────────────────────────────────────────
@@ -233,6 +264,7 @@ export function FireResult() {
       <div className="divider" style={{ margin: '10px 0' }} />
 
       {isMortar ? (
+        <>
         <div className="flex gap-4 flex-wrap">
           {/* Elevation */}
           <div className="sol-block">
@@ -263,7 +295,23 @@ export function FireResult() {
               <span className="sol-value-sm">{formatTof(fireSolution.tof)}</span>
             </div>
           )}
+
+          {/* Dispersion */}
+          {fireSolution.dispersion !== undefined && (
+            <div className="sol-block">
+              <span className="sol-label">Разброс</span>
+              <span className="sol-value-sm" style={{ color: '#94a3b8' }}>
+                {fireSolution.dispersion} <span className="sol-unit">м</span>
+              </span>
+            </div>
+          )}
         </div>
+
+        {/* Wind correction row */}
+        {(fireSolution.windAzDelta !== undefined || fireSolution.windRangeDelta !== undefined) && (
+          <WindBadge azDelta={fireSolution.windAzDelta} rangeDelta={fireSolution.windRangeDelta} />
+        )}
+        </>
       ) : (
         <div className="flex gap-4 flex-wrap">
           {/* LOW */}

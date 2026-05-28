@@ -61,14 +61,41 @@ export type MortarMode = 'original' | 'adult_mortars';
 
 export interface FireSolution {
   distance: number;
-  azimuthMils: number;
+  azimuthMils: number;          // wind-corrected if wind active
   chargeLevel?: number;
-  elevation?: number;           // mortar single angle
+  elevation?: number;           // mortar single angle (wind-corrected range used for lookup)
   elevationLow?: number;        // howitzer low
   elevationHigh?: number;       // howitzer high
   tof?: number;
   status: 'ok' | 'out_of_range' | 'no_data';
   message?: string;
+  // Wind correction info (only when wind speed > 0 and wind data available)
+  windAzDelta?: number;         // mils added to azimuth (+ = right)
+  windRangeDelta?: number;      // m added to effective range (+ = further)
+  dispersion?: number;          // m dispersion at this charge
+}
+
+// ─── Wind database ────────────────────────────────────────────────────────────
+
+export interface WindEntry {
+  r: number;   // range m
+  wc: number;  // cross correction mils per 10 m/s
+  wl: number;  // long correction m per 10 m/s
+}
+
+export interface WindCharge {
+  ring: number;
+  d: number;        // dispersion m
+  t: WindEntry[];   // table
+}
+
+export interface WindDatabase {
+  version: string;
+  weapons: {
+    [weaponId: string]: {
+      [ammoId: string]: WindCharge[];
+    };
+  };
 }
 
 export interface GameMap {

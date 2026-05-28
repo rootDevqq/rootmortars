@@ -5,6 +5,7 @@ import { GunInput }            from './components/GunInput';
 import { TargetInput }         from './components/TargetInput';
 import { FireResult }          from './components/FireResult';
 import { AreaFire }            from './components/AreaFire';
+import { WindInput }           from './components/WindInput';
 import { PointsPanel }         from './components/PointsPanel';
 import { GunPositionManager }  from './components/GunPositionManager';
 import { MapManager }          from './components/MapManager';
@@ -108,10 +109,11 @@ export function App() {
           className="hidden lg:grid"
           style={{ gridTemplateColumns: '340px 1fr 360px', gap: 10, alignItems: 'start' }}
         >
-          {/* Col 1 — Ввод координат */}
+          {/* Col 1 — Ввод координат + ветер */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <GunInput />
             <TargetInput />
+            <WindInput />
           </div>
 
           {/* Col 2 — Точки / Позиции / Карты */}
@@ -128,7 +130,9 @@ export function App() {
         <div className="lg:hidden flex flex-col gap-4">
           <GunInput />
           <TargetInput />
+          <WindInput />
           <FireResult />
+
           <AreaFire />
           <div className="card p-3"><PointsPanel /></div>
           <div className="card p-3"><GunPositionManager /></div>
