@@ -1,7 +1,7 @@
 services:
   rootmortars:
     build: .
-    container_name: rootmortars
+    container_name: rootmortars-test
     ports:
       - "8080:80"
     restart: unless-stopped

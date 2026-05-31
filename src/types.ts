@@ -9,6 +9,8 @@ export interface RangeTableEntry {
   elevation: number;
   tof: number | null;
   dElev?: number | null;
+  windCross?: number | null;
+  windLong?: number | null;
 }
 
 export interface Charge {
@@ -16,6 +18,7 @@ export interface Charge {
   minRange: number;
   maxRange: number;
   rangeTable: RangeTableEntry[];
+  dispersion?: number;
 }
 
 export interface MortarAmmoMode { charges: Charge[]; }

@@ -261,7 +261,7 @@ export const useAppStore = create<AppState>()(
         const { weaponSystems, selectedWeaponId, selectedAmmoId, mortarMode, gunPos, targetPos, windSpeed, windDir, windDb } = get();
         const weapon = weaponSystems.find(w => w.id === selectedWeaponId);
         if (!weapon) { set(s => { s.fireSolution = null; }); return; }
-        const windOpts = windDb ? { speed: windSpeed, dir: windDir, db: windDb } : undefined;
+        const windOpts = { speed: windSpeed, dir: windDir, db: windDb };
         const result = calculateFireSolution(weapon, selectedAmmoId, mortarMode, gunPos, targetPos, windOpts);
         set(s => { s.fireSolution = result; });
       },

@@ -125,23 +125,73 @@ function interpolateWind(table: WindCharge['t'], distance: number): { wc: number
   return { wc: 0, wl: 0 };
 }
 
+function interpolateWindFromRangeTable(
+  table: RangeTableEntry[],
+  distance: number,
+): { wc: number; wl: number } | null {
+  const sorted = [...table].sort((a, b) => a.range - b.range);
+  if (!sorted.length) return null;
+  const first = sorted[0];
+  const last = sorted[sorted.length - 1];
+  if (distance <= first.range) {
+    return { wc: first.windCross ?? 0, wl: first.windLong ?? 0 };
+  }
+  if (distance >= last.range) {
+    return { wc: last.windCross ?? 0, wl: last.windLong ?? 0 };
+  }
+  for (let i = 0; i < sorted.length - 1; i++) {
+    const lo = sorted[i], hi = sorted[i + 1];
+    if (lo.range <= distance && distance <= hi.range) {
+      const t = (distance - lo.range) / (hi.range - lo.range);
+      const wcLo = lo.windCross ?? 0;
+      const wcHi = hi.windCross ?? 0;
+      const wlLo = lo.windLong ?? 0;
+      const wlHi = hi.windLong ?? 0;
+      return {
+        wc: wcLo + t * (wcHi - wcLo),
+        wl: wlLo + t * (wlHi - wlLo),
+      };
+    }
+  }
+  return null;
+}
+
 export function calcWindCorrection(
   azimuthDeg: number,
   distance: number,
   windSpeed: number,
   windDir: number,
-  chargeLevel: number,
+  charge: Charge,
   weaponId: string,
   ammoId: string,
-  windDb: WindDatabase,
+  windDb: WindDatabase | null,
+  mode: MortarMode,
 ): WindCorrection | null {
   if (windSpeed === 0) return null;
 
-  const charges = windDb.weapons[weaponId]?.[ammoId];
-  if (!charges) return null;
+  let wc = 0;
+  let wl = 0;
+  let dispersion = 0;
 
-  const charge = charges.find(c => c.ring === chargeLevel);
-  if (!charge) return null;
+  if (mode === 'adult_mortars' && charge.rangeTable.some(e => e.windCross !== undefined)) {
+    dispersion = charge.dispersion ?? 0;
+    const interp = interpolateWindFromRangeTable(charge.rangeTable, distance);
+    if (interp) {
+      wc = interp.wc;
+      wl = interp.wl;
+    }
+  } else if (windDb) {
+    const charges = windDb.weapons[weaponId]?.[ammoId];
+    if (!charges) return null;
+    const wCharge = charges.find(c => c.ring === charge.level);
+    if (!wCharge) return null;
+    dispersion = wCharge.d;
+    const interp = interpolateWind(wCharge.t, distance);
+    wc = interp.wc;
+    wl = interp.wl;
+  } else {
+    return null;
+  }
 
   // Decompose wind relative to firing direction
   // relAngle: angle of wind relative to shot (0 = headwind, 90 = wind from right)
@@ -149,14 +199,12 @@ export function calcWindCorrection(
   const W_head  = windSpeed * Math.cos(relAngleRad);  // + = headwind
   const W_right = windSpeed * Math.sin(relAngleRad);  // + = from right
 
-  const { wc, wl } = interpolateWind(charge.t, distance);
-
   // Wind from right → shell drifts left → aim right (+mils)
   const azDelta = Math.round(wc * W_right / 10);
   // Headwind → shell falls short → effectively need more range (+m)
   const rangeDelta = Math.round(wl * W_head / 10);
 
-  return { azDelta, rangeDelta, dispersion: charge.d };
+  return { azDelta, rangeDelta, dispersion };
 }
 
 // ─── Main fire solution calculator ───────────────────────────────────────────
@@ -164,7 +212,7 @@ export function calcWindCorrection(
 export interface WindOpts {
   speed: number;   // m/s
   dir: number;     // degrees FROM which wind blows
-  db: WindDatabase;
+  db: WindDatabase | null;
 }
 
 export function calculateFireSolution(
@@ -217,7 +265,7 @@ export function calculateFireSolution(
     if (wind && wind.speed > 0) {
       const wc = calcWindCorrection(
         azimuthDeg, distance, wind.speed, wind.dir,
-        charge.level, weapon.id, ammoId, wind.db,
+        charge, weapon.id, ammoId, wind.db, mode,
       );
       if (wc) {
         windAzDelta    = wc.azDelta;
@@ -226,15 +274,23 @@ export function calculateFireSolution(
         effectiveDistance = distance + wc.rangeDelta;
       } else {
         // No wind table for this ammo/charge — try to get dispersion only
+        if (mode === 'adult_mortars') {
+          dispersion = charge.dispersion;
+        } else if (wind.db) {
+          const charges = wind.db.weapons[weapon.id]?.[ammoId];
+          const wCharge = charges?.find(c => c.ring === charge.level);
+          if (wCharge) dispersion = wCharge.d;
+        }
+      }
+    } else if (wind) {
+      // wind.speed === 0, still get dispersion
+      if (mode === 'adult_mortars') {
+        dispersion = charge.dispersion;
+      } else if (wind.db) {
         const charges = wind.db.weapons[weapon.id]?.[ammoId];
         const wCharge = charges?.find(c => c.ring === charge.level);
         if (wCharge) dispersion = wCharge.d;
       }
-    } else if (wind) {
-      // wind.speed === 0, still get dispersion
-      const charges = wind.db.weapons[weapon.id]?.[ammoId];
-      const wCharge = charges?.find(c => c.ring === charge.level);
-      if (wCharge) dispersion = wCharge.d;
     }
 
     const correctedAzMils = windAzDelta
@@ -246,7 +302,9 @@ export function calculateFireSolution(
 
     let elevation = interp.elevation;
     if (weapon.usesHeightCorrection) {
-      elevation = Math.round(elevation + (interp.dElev ?? 0) * (th - gh) / 100);
+      // Higher target (th > gh) → fire further → LOWER elevation for high-angle fire.
+      // dElev is the per-100m-height-difference elevation correction; subtract it.
+      elevation = Math.round(elevation - (interp.dElev ?? 0) * (th - gh) / 100);
     }
 
     return {
