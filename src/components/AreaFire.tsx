@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppStore } from '../store/appStore';
 import {
   calculateFireSolution,
   formatMils,
   getMilsPerCircle,
+  getHowitzerAmmoGroups,
 } from '../utils/ballistics';
 import type { FireSolution } from '../types';
 
@@ -119,6 +120,7 @@ export function AreaFire() {
   const {
     weaponSystems, selectedWeaponId, selectedAmmoId,
     mortarMode, howitzerCharge, gunPos, targetPos,
+    windSpeed, windDir, windDb,
   } = useAppStore();
 
   const [open, setOpen]         = useState(false);
@@ -129,6 +131,7 @@ export function AreaFire() {
   const [height, setHeight]     = useState(200);
   const [step, setStep]         = useState(50);
   const [pattern, setPattern]   = useState<FirePattern>('rows');
+  const [trajectory, setTrajectory] = useState<'low' | 'high'>('low');
   const [results, setResults]   = useState<GridPoint[] | null>(null);
 
   const weapon     = weaponSystems.find(w => w.id === selectedWeaponId);
@@ -136,6 +139,32 @@ export function AreaFire() {
   const isMortar   = weapon?.systemType === 'mortar';
   const hasCharges = !!weapon?.hasCharges;
   const hasGun     = gunPos.x !== '' && gunPos.y !== '';
+  const windActive = windSpeed > 0;
+
+  // Which trajectories the selected howitzer ammo offers (D-30/M777 both; MLRS one).
+  const howGroup = !isMortar && weapon
+    ? getHowitzerAmmoGroups(weapon).find(g => g.id === selectedAmmoId)
+    : undefined;
+  const hasLow  = !!howGroup && (howGroup.lowAngle  != null || !!howGroup.charges?.some(c => c.lowAngle));
+  const hasHigh = !!howGroup && (howGroup.highAngle != null || !!howGroup.charges?.some(c => c.highAngle));
+  const showTrajSel = hasLow && hasHigh;
+  const effTraj: 'low' | 'high' = showTrajSel ? trajectory : (hasHigh && !hasLow ? 'high' : 'low');
+
+  // Stale results once any ballistic input changes (wind/weapon/ammo/charge/mode).
+  useEffect(() => { setResults(null); },
+    [windSpeed, windDir, selectedWeaponId, selectedAmmoId, howitzerCharge, mortarMode]);
+
+  // Read the per-row solution for the currently shown trajectory.
+  const rowAz = (sol: FireSolution | null): number | undefined => {
+    if (!sol || sol.status !== 'ok') return undefined;
+    if (isMortar) return sol.azimuthMils;
+    return (effTraj === 'low' ? sol.azimuthMilsLow : sol.azimuthMilsHigh) ?? sol.azimuthMils;
+  };
+  const rowElev = (sol: FireSolution | null): number | undefined => {
+    if (!sol || sol.status !== 'ok') return undefined;
+    if (isMortar) return sol.elevation;
+    return effTraj === 'low' ? sol.elevationLow : sol.elevationHigh;
+  };
 
   const colCount    = Math.max(1, Math.floor(width  / step) + 1);
   const rowCount    = Math.max(1, Math.floor(height / step) + 1);
@@ -170,7 +199,8 @@ export function AreaFire() {
             weapon, selectedAmmoId, mortarMode,
             { x: gx, y: gy, h: gh },
             { x: px, y: py, h: targetH },
-            undefined, howitzerCharge,
+            { speed: windSpeed, dir: windDir, db: windDb },
+            howitzerCharge,
           ),
         });
       }
@@ -370,11 +400,40 @@ export function AreaFire() {
           </button>
 
           {/* Таблица результатов */}
-          {results && results.length > 0 && (
+          {results && results.length > 0 && (() => {
+            const elevColor = effTraj === 'high' ? '#c084fc' : '#38bdf8';
+            const showCharge = isMortar || hasCharges;
+            const reachable = results.filter(r => rowElev(r.sol) !== undefined).length;
+            return (
             <div style={{ overflowX: 'auto', marginTop: 2 }}>
+              {/* LOW/HIGH trajectory toggle (howitzer with both angles) */}
+              {showTrajSel && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+                  <span style={{ fontSize: 10, color: '#475569' }}>Траектория:</span>
+                  {(['low', 'high'] as const).map(t => {
+                    const on = effTraj === t;
+                    const c = t === 'high' ? '#c084fc' : '#38bdf8';
+                    return (
+                      <button key={t}
+                        onClick={() => setTrajectory(t)}
+                        style={{
+                          padding: '2px 10px', fontSize: 10, fontWeight: 700,
+                          fontFamily: 'JetBrains Mono, monospace', borderRadius: 4, cursor: 'pointer',
+                          border: `1px solid ${on ? c : '#1e2a3a'}`,
+                          background: on ? `${c}22` : 'transparent',
+                          color: on ? c : '#475569', transition: 'all 0.1s',
+                        }}
+                      >
+                        {t === 'low' ? 'LOW' : 'HIGH'}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                 <span style={{ fontSize: 10, color: '#475569' }}>
-                  {results.filter(r => r.sol?.status === 'ok').length} / {results.length} в зоне досягаемости
+                  {reachable} / {results.length} в зоне досягаемости
+                  {windActive && <span style={{ color: '#38bdf8' }}> · ветер учтён</span>}
                 </span>
                 <span style={{ fontSize: 10, color: '#475569' }}>
                   {PATTERNS.find(p => p.id === pattern)?.label}
@@ -389,27 +448,19 @@ export function AreaFire() {
                     <th style={thStyle}>#</th>
                     <th style={thStyle}>X / Y</th>
                     <th style={{ ...thStyle, textAlign: 'right' }}>АЗ (mil)</th>
-                    {isMortar ? (
-                      <>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>ВОЗВ</th>
-                        <th style={{ ...thStyle, textAlign: 'right', color: '#f59e0b' }}>ЗАР</th>
-                      </>
-                    ) : (
-                      <>
-                        {hasCharges && (
-                          <th style={{ ...thStyle, textAlign: 'right', color: '#c084fc' }}>ЗАР</th>
-                        )}
-                        <th style={{ ...thStyle, textAlign: 'right', color: '#38bdf8' }}>LOW</th>
-                        <th style={{ ...thStyle, textAlign: 'right', color: '#c084fc' }}>HIGH</th>
-                      </>
+                    <th style={{ ...thStyle, textAlign: 'right', color: elevColor }}>ВОЗВ</th>
+                    {showCharge && (
+                      <th style={{ ...thStyle, textAlign: 'right', color: '#c084fc' }}>ЗАР</th>
                     )}
                     <th style={{ ...thStyle, textAlign: 'right' }}>ДИСТ</th>
                   </tr>
                 </thead>
                 <tbody>
                   {results.map((r, i) => {
-                    const ok  = r.sol != null && r.sol.status === 'ok';
-                    const sol = r.sol;
+                    const ok   = r.sol != null && r.sol.status === 'ok';
+                    const sol  = r.sol;
+                    const az   = rowAz(sol);
+                    const elev = rowElev(sol);
                     return (
                       <tr key={i} style={{
                         borderBottom: '1px solid #0f1621',
@@ -418,32 +469,16 @@ export function AreaFire() {
                       }}>
                         <td style={tdStyle}>{r.index}</td>
                         <td style={{ ...tdStyle, color: '#64748b' }}>{r.x}/{r.y}</td>
-                        <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#22c55e' : '#334155', fontWeight: 700 }}>
-                          {ok && sol ? formatMils(sol.azimuthMils, mils) : '—'}
+                        <td style={{ ...tdStyle, textAlign: 'right', color: az !== undefined ? '#22c55e' : '#334155', fontWeight: 700 }}>
+                          {az !== undefined ? formatMils(az, mils) : '—'}
                         </td>
-                        {isMortar ? (
-                          <>
-                            <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#38bdf8' : '#334155' }}>
-                              {ok && sol && sol.elevation !== undefined ? sol.elevation : '—'}
-                            </td>
-                            <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#f59e0b' : '#334155' }}>
-                              {ok && sol && sol.chargeLevel !== undefined ? sol.chargeLevel : '—'}
-                            </td>
-                          </>
-                        ) : (
-                          <>
-                            {hasCharges && (
-                              <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#c084fc' : '#334155' }}>
-                                {ok && sol && sol.chargeLevel !== undefined ? sol.chargeLevel : '—'}
-                              </td>
-                            )}
-                            <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#38bdf8' : '#334155' }}>
-                              {ok && sol && sol.elevationLow !== undefined ? sol.elevationLow : '—'}
-                            </td>
-                            <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#c084fc' : '#334155' }}>
-                              {ok && sol && sol.elevationHigh !== undefined ? sol.elevationHigh : '—'}
-                            </td>
-                          </>
+                        <td style={{ ...tdStyle, textAlign: 'right', color: elev !== undefined ? elevColor : '#334155' }}>
+                          {elev !== undefined ? elev : '—'}
+                        </td>
+                        {showCharge && (
+                          <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#c084fc' : '#334155' }}>
+                            {ok && sol && sol.chargeLevel !== undefined ? sol.chargeLevel : '—'}
+                          </td>
                         )}
                         <td style={{ ...tdStyle, textAlign: 'right', color: '#64748b' }}>
                           {ok && sol ? `${Math.round(sol.distance)}м` : '—'}
@@ -454,7 +489,8 @@ export function AreaFire() {
                 </tbody>
               </table>
             </div>
-          )}
+            );
+          })()}
         </div>
       )}
     </div>
