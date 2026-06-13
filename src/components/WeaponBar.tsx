@@ -1,17 +1,30 @@
 import { useAppStore } from '../store/appStore';
 import { getHowitzerAmmoGroups, getMilsPerCircle, getMaxRange } from '../utils/ballistics';
 
+function chargeBtnStyle(active: boolean): React.CSSProperties {
+  return {
+    minWidth: 26, padding: '4px 7px', fontSize: 11, fontWeight: 700,
+    fontFamily: 'JetBrains Mono, monospace', borderRadius: 4, cursor: 'pointer',
+    border: `1px solid ${active ? '#c084fc' : '#1e2a3a'}`,
+    background: active ? '#581c8740' : 'transparent',
+    color: active ? '#c084fc' : '#475569',
+    transition: 'all 0.1s',
+  };
+}
+
 export function WeaponBar() {
   const {
     weaponSystems,
     selectedWeaponId,
     selectedAmmoId,
     mortarMode,
+    howitzerCharge,
     maps,
     selectedMapId,
     setWeapon,
     setAmmo,
     setMortarMode,
+    setHowitzerCharge,
     setSelectedMap,
     importAllData,
   } = useAppStore();
@@ -56,12 +69,15 @@ export function WeaponBar() {
   const isMortar = weapon?.systemType === 'mortar';
 
   let ammoOptions: { id: string; label: string }[] = [];
+  let chargeLevels: number[] = [];
   if (weapon) {
     if (isMortar) {
       ammoOptions = (weapon.ammo ?? []).map(a => ({ id: a.id, label: a.name }));
     } else {
       const groups = getHowitzerAmmoGroups(weapon);
       ammoOptions = groups.map(g => ({ id: g.id, label: g.name }));
+      const selGroup = groups.find(g => g.id === selectedAmmoId);
+      chargeLevels = selGroup?.charges?.map(c => c.charge) ?? [];
     }
   }
 
@@ -101,6 +117,32 @@ export function WeaponBar() {
               <option key={o.id} value={o.id}>{o.label}</option>
             ))}
           </select>
+        </div>
+      )}
+
+      {/* Charge selector (howitzers with powder charges — M777) */}
+      {chargeLevels.length > 0 && (
+        <div className="flex items-center gap-1.5">
+          <span className="field-label mb-0 whitespace-nowrap">Заряд</span>
+          <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+            <button
+              onClick={() => setHowitzerCharge('auto')}
+              title="Авто — минимальный достающий заряд"
+              style={chargeBtnStyle(howitzerCharge === 'auto')}
+            >
+              АВТО
+            </button>
+            {chargeLevels.map(c => (
+              <button
+                key={c}
+                onClick={() => setHowitzerCharge(c)}
+                title={`Принудительно заряд ${c}`}
+                style={chargeBtnStyle(howitzerCharge === c)}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

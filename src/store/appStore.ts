@@ -4,7 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 import { v4 as uuidv4 } from 'uuid';
 import {
   WeaponSystem, GameMap, MapPoint, SavedGunPosition,
-  Position, MortarMode, FireSolution, WindDatabase,
+  Position, MortarMode, FireSolution, WindDatabase, HowitzerChargeMode,
 } from '../types';
 import {
   calculateFireSolution, getHowitzerAmmoGroups,
@@ -21,6 +21,7 @@ interface AppState {
   selectedWeaponId: string;
   selectedAmmoId:   string;
   mortarMode: MortarMode;
+  howitzerCharge: HowitzerChargeMode;   // 'auto' or forced charge level (M777)
 
   gunPos:    Position;
   targetPos: Position;
@@ -51,6 +52,7 @@ interface AppState {
   setWeapon:     (id: string) => void;
   setAmmo:       (id: string) => void;
   setMortarMode: (m: MortarMode) => void;
+  setHowitzerCharge: (c: HowitzerChargeMode) => void;
   setGunPos:     (field: keyof Position, value: number | '') => void;
   setTargetPos:  (field: keyof Position, value: number | '') => void;
   loadPointAsTarget: (p: MapPoint) => void;
@@ -104,6 +106,7 @@ export const useAppStore = create<AppState>()(
       selectedWeaponId: '',
       selectedAmmoId:   '',
       mortarMode: 'original',
+      howitzerCharge: 'auto',
 
       gunPos:    { x: '', y: '', h: '' },
       targetPos: { x: '', y: '', h: '' },
@@ -192,11 +195,13 @@ export const useAppStore = create<AppState>()(
             s.selectedAmmoId = getHowitzerAmmoGroups(w)[0]?.id ?? '';
           }
         }
+        s.howitzerCharge = 'auto';
         s.fireSolution = null;
       }),
 
-      setAmmo:       (id) => set(s => { s.selectedAmmoId = id; s.fireSolution = null; }),
+      setAmmo:       (id) => set(s => { s.selectedAmmoId = id; s.howitzerCharge = 'auto'; s.fireSolution = null; }),
       setMortarMode: (m)  => set(s => { s.mortarMode = m;      s.fireSolution = null; }),
+      setHowitzerCharge: (c) => set(s => { s.howitzerCharge = c; s.fireSolution = null; }),
 
       // ── positions ──────────────────────────────────────────────────────────
 
@@ -258,11 +263,11 @@ export const useAppStore = create<AppState>()(
       // ── recalculate ───────────────────────────────────────────────────────
 
       recalculate: () => {
-        const { weaponSystems, selectedWeaponId, selectedAmmoId, mortarMode, gunPos, targetPos, windSpeed, windDir, windDb } = get();
+        const { weaponSystems, selectedWeaponId, selectedAmmoId, mortarMode, howitzerCharge, gunPos, targetPos, windSpeed, windDir, windDb } = get();
         const weapon = weaponSystems.find(w => w.id === selectedWeaponId);
         if (!weapon) { set(s => { s.fireSolution = null; }); return; }
         const windOpts = { speed: windSpeed, dir: windDir, db: windDb };
-        const result = calculateFireSolution(weapon, selectedAmmoId, mortarMode, gunPos, targetPos, windOpts);
+        const result = calculateFireSolution(weapon, selectedAmmoId, mortarMode, gunPos, targetPos, windOpts, howitzerCharge);
         set(s => { s.fireSolution = result; });
       },
 
@@ -436,7 +441,8 @@ export const useAppStore = create<AppState>()(
         maps: s.maps, selectedMapId: s.selectedMapId,
         points: s.points, savedGuns: s.savedGuns,
         selectedWeaponId: s.selectedWeaponId, selectedAmmoId: s.selectedAmmoId,
-        mortarMode: s.mortarMode, gunPos: s.gunPos, targetPos: s.targetPos,
+        mortarMode: s.mortarMode, howitzerCharge: s.howitzerCharge,
+        gunPos: s.gunPos, targetPos: s.targetPos,
         numpadStep: s.numpadStep, rightTab: s.rightTab,
       }),
     },

@@ -11132,6 +11132,3309 @@
       ]
     },
     {
+      "id": "M777",
+      "name": "US M777 155mm Howitzer",
+      "caliber": 155,
+      "systemType": "howitzer",
+      "milSystem": {
+        "name": "NATO",
+        "milsPerCircle": 6400,
+        "milsPerDegree": 17.7778
+      },
+      "hasCharges": true,
+      "usesHeightCorrection": true,
+      "projectileTypes": [
+        {
+          "id": "m777_m107_c1_low",
+          "name": "M107 HE Charge 1 Low Angle",
+          "type": "HE",
+          "variant": "low_angle",
+          "charge": 1,
+          "minRange": 200,
+          "maxRange": 3500,
+          "dispersion": 21,
+          "ballisticTable": [
+            {
+              "range": 200,
+              "elevation": 26,
+              "tof": 1,
+              "dElev": 6,
+              "windCross": null,
+              "windLong": null
+            },
+            {
+              "range": 300,
+              "elevation": 39,
+              "tof": 1.5,
+              "dElev": 6,
+              "windCross": null,
+              "windLong": null
+            },
+            {
+              "range": 400,
+              "elevation": 52,
+              "tof": 2,
+              "dElev": 6,
+              "windCross": 1,
+              "windLong": null
+            },
+            {
+              "range": 500,
+              "elevation": 65,
+              "tof": 2.6,
+              "dElev": 6,
+              "windCross": 1,
+              "windLong": 1
+            },
+            {
+              "range": 600,
+              "elevation": 77,
+              "tof": 3.1,
+              "dElev": 7,
+              "windCross": 1,
+              "windLong": 1
+            },
+            {
+              "range": 700,
+              "elevation": 90,
+              "tof": 3.6,
+              "dElev": 7,
+              "windCross": 1,
+              "windLong": 1
+            },
+            {
+              "range": 800,
+              "elevation": 103,
+              "tof": 4.1,
+              "dElev": 7,
+              "windCross": 1,
+              "windLong": 2
+            },
+            {
+              "range": 900,
+              "elevation": 117,
+              "tof": 4.6,
+              "dElev": 7,
+              "windCross": 1,
+              "windLong": 2
+            },
+            {
+              "range": 1000,
+              "elevation": 131,
+              "tof": 5.2,
+              "dElev": 7,
+              "windCross": 2,
+              "windLong": 4
+            },
+            {
+              "range": 1100,
+              "elevation": 145,
+              "tof": 5.7,
+              "dElev": 7,
+              "windCross": 2,
+              "windLong": 4
+            },
+            {
+              "range": 1200,
+              "elevation": 159,
+              "tof": 6.3,
+              "dElev": 7,
+              "windCross": 2,
+              "windLong": 5
+            },
+            {
+              "range": 1300,
+              "elevation": 174,
+              "tof": 6.8,
+              "dElev": 7,
+              "windCross": 2,
+              "windLong": 5
+            },
+            {
+              "range": 1400,
+              "elevation": 188,
+              "tof": 7.4,
+              "dElev": 7,
+              "windCross": 2,
+              "windLong": 7
+            },
+            {
+              "range": 1500,
+              "elevation": 203,
+              "tof": 8,
+              "dElev": 8,
+              "windCross": 2,
+              "windLong": 7
+            },
+            {
+              "range": 1600,
+              "elevation": 218,
+              "tof": 8.5,
+              "dElev": 8,
+              "windCross": 2,
+              "windLong": 7
+            },
+            {
+              "range": 1700,
+              "elevation": 234,
+              "tof": 9.1,
+              "dElev": 8,
+              "windCross": 3,
+              "windLong": 10
+            },
+            {
+              "range": 1800,
+              "elevation": 249,
+              "tof": 9.7,
+              "dElev": 9,
+              "windCross": 3,
+              "windLong": 11
+            },
+            {
+              "range": 1900,
+              "elevation": 266,
+              "tof": 10.3,
+              "dElev": 8,
+              "windCross": 3,
+              "windLong": 14
+            },
+            {
+              "range": 2000,
+              "elevation": 283,
+              "tof": 11,
+              "dElev": 8,
+              "windCross": 4,
+              "windLong": 15
+            },
+            {
+              "range": 2100,
+              "elevation": 299,
+              "tof": 11.6,
+              "dElev": 9,
+              "windCross": 4,
+              "windLong": 15
+            },
+            {
+              "range": 2200,
+              "elevation": 317,
+              "tof": 12.2,
+              "dElev": 9,
+              "windCross": 4,
+              "windLong": 17
+            },
+            {
+              "range": 2300,
+              "elevation": 336,
+              "tof": 12.9,
+              "dElev": 9,
+              "windCross": 4,
+              "windLong": 20
+            },
+            {
+              "range": 2400,
+              "elevation": 355,
+              "tof": 13.6,
+              "dElev": 9,
+              "windCross": 4,
+              "windLong": 20
+            },
+            {
+              "range": 2500,
+              "elevation": 374,
+              "tof": 14.3,
+              "dElev": 9,
+              "windCross": 4,
+              "windLong": 22
+            },
+            {
+              "range": 2600,
+              "elevation": 395,
+              "tof": 15.1,
+              "dElev": 11,
+              "windCross": 5,
+              "windLong": 24
+            },
+            {
+              "range": 2700,
+              "elevation": 417,
+              "tof": 15.8,
+              "dElev": 11,
+              "windCross": 5,
+              "windLong": 24
+            },
+            {
+              "range": 2800,
+              "elevation": 440,
+              "tof": 16.6,
+              "dElev": 12,
+              "windCross": 5,
+              "windLong": 28
+            },
+            {
+              "range": 2900,
+              "elevation": 465,
+              "tof": 17.5,
+              "dElev": 13,
+              "windCross": 6,
+              "windLong": 31
+            },
+            {
+              "range": 3000,
+              "elevation": 492,
+              "tof": 18.4,
+              "dElev": 14,
+              "windCross": 6,
+              "windLong": 36
+            },
+            {
+              "range": 3100,
+              "elevation": 521,
+              "tof": 19.3,
+              "dElev": 16,
+              "windCross": 6,
+              "windLong": 39
+            },
+            {
+              "range": 3200,
+              "elevation": 554,
+              "tof": 20.4,
+              "dElev": 18,
+              "windCross": 7,
+              "windLong": 44
+            },
+            {
+              "range": 3300,
+              "elevation": 592,
+              "tof": 21.6,
+              "dElev": 23,
+              "windCross": 7,
+              "windLong": 46
+            },
+            {
+              "range": 3400,
+              "elevation": 641,
+              "tof": 23.2,
+              "dElev": 32,
+              "windCross": 8,
+              "windLong": 50
+            },
+            {
+              "range": 3500,
+              "elevation": 720,
+              "tof": 25.5,
+              "dElev": null,
+              "windCross": 9,
+              "windLong": 58
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c1_high",
+          "name": "M107 HE Charge 1 High Angle",
+          "type": "HE",
+          "variant": "high_angle",
+          "charge": 1,
+          "minRange": 2200,
+          "maxRange": 3500,
+          "dispersion": 21,
+          "ballisticTable": [
+            {
+              "range": 2200,
+              "elevation": 1253,
+              "tof": 36.7,
+              "dElev": 9,
+              "windCross": 21,
+              "windLong": 60
+            },
+            {
+              "range": 2300,
+              "elevation": 1234,
+              "tof": 36.4,
+              "dElev": 10,
+              "windCross": 21,
+              "windLong": 61
+            },
+            {
+              "range": 2400,
+              "elevation": 1214,
+              "tof": 36.1,
+              "dElev": 10,
+              "windCross": 19,
+              "windLong": 63
+            },
+            {
+              "range": 2500,
+              "elevation": 1194,
+              "tof": 35.8,
+              "dElev": 11,
+              "windCross": 19,
+              "windLong": 63
+            },
+            {
+              "range": 2600,
+              "elevation": 1172,
+              "tof": 35.5,
+              "dElev": 11,
+              "windCross": 18,
+              "windLong": 64
+            },
+            {
+              "range": 2700,
+              "elevation": 1149,
+              "tof": 35.2,
+              "dElev": 11,
+              "windCross": 17,
+              "windLong": 65
+            },
+            {
+              "range": 2800,
+              "elevation": 1125,
+              "tof": 34.8,
+              "dElev": 12,
+              "windCross": 17,
+              "windLong": 65
+            },
+            {
+              "range": 2900,
+              "elevation": 1100,
+              "tof": 34.3,
+              "dElev": 14,
+              "windCross": 16,
+              "windLong": 66
+            },
+            {
+              "range": 3000,
+              "elevation": 1072,
+              "tof": 33.8,
+              "dElev": 14,
+              "windCross": 16,
+              "windLong": 66
+            },
+            {
+              "range": 3100,
+              "elevation": 1042,
+              "tof": 33.3,
+              "dElev": 16,
+              "windCross": 14,
+              "windLong": 67
+            },
+            {
+              "range": 3200,
+              "elevation": 1009,
+              "tof": 32.6,
+              "dElev": 19,
+              "windCross": 14,
+              "windLong": 67
+            },
+            {
+              "range": 3300,
+              "elevation": 970,
+              "tof": 31.8,
+              "dElev": 23,
+              "windCross": 13,
+              "windLong": 67
+            },
+            {
+              "range": 3400,
+              "elevation": 920,
+              "tof": 30.7,
+              "dElev": 32,
+              "windCross": 12,
+              "windLong": 67
+            },
+            {
+              "range": 3500,
+              "elevation": 840,
+              "tof": 28.7,
+              "dElev": null,
+              "windCross": 11,
+              "windLong": 64
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c2_low",
+          "name": "M107 HE Charge 2 Low Angle",
+          "type": "HE",
+          "variant": "low_angle",
+          "charge": 2,
+          "minRange": 600,
+          "maxRange": 7400,
+          "dispersion": 53,
+          "ballisticTable": [
+            {
+              "range": 600,
+              "elevation": 30,
+              "tof": 1.9,
+              "dElev": 3,
+              "windCross": 1,
+              "windLong": 1
+            },
+            {
+              "range": 800,
+              "elevation": 40,
+              "tof": 2.6,
+              "dElev": 3,
+              "windCross": 1,
+              "windLong": 2
+            },
+            {
+              "range": 1000,
+              "elevation": 51,
+              "tof": 3.2,
+              "dElev": 2,
+              "windCross": 1,
+              "windLong": 2
+            },
+            {
+              "range": 1200,
+              "elevation": 61,
+              "tof": 3.9,
+              "dElev": 3,
+              "windCross": 1,
+              "windLong": 2
+            },
+            {
+              "range": 1400,
+              "elevation": 72,
+              "tof": 4.6,
+              "dElev": 3,
+              "windCross": 2,
+              "windLong": 5
+            },
+            {
+              "range": 1600,
+              "elevation": 83,
+              "tof": 5.2,
+              "dElev": 3,
+              "windCross": 1,
+              "windLong": 5
+            },
+            {
+              "range": 1800,
+              "elevation": 94,
+              "tof": 5.9,
+              "dElev": 3,
+              "windCross": 2,
+              "windLong": 6
+            },
+            {
+              "range": 2000,
+              "elevation": 105,
+              "tof": 6.6,
+              "dElev": 3,
+              "windCross": 2,
+              "windLong": 7
+            },
+            {
+              "range": 2200,
+              "elevation": 117,
+              "tof": 7.3,
+              "dElev": 3,
+              "windCross": 2,
+              "windLong": 9
+            },
+            {
+              "range": 2400,
+              "elevation": 129,
+              "tof": 8,
+              "dElev": 3,
+              "windCross": 3,
+              "windLong": 14
+            },
+            {
+              "range": 2600,
+              "elevation": 141,
+              "tof": 8.8,
+              "dElev": 3,
+              "windCross": 3,
+              "windLong": 13
+            },
+            {
+              "range": 2800,
+              "elevation": 153,
+              "tof": 9.5,
+              "dElev": 3,
+              "windCross": 3,
+              "windLong": 15
+            },
+            {
+              "range": 3000,
+              "elevation": 166,
+              "tof": 10.3,
+              "dElev": 3,
+              "windCross": 4,
+              "windLong": 18
+            },
+            {
+              "range": 3200,
+              "elevation": 178,
+              "tof": 11,
+              "dElev": 4,
+              "windCross": 4,
+              "windLong": 27
+            },
+            {
+              "range": 3400,
+              "elevation": 192,
+              "tof": 11.8,
+              "dElev": 4,
+              "windCross": 4,
+              "windLong": 26
+            },
+            {
+              "range": 3600,
+              "elevation": 205,
+              "tof": 12.6,
+              "dElev": 4,
+              "windCross": 4,
+              "windLong": 25
+            },
+            {
+              "range": 3800,
+              "elevation": 219,
+              "tof": 13.4,
+              "dElev": 3,
+              "windCross": 4,
+              "windLong": 33
+            },
+            {
+              "range": 4000,
+              "elevation": 233,
+              "tof": 14.3,
+              "dElev": 4,
+              "windCross": 5,
+              "windLong": 36
+            },
+            {
+              "range": 4200,
+              "elevation": 248,
+              "tof": 15.1,
+              "dElev": 4,
+              "windCross": 5,
+              "windLong": 40
+            },
+            {
+              "range": 4400,
+              "elevation": 263,
+              "tof": 16,
+              "dElev": 4,
+              "windCross": 5,
+              "windLong": 40
+            },
+            {
+              "range": 4600,
+              "elevation": 279,
+              "tof": 16.9,
+              "dElev": 4,
+              "windCross": 5,
+              "windLong": 49
+            },
+            {
+              "range": 4800,
+              "elevation": 295,
+              "tof": 17.8,
+              "dElev": 4,
+              "windCross": 5,
+              "windLong": 48
+            },
+            {
+              "range": 5000,
+              "elevation": 312,
+              "tof": 18.7,
+              "dElev": 4,
+              "windCross": 6,
+              "windLong": 52
+            },
+            {
+              "range": 5200,
+              "elevation": 329,
+              "tof": 19.7,
+              "dElev": 5,
+              "windCross": 6,
+              "windLong": 61
+            },
+            {
+              "range": 5400,
+              "elevation": 348,
+              "tof": 20.7,
+              "dElev": 4,
+              "windCross": 6,
+              "windLong": 61
+            },
+            {
+              "range": 5600,
+              "elevation": 367,
+              "tof": 21.7,
+              "dElev": 5,
+              "windCross": 7,
+              "windLong": 67
+            },
+            {
+              "range": 5800,
+              "elevation": 387,
+              "tof": 22.8,
+              "dElev": 5,
+              "windCross": 7,
+              "windLong": 77
+            },
+            {
+              "range": 6000,
+              "elevation": 409,
+              "tof": 24,
+              "dElev": 5,
+              "windCross": 7,
+              "windLong": 77
+            },
+            {
+              "range": 6200,
+              "elevation": 432,
+              "tof": 25.2,
+              "dElev": 6,
+              "windCross": 8,
+              "windLong": 83
+            },
+            {
+              "range": 6400,
+              "elevation": 457,
+              "tof": 26.4,
+              "dElev": 6,
+              "windCross": 9,
+              "windLong": 90
+            },
+            {
+              "range": 6600,
+              "elevation": 484,
+              "tof": 27.8,
+              "dElev": 7,
+              "windCross": 9,
+              "windLong": 101
+            },
+            {
+              "range": 6800,
+              "elevation": 514,
+              "tof": 29.3,
+              "dElev": 8,
+              "windCross": 10,
+              "windLong": 103
+            },
+            {
+              "range": 7000,
+              "elevation": 549,
+              "tof": 31,
+              "dElev": 10,
+              "windCross": 10,
+              "windLong": 115
+            },
+            {
+              "range": 7200,
+              "elevation": 592,
+              "tof": 33,
+              "dElev": 12,
+              "windCross": 11,
+              "windLong": 130
+            },
+            {
+              "range": 7400,
+              "elevation": 650,
+              "tof": 35.7,
+              "dElev": 22,
+              "windCross": 12,
+              "windLong": 143
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c2_high",
+          "name": "M107 HE Charge 2 High Angle",
+          "type": "HE",
+          "variant": "high_angle",
+          "charge": 2,
+          "minRange": 4400,
+          "maxRange": 7400,
+          "dispersion": 45,
+          "ballisticTable": [
+            {
+              "range": 4400,
+              "elevation": 1276,
+              "tof": 55.5,
+              "dElev": 5,
+              "windCross": 35,
+              "windLong": 165
+            },
+            {
+              "range": 4600,
+              "elevation": 1258,
+              "tof": 55.2,
+              "dElev": 4,
+              "windCross": 32,
+              "windLong": 169
+            },
+            {
+              "range": 4800,
+              "elevation": 1240,
+              "tof": 54.9,
+              "dElev": 5,
+              "windCross": 30,
+              "windLong": 171
+            },
+            {
+              "range": 5000,
+              "elevation": 1221,
+              "tof": 54.5,
+              "dElev": 5,
+              "windCross": 28,
+              "windLong": 175
+            },
+            {
+              "range": 5200,
+              "elevation": 1202,
+              "tof": 54.1,
+              "dElev": 5,
+              "windCross": 28,
+              "windLong": 175
+            },
+            {
+              "range": 5400,
+              "elevation": 1181,
+              "tof": 53.7,
+              "dElev": 5,
+              "windCross": 28,
+              "windLong": 175
+            },
+            {
+              "range": 5600,
+              "elevation": 1160,
+              "tof": 53.2,
+              "dElev": 5,
+              "windCross": 26,
+              "windLong": 178
+            },
+            {
+              "range": 5800,
+              "elevation": 1138,
+              "tof": 52.7,
+              "dElev": 6,
+              "windCross": 24,
+              "windLong": 180
+            },
+            {
+              "range": 6000,
+              "elevation": 1115,
+              "tof": 52.1,
+              "dElev": 6,
+              "windCross": 23,
+              "windLong": 181
+            },
+            {
+              "range": 6200,
+              "elevation": 1090,
+              "tof": 51.4,
+              "dElev": 7,
+              "windCross": 22,
+              "windLong": 182
+            },
+            {
+              "range": 6400,
+              "elevation": 1063,
+              "tof": 50.7,
+              "dElev": 7,
+              "windCross": 21,
+              "windLong": 183
+            },
+            {
+              "range": 6600,
+              "elevation": 1034,
+              "tof": 49.9,
+              "dElev": 7,
+              "windCross": 20,
+              "windLong": 183
+            },
+            {
+              "range": 6800,
+              "elevation": 1002,
+              "tof": 48.9,
+              "dElev": 8,
+              "windCross": 20,
+              "windLong": 183
+            },
+            {
+              "range": 7000,
+              "elevation": 966,
+              "tof": 47.8,
+              "dElev": 11,
+              "windCross": 19,
+              "windLong": 183
+            },
+            {
+              "range": 7200,
+              "elevation": 921,
+              "tof": 46.3,
+              "dElev": 12,
+              "windCross": 18,
+              "windLong": 181
+            },
+            {
+              "range": 7400,
+              "elevation": 861,
+              "tof": 44.2,
+              "dElev": 22,
+              "windCross": 16,
+              "windLong": 177
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c3_low",
+          "name": "M107 HE Charge 3 Low Angle",
+          "type": "HE",
+          "variant": "low_angle",
+          "charge": 3,
+          "minRange": 1000,
+          "maxRange": 11600,
+          "dispersion": 83,
+          "ballisticTable": [
+            {
+              "range": 1000,
+              "elevation": 28,
+              "tof": 2.4,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 2
+            },
+            {
+              "range": 1200,
+              "elevation": 33,
+              "tof": 2.9,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 3
+            },
+            {
+              "range": 1400,
+              "elevation": 39,
+              "tof": 3.3,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 3
+            },
+            {
+              "range": 1600,
+              "elevation": 44,
+              "tof": 3.8,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 4
+            },
+            {
+              "range": 1800,
+              "elevation": 50,
+              "tof": 4.3,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 4
+            },
+            {
+              "range": 2000,
+              "elevation": 56,
+              "tof": 4.8,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 6
+            },
+            {
+              "range": 2200,
+              "elevation": 62,
+              "tof": 5.3,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 11
+            },
+            {
+              "range": 2400,
+              "elevation": 68,
+              "tof": 5.8,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 13
+            },
+            {
+              "range": 2600,
+              "elevation": 74,
+              "tof": 6.3,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 11
+            },
+            {
+              "range": 2800,
+              "elevation": 80,
+              "tof": 6.9,
+              "dElev": 2,
+              "windCross": 3,
+              "windLong": 11
+            },
+            {
+              "range": 3000,
+              "elevation": 87,
+              "tof": 7.4,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 15
+            },
+            {
+              "range": 3200,
+              "elevation": 93,
+              "tof": 7.9,
+              "dElev": 2,
+              "windCross": 3,
+              "windLong": 17
+            },
+            {
+              "range": 3400,
+              "elevation": 100,
+              "tof": 8.5,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 19
+            },
+            {
+              "range": 3600,
+              "elevation": 106,
+              "tof": 9,
+              "dElev": 2,
+              "windCross": 3,
+              "windLong": 21
+            },
+            {
+              "range": 3800,
+              "elevation": 113,
+              "tof": 9.6,
+              "dElev": 2,
+              "windCross": 3,
+              "windLong": 29
+            },
+            {
+              "range": 4000,
+              "elevation": 120,
+              "tof": 10.2,
+              "dElev": 2,
+              "windCross": 4,
+              "windLong": 32
+            },
+            {
+              "range": 4200,
+              "elevation": 127,
+              "tof": 10.7,
+              "dElev": 2,
+              "windCross": 3,
+              "windLong": 28
+            },
+            {
+              "range": 4400,
+              "elevation": 134,
+              "tof": 11.3,
+              "dElev": 2,
+              "windCross": 4,
+              "windLong": 31
+            },
+            {
+              "range": 4600,
+              "elevation": 142,
+              "tof": 11.9,
+              "dElev": 2,
+              "windCross": 4,
+              "windLong": 37
+            },
+            {
+              "range": 4800,
+              "elevation": 149,
+              "tof": 12.5,
+              "dElev": 2,
+              "windCross": 4,
+              "windLong": 37
+            },
+            {
+              "range": 5000,
+              "elevation": 157,
+              "tof": 13.1,
+              "dElev": 2,
+              "windCross": 4,
+              "windLong": 40
+            },
+            {
+              "range": 5200,
+              "elevation": 165,
+              "tof": 13.7,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 51
+            },
+            {
+              "range": 5400,
+              "elevation": 173,
+              "tof": 14.4,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 54
+            },
+            {
+              "range": 5600,
+              "elevation": 181,
+              "tof": 15,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 50
+            },
+            {
+              "range": 5800,
+              "elevation": 189,
+              "tof": 15.6,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 53
+            },
+            {
+              "range": 6000,
+              "elevation": 197,
+              "tof": 16.3,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 53
+            },
+            {
+              "range": 6200,
+              "elevation": 206,
+              "tof": 17,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 53
+            },
+            {
+              "range": 6400,
+              "elevation": 215,
+              "tof": 17.6,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 65
+            },
+            {
+              "range": 6600,
+              "elevation": 224,
+              "tof": 18.3,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 69
+            },
+            {
+              "range": 6800,
+              "elevation": 233,
+              "tof": 19,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 73
+            },
+            {
+              "range": 7000,
+              "elevation": 243,
+              "tof": 19.7,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 78
+            },
+            {
+              "range": 7200,
+              "elevation": 252,
+              "tof": 20.5,
+              "dElev": 3,
+              "windCross": 7,
+              "windLong": 90
+            },
+            {
+              "range": 7400,
+              "elevation": 262,
+              "tof": 21.2,
+              "dElev": 2,
+              "windCross": 7,
+              "windLong": 95
+            },
+            {
+              "range": 7600,
+              "elevation": 273,
+              "tof": 22,
+              "dElev": 2,
+              "windCross": 7,
+              "windLong": 91
+            },
+            {
+              "range": 7800,
+              "elevation": 283,
+              "tof": 22.7,
+              "dElev": 3,
+              "windCross": 7,
+              "windLong": 96
+            },
+            {
+              "range": 8000,
+              "elevation": 294,
+              "tof": 23.5,
+              "dElev": 3,
+              "windCross": 7,
+              "windLong": 101
+            },
+            {
+              "range": 8200,
+              "elevation": 306,
+              "tof": 24.3,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 114
+            },
+            {
+              "range": 8400,
+              "elevation": 317,
+              "tof": 25.2,
+              "dElev": 3,
+              "windCross": 8,
+              "windLong": 118
+            },
+            {
+              "range": 8600,
+              "elevation": 329,
+              "tof": 26,
+              "dElev": 3,
+              "windCross": 8,
+              "windLong": 117
+            },
+            {
+              "range": 8800,
+              "elevation": 342,
+              "tof": 26.9,
+              "dElev": 3,
+              "windCross": 8,
+              "windLong": 123
+            },
+            {
+              "range": 9000,
+              "elevation": 355,
+              "tof": 27.8,
+              "dElev": 3,
+              "windCross": 9,
+              "windLong": 129
+            },
+            {
+              "range": 9200,
+              "elevation": 368,
+              "tof": 28.8,
+              "dElev": 4,
+              "windCross": 9,
+              "windLong": 143
+            },
+            {
+              "range": 9400,
+              "elevation": 383,
+              "tof": 29.7,
+              "dElev": 3,
+              "windCross": 10,
+              "windLong": 142
+            },
+            {
+              "range": 9600,
+              "elevation": 398,
+              "tof": 30.7,
+              "dElev": 3,
+              "windCross": 9,
+              "windLong": 141
+            },
+            {
+              "range": 9800,
+              "elevation": 413,
+              "tof": 31.8,
+              "dElev": 4,
+              "windCross": 10,
+              "windLong": 155
+            },
+            {
+              "range": 10000,
+              "elevation": 430,
+              "tof": 32.9,
+              "dElev": 4,
+              "windCross": 10,
+              "windLong": 162
+            },
+            {
+              "range": 10200,
+              "elevation": 448,
+              "tof": 34.1,
+              "dElev": 5,
+              "windCross": 11,
+              "windLong": 178
+            },
+            {
+              "range": 10400,
+              "elevation": 467,
+              "tof": 35.3,
+              "dElev": 5,
+              "windCross": 11,
+              "windLong": 178
+            },
+            {
+              "range": 10600,
+              "elevation": 488,
+              "tof": 36.6,
+              "dElev": 5,
+              "windCross": 11,
+              "windLong": 187
+            },
+            {
+              "range": 10800,
+              "elevation": 511,
+              "tof": 38,
+              "dElev": 6,
+              "windCross": 12,
+              "windLong": 203
+            },
+            {
+              "range": 11000,
+              "elevation": 537,
+              "tof": 39.6,
+              "dElev": 7,
+              "windCross": 12,
+              "windLong": 206
+            },
+            {
+              "range": 11200,
+              "elevation": 567,
+              "tof": 41.5,
+              "dElev": 9,
+              "windCross": 13,
+              "windLong": 224
+            },
+            {
+              "range": 11400,
+              "elevation": 606,
+              "tof": 43.7,
+              "dElev": 11,
+              "windCross": 14,
+              "windLong": 238
+            },
+            {
+              "range": 11600,
+              "elevation": 664,
+              "tof": 47,
+              "dElev": 28,
+              "windCross": 15,
+              "windLong": 255
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c3_high",
+          "name": "M107 HE Charge 3 High Angle",
+          "type": "HE",
+          "variant": "high_angle",
+          "charge": 3,
+          "minRange": 6800,
+          "maxRange": 11400,
+          "dispersion": 50,
+          "ballisticTable": [
+            {
+              "range": 6800,
+              "elevation": 1271,
+              "tof": 70.9,
+              "dElev": 3,
+              "windCross": 39,
+              "windLong": 292
+            },
+            {
+              "range": 7000,
+              "elevation": 1259,
+              "tof": 70.6,
+              "dElev": 3,
+              "windCross": 39,
+              "windLong": 296
+            },
+            {
+              "range": 7200,
+              "elevation": 1247,
+              "tof": 70.3,
+              "dElev": 3,
+              "windCross": 38,
+              "windLong": 298
+            },
+            {
+              "range": 7400,
+              "elevation": 1235,
+              "tof": 70,
+              "dElev": 3,
+              "windCross": 37,
+              "windLong": 300
+            },
+            {
+              "range": 7600,
+              "elevation": 1222,
+              "tof": 69.7,
+              "dElev": 3,
+              "windCross": 35,
+              "windLong": 303
+            },
+            {
+              "range": 7800,
+              "elevation": 1210,
+              "tof": 69.4,
+              "dElev": 4,
+              "windCross": 35,
+              "windLong": 303
+            },
+            {
+              "range": 8000,
+              "elevation": 1197,
+              "tof": 69.1,
+              "dElev": 4,
+              "windCross": 34,
+              "windLong": 304
+            },
+            {
+              "range": 8200,
+              "elevation": 1183,
+              "tof": 68.7,
+              "dElev": 3,
+              "windCross": 34,
+              "windLong": 304
+            },
+            {
+              "range": 8400,
+              "elevation": 1169,
+              "tof": 68.3,
+              "dElev": 3,
+              "windCross": 32,
+              "windLong": 307
+            },
+            {
+              "range": 8600,
+              "elevation": 1155,
+              "tof": 67.9,
+              "dElev": 3,
+              "windCross": 31,
+              "windLong": 308
+            },
+            {
+              "range": 8800,
+              "elevation": 1141,
+              "tof": 67.5,
+              "dElev": 4,
+              "windCross": 31,
+              "windLong": 309
+            },
+            {
+              "range": 9000,
+              "elevation": 1126,
+              "tof": 67,
+              "dElev": 4,
+              "windCross": 30,
+              "windLong": 309
+            },
+            {
+              "range": 9200,
+              "elevation": 1110,
+              "tof": 66.5,
+              "dElev": 4,
+              "windCross": 29,
+              "windLong": 309
+            },
+            {
+              "range": 9400,
+              "elevation": 1094,
+              "tof": 66,
+              "dElev": 4,
+              "windCross": 29,
+              "windLong": 311
+            },
+            {
+              "range": 9600,
+              "elevation": 1077,
+              "tof": 65.4,
+              "dElev": 4,
+              "windCross": 29,
+              "windLong": 311
+            },
+            {
+              "range": 9800,
+              "elevation": 1060,
+              "tof": 64.8,
+              "dElev": 5,
+              "windCross": 26,
+              "windLong": 312
+            },
+            {
+              "range": 10000,
+              "elevation": 1041,
+              "tof": 64.1,
+              "dElev": 5,
+              "windCross": 25,
+              "windLong": 312
+            },
+            {
+              "range": 10200,
+              "elevation": 1021,
+              "tof": 63.4,
+              "dElev": 5,
+              "windCross": 25,
+              "windLong": 310
+            },
+            {
+              "range": 10400,
+              "elevation": 1000,
+              "tof": 62.6,
+              "dElev": 5,
+              "windCross": 24,
+              "windLong": 310
+            },
+            {
+              "range": 10600,
+              "elevation": 978,
+              "tof": 61.8,
+              "dElev": 6,
+              "windCross": 24,
+              "windLong": 310
+            },
+            {
+              "range": 10800,
+              "elevation": 953,
+              "tof": 60.8,
+              "dElev": 7,
+              "windCross": 23,
+              "windLong": 309
+            },
+            {
+              "range": 11000,
+              "elevation": 925,
+              "tof": 59.6,
+              "dElev": 8,
+              "windCross": 22,
+              "windLong": 307
+            },
+            {
+              "range": 11200,
+              "elevation": 893,
+              "tof": 58.2,
+              "dElev": 9,
+              "windCross": 21,
+              "windLong": 304
+            },
+            {
+              "range": 11400,
+              "elevation": 853,
+              "tof": 56.5,
+              "dElev": 12,
+              "windCross": 19,
+              "windLong": 295
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c4_low",
+          "name": "M107 HE Charge 4 Low Angle",
+          "type": "HE",
+          "variant": "low_angle",
+          "charge": 4,
+          "minRange": 1600,
+          "maxRange": 15000,
+          "dispersion": 69,
+          "ballisticTable": [
+            {
+              "range": 1600,
+              "elevation": 27,
+              "tof": 3,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 4
+            },
+            {
+              "range": 1800,
+              "elevation": 31,
+              "tof": 3.4,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 5
+            },
+            {
+              "range": 2000,
+              "elevation": 34,
+              "tof": 3.8,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 5
+            },
+            {
+              "range": 2200,
+              "elevation": 38,
+              "tof": 4.2,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 6
+            },
+            {
+              "range": 2400,
+              "elevation": 42,
+              "tof": 4.6,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 6
+            },
+            {
+              "range": 2600,
+              "elevation": 46,
+              "tof": 5,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 8
+            },
+            {
+              "range": 2800,
+              "elevation": 49,
+              "tof": 5.4,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 9
+            },
+            {
+              "range": 3000,
+              "elevation": 53,
+              "tof": 5.8,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 10
+            },
+            {
+              "range": 3200,
+              "elevation": 57,
+              "tof": 6.2,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 19
+            },
+            {
+              "range": 3400,
+              "elevation": 61,
+              "tof": 6.7,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 21
+            },
+            {
+              "range": 3600,
+              "elevation": 66,
+              "tof": 7.1,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 22
+            },
+            {
+              "range": 3800,
+              "elevation": 70,
+              "tof": 7.5,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 25
+            },
+            {
+              "range": 4000,
+              "elevation": 74,
+              "tof": 8,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 26
+            },
+            {
+              "range": 4200,
+              "elevation": 78,
+              "tof": 8.4,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 20
+            },
+            {
+              "range": 4400,
+              "elevation": 82,
+              "tof": 8.8,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 22
+            },
+            {
+              "range": 4600,
+              "elevation": 87,
+              "tof": 9.3,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 24
+            },
+            {
+              "range": 4800,
+              "elevation": 91,
+              "tof": 9.8,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 27
+            },
+            {
+              "range": 5000,
+              "elevation": 96,
+              "tof": 10.2,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 29
+            },
+            {
+              "range": 5200,
+              "elevation": 100,
+              "tof": 10.7,
+              "dElev": 2,
+              "windCross": 3,
+              "windLong": 31
+            },
+            {
+              "range": 5400,
+              "elevation": 105,
+              "tof": 11.2,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 33
+            },
+            {
+              "range": 5600,
+              "elevation": 110,
+              "tof": 11.7,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 49
+            },
+            {
+              "range": 5800,
+              "elevation": 115,
+              "tof": 12.1,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 51
+            },
+            {
+              "range": 6000,
+              "elevation": 120,
+              "tof": 12.6,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 54
+            },
+            {
+              "range": 6200,
+              "elevation": 125,
+              "tof": 13.1,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 47
+            },
+            {
+              "range": 6400,
+              "elevation": 130,
+              "tof": 13.6,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 50
+            },
+            {
+              "range": 6600,
+              "elevation": 135,
+              "tof": 14.2,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 53
+            },
+            {
+              "range": 6800,
+              "elevation": 140,
+              "tof": 14.7,
+              "dElev": 2,
+              "windCross": 4,
+              "windLong": 56
+            },
+            {
+              "range": 7000,
+              "elevation": 146,
+              "tof": 15.2,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 60
+            },
+            {
+              "range": 7200,
+              "elevation": 151,
+              "tof": 15.7,
+              "dElev": 2,
+              "windCross": 5,
+              "windLong": 63
+            },
+            {
+              "range": 7400,
+              "elevation": 157,
+              "tof": 16.3,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 66
+            },
+            {
+              "range": 7600,
+              "elevation": 163,
+              "tof": 16.8,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 81
+            },
+            {
+              "range": 7800,
+              "elevation": 169,
+              "tof": 17.4,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 85
+            },
+            {
+              "range": 8000,
+              "elevation": 174,
+              "tof": 17.9,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 88
+            },
+            {
+              "range": 8200,
+              "elevation": 181,
+              "tof": 18.5,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 81
+            },
+            {
+              "range": 8400,
+              "elevation": 187,
+              "tof": 19.1,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 85
+            },
+            {
+              "range": 8600,
+              "elevation": 193,
+              "tof": 19.7,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 89
+            },
+            {
+              "range": 8800,
+              "elevation": 199,
+              "tof": 20.3,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 82
+            },
+            {
+              "range": 9000,
+              "elevation": 206,
+              "tof": 20.9,
+              "dElev": 2,
+              "windCross": 6,
+              "windLong": 86
+            },
+            {
+              "range": 9200,
+              "elevation": 213,
+              "tof": 21.5,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 102
+            },
+            {
+              "range": 9400,
+              "elevation": 220,
+              "tof": 22.1,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 106
+            },
+            {
+              "range": 9600,
+              "elevation": 227,
+              "tof": 22.8,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 111
+            },
+            {
+              "range": 9800,
+              "elevation": 234,
+              "tof": 23.4,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 115
+            },
+            {
+              "range": 10000,
+              "elevation": 241,
+              "tof": 24.1,
+              "dElev": 2,
+              "windCross": 7,
+              "windLong": 120
+            },
+            {
+              "range": 10200,
+              "elevation": 249,
+              "tof": 24.7,
+              "dElev": 1,
+              "windCross": 8,
+              "windLong": 137
+            },
+            {
+              "range": 10400,
+              "elevation": 256,
+              "tof": 25.4,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 141
+            },
+            {
+              "range": 10600,
+              "elevation": 264,
+              "tof": 26.1,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 146
+            },
+            {
+              "range": 10800,
+              "elevation": 272,
+              "tof": 26.8,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 140
+            },
+            {
+              "range": 11000,
+              "elevation": 281,
+              "tof": 27.6,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 146
+            },
+            {
+              "range": 11200,
+              "elevation": 289,
+              "tof": 28.3,
+              "dElev": 3,
+              "windCross": 8,
+              "windLong": 151
+            },
+            {
+              "range": 11400,
+              "elevation": 298,
+              "tof": 29,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 156
+            },
+            {
+              "range": 11600,
+              "elevation": 307,
+              "tof": 29.8,
+              "dElev": 3,
+              "windCross": 9,
+              "windLong": 173
+            },
+            {
+              "range": 11800,
+              "elevation": 317,
+              "tof": 30.6,
+              "dElev": 2,
+              "windCross": 9,
+              "windLong": 179
+            },
+            {
+              "range": 12000,
+              "elevation": 326,
+              "tof": 31.4,
+              "dElev": 3,
+              "windCross": 9,
+              "windLong": 174
+            },
+            {
+              "range": 12200,
+              "elevation": 336,
+              "tof": 32.3,
+              "dElev": 3,
+              "windCross": 9,
+              "windLong": 180
+            },
+            {
+              "range": 12400,
+              "elevation": 347,
+              "tof": 33.1,
+              "dElev": 3,
+              "windCross": 10,
+              "windLong": 187
+            },
+            {
+              "range": 12600,
+              "elevation": 358,
+              "tof": 34,
+              "dElev": 3,
+              "windCross": 10,
+              "windLong": 204
+            },
+            {
+              "range": 12800,
+              "elevation": 369,
+              "tof": 34.9,
+              "dElev": 3,
+              "windCross": 10,
+              "windLong": 211
+            },
+            {
+              "range": 13000,
+              "elevation": 381,
+              "tof": 35.9,
+              "dElev": 3,
+              "windCross": 10,
+              "windLong": 207
+            },
+            {
+              "range": 13200,
+              "elevation": 393,
+              "tof": 36.8,
+              "dElev": 3,
+              "windCross": 11,
+              "windLong": 204
+            },
+            {
+              "range": 13400,
+              "elevation": 406,
+              "tof": 37.8,
+              "dElev": 4,
+              "windCross": 11,
+              "windLong": 212
+            },
+            {
+              "range": 13600,
+              "elevation": 420,
+              "tof": 38.9,
+              "dElev": 3,
+              "windCross": 11,
+              "windLong": 230
+            },
+            {
+              "range": 13800,
+              "elevation": 434,
+              "tof": 40,
+              "dElev": 4,
+              "windCross": 12,
+              "windLong": 238
+            },
+            {
+              "range": 14000,
+              "elevation": 450,
+              "tof": 41.2,
+              "dElev": 4,
+              "windCross": 12,
+              "windLong": 257
+            },
+            {
+              "range": 14200,
+              "elevation": 467,
+              "tof": 42.4,
+              "dElev": 4,
+              "windCross": 12,
+              "windLong": 265
+            },
+            {
+              "range": 14400,
+              "elevation": 485,
+              "tof": 43.8,
+              "dElev": 5,
+              "windCross": 13,
+              "windLong": 265
+            },
+            {
+              "range": 14600,
+              "elevation": 505,
+              "tof": 45.2,
+              "dElev": 5,
+              "windCross": 13,
+              "windLong": 285
+            },
+            {
+              "range": 14800,
+              "elevation": 527,
+              "tof": 46.8,
+              "dElev": 6,
+              "windCross": 14,
+              "windLong": 287
+            },
+            {
+              "range": 15000,
+              "elevation": 553,
+              "tof": 48.7,
+              "dElev": 8,
+              "windCross": 15,
+              "windLong": 308
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c4_high",
+          "name": "M107 HE Charge 4 High Angle",
+          "type": "HE",
+          "variant": "high_angle",
+          "charge": 4,
+          "minRange": 8800,
+          "maxRange": 15000,
+          "dispersion": 55,
+          "ballisticTable": [
+            {
+              "range": 8800,
+              "elevation": 1274,
+              "tof": 83.7,
+              "dElev": 2,
+              "windCross": 49,
+              "windLong": 414
+            },
+            {
+              "range": 9000,
+              "elevation": 1265,
+              "tof": 83.5,
+              "dElev": 2,
+              "windCross": 48,
+              "windLong": 416
+            },
+            {
+              "range": 9200,
+              "elevation": 1256,
+              "tof": 83.3,
+              "dElev": 2,
+              "windCross": 45,
+              "windLong": 420
+            },
+            {
+              "range": 9400,
+              "elevation": 1247,
+              "tof": 83,
+              "dElev": 2,
+              "windCross": 44,
+              "windLong": 421
+            },
+            {
+              "range": 9600,
+              "elevation": 1238,
+              "tof": 82.7,
+              "dElev": 3,
+              "windCross": 43,
+              "windLong": 422
+            },
+            {
+              "range": 9800,
+              "elevation": 1228,
+              "tof": 82.5,
+              "dElev": 2,
+              "windCross": 42,
+              "windLong": 423
+            },
+            {
+              "range": 10000,
+              "elevation": 1218,
+              "tof": 82.2,
+              "dElev": 2,
+              "windCross": 39,
+              "windLong": 426
+            },
+            {
+              "range": 10200,
+              "elevation": 1209,
+              "tof": 81.9,
+              "dElev": 3,
+              "windCross": 40,
+              "windLong": 425
+            },
+            {
+              "range": 10400,
+              "elevation": 1199,
+              "tof": 81.6,
+              "dElev": 3,
+              "windCross": 39,
+              "windLong": 426
+            },
+            {
+              "range": 10600,
+              "elevation": 1189,
+              "tof": 81.3,
+              "dElev": 3,
+              "windCross": 40,
+              "windLong": 426
+            },
+            {
+              "range": 10800,
+              "elevation": 1178,
+              "tof": 80.9,
+              "dElev": 2,
+              "windCross": 39,
+              "windLong": 427
+            },
+            {
+              "range": 11000,
+              "elevation": 1168,
+              "tof": 80.6,
+              "dElev": 3,
+              "windCross": 37,
+              "windLong": 429
+            },
+            {
+              "range": 11200,
+              "elevation": 1157,
+              "tof": 80.2,
+              "dElev": 3,
+              "windCross": 36,
+              "windLong": 429
+            },
+            {
+              "range": 11400,
+              "elevation": 1146,
+              "tof": 79.8,
+              "dElev": 3,
+              "windCross": 35,
+              "windLong": 430
+            },
+            {
+              "range": 11600,
+              "elevation": 1135,
+              "tof": 79.4,
+              "dElev": 3,
+              "windCross": 35,
+              "windLong": 430
+            },
+            {
+              "range": 11800,
+              "elevation": 1123,
+              "tof": 79,
+              "dElev": 3,
+              "windCross": 35,
+              "windLong": 430
+            },
+            {
+              "range": 12000,
+              "elevation": 1111,
+              "tof": 78.6,
+              "dElev": 3,
+              "windCross": 33,
+              "windLong": 431
+            },
+            {
+              "range": 12200,
+              "elevation": 1099,
+              "tof": 78.1,
+              "dElev": 3,
+              "windCross": 33,
+              "windLong": 431
+            },
+            {
+              "range": 12400,
+              "elevation": 1087,
+              "tof": 77.6,
+              "dElev": 4,
+              "windCross": 32,
+              "windLong": 431
+            },
+            {
+              "range": 12600,
+              "elevation": 1074,
+              "tof": 77.1,
+              "dElev": 4,
+              "windCross": 31,
+              "windLong": 431
+            },
+            {
+              "range": 12800,
+              "elevation": 1060,
+              "tof": 76.6,
+              "dElev": 3,
+              "windCross": 32,
+              "windLong": 432
+            },
+            {
+              "range": 13000,
+              "elevation": 1047,
+              "tof": 76,
+              "dElev": 4,
+              "windCross": 30,
+              "windLong": 431
+            },
+            {
+              "range": 13200,
+              "elevation": 1032,
+              "tof": 75.4,
+              "dElev": 4,
+              "windCross": 29,
+              "windLong": 430
+            },
+            {
+              "range": 13400,
+              "elevation": 1017,
+              "tof": 74.8,
+              "dElev": 4,
+              "windCross": 29,
+              "windLong": 430
+            },
+            {
+              "range": 13600,
+              "elevation": 1002,
+              "tof": 74.1,
+              "dElev": 5,
+              "windCross": 29,
+              "windLong": 430
+            },
+            {
+              "range": 13800,
+              "elevation": 985,
+              "tof": 73.4,
+              "dElev": 4,
+              "windCross": 27,
+              "windLong": 428
+            },
+            {
+              "range": 14000,
+              "elevation": 968,
+              "tof": 72.6,
+              "dElev": 5,
+              "windCross": 27,
+              "windLong": 426
+            },
+            {
+              "range": 14200,
+              "elevation": 949,
+              "tof": 71.7,
+              "dElev": 5,
+              "windCross": 27,
+              "windLong": 426
+            },
+            {
+              "range": 14400,
+              "elevation": 929,
+              "tof": 70.8,
+              "dElev": 5,
+              "windCross": 25,
+              "windLong": 422
+            },
+            {
+              "range": 14600,
+              "elevation": 907,
+              "tof": 69.7,
+              "dElev": 6,
+              "windCross": 24,
+              "windLong": 419
+            },
+            {
+              "range": 14800,
+              "elevation": 883,
+              "tof": 68.5,
+              "dElev": 7,
+              "windCross": 23,
+              "windLong": 411
+            },
+            {
+              "range": 15000,
+              "elevation": 855,
+              "tof": 67,
+              "dElev": 8,
+              "windCross": 22,
+              "windLong": 409
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c5_low",
+          "name": "M107 HE Charge 5 Low Angle",
+          "type": "HE",
+          "variant": "low_angle",
+          "charge": 5,
+          "minRange": 2000,
+          "maxRange": 18000,
+          "dispersion": 69,
+          "ballisticTable": [
+            {
+              "range": 2000,
+              "elevation": 23,
+              "tof": 3.1,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 5
+            },
+            {
+              "range": 2200,
+              "elevation": 25,
+              "tof": 3.4,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 5
+            },
+            {
+              "range": 2400,
+              "elevation": 28,
+              "tof": 3.7,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 7
+            },
+            {
+              "range": 2600,
+              "elevation": 31,
+              "tof": 4.1,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 8
+            },
+            {
+              "range": 2800,
+              "elevation": 33,
+              "tof": 4.4,
+              "dElev": 1,
+              "windCross": 1,
+              "windLong": 8
+            },
+            {
+              "range": 3000,
+              "elevation": 36,
+              "tof": 4.7,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 10
+            },
+            {
+              "range": 3200,
+              "elevation": 38,
+              "tof": 5.1,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 11
+            },
+            {
+              "range": 3400,
+              "elevation": 41,
+              "tof": 5.4,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 12
+            },
+            {
+              "range": 3600,
+              "elevation": 44,
+              "tof": 5.8,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 14
+            },
+            {
+              "range": 3800,
+              "elevation": 47,
+              "tof": 6.1,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 16
+            },
+            {
+              "range": 4000,
+              "elevation": 49,
+              "tof": 6.5,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 17
+            },
+            {
+              "range": 4200,
+              "elevation": 52,
+              "tof": 6.9,
+              "dElev": 1,
+              "windCross": 2,
+              "windLong": 18
+            },
+            {
+              "range": 4400,
+              "elevation": 55,
+              "tof": 7.2,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 31
+            },
+            {
+              "range": 4600,
+              "elevation": 58,
+              "tof": 7.6,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 33
+            },
+            {
+              "range": 4800,
+              "elevation": 61,
+              "tof": 8,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 35
+            },
+            {
+              "range": 5000,
+              "elevation": 64,
+              "tof": 8.4,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 37
+            },
+            {
+              "range": 5200,
+              "elevation": 67,
+              "tof": 8.7,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 39
+            },
+            {
+              "range": 5400,
+              "elevation": 70,
+              "tof": 9.1,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 41
+            },
+            {
+              "range": 5600,
+              "elevation": 73,
+              "tof": 9.5,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 43
+            },
+            {
+              "range": 5800,
+              "elevation": 77,
+              "tof": 9.9,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 45
+            },
+            {
+              "range": 6000,
+              "elevation": 80,
+              "tof": 10.3,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 36
+            },
+            {
+              "range": 6200,
+              "elevation": 83,
+              "tof": 10.7,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 39
+            },
+            {
+              "range": 6400,
+              "elevation": 87,
+              "tof": 11.1,
+              "dElev": 1,
+              "windCross": 3,
+              "windLong": 41
+            },
+            {
+              "range": 6600,
+              "elevation": 90,
+              "tof": 11.5,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 44
+            },
+            {
+              "range": 6800,
+              "elevation": 93,
+              "tof": 12,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 46
+            },
+            {
+              "range": 7000,
+              "elevation": 97,
+              "tof": 12.4,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 49
+            },
+            {
+              "range": 7200,
+              "elevation": 101,
+              "tof": 12.8,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 52
+            },
+            {
+              "range": 7400,
+              "elevation": 104,
+              "tof": 13.2,
+              "dElev": 1,
+              "windCross": 4,
+              "windLong": 54
+            },
+            {
+              "range": 7600,
+              "elevation": 108,
+              "tof": 13.7,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 71
+            },
+            {
+              "range": 7800,
+              "elevation": 112,
+              "tof": 14.1,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 74
+            },
+            {
+              "range": 8000,
+              "elevation": 116,
+              "tof": 14.6,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 77
+            },
+            {
+              "range": 8200,
+              "elevation": 119,
+              "tof": 15,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 79
+            },
+            {
+              "range": 8400,
+              "elevation": 123,
+              "tof": 15.5,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 82
+            },
+            {
+              "range": 8600,
+              "elevation": 127,
+              "tof": 15.9,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 72
+            },
+            {
+              "range": 8800,
+              "elevation": 132,
+              "tof": 16.4,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 76
+            },
+            {
+              "range": 9000,
+              "elevation": 136,
+              "tof": 16.9,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 79
+            },
+            {
+              "range": 9200,
+              "elevation": 140,
+              "tof": 17.4,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 82
+            },
+            {
+              "range": 9400,
+              "elevation": 144,
+              "tof": 17.9,
+              "dElev": 1,
+              "windCross": 5,
+              "windLong": 85
+            },
+            {
+              "range": 9600,
+              "elevation": 149,
+              "tof": 18.3,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 89
+            },
+            {
+              "range": 9800,
+              "elevation": 153,
+              "tof": 18.8,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 93
+            },
+            {
+              "range": 10000,
+              "elevation": 158,
+              "tof": 19.4,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 97
+            },
+            {
+              "range": 10200,
+              "elevation": 162,
+              "tof": 19.9,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 115
+            },
+            {
+              "range": 10400,
+              "elevation": 167,
+              "tof": 20.4,
+              "dElev": 1,
+              "windCross": 6,
+              "windLong": 119
+            },
+            {
+              "range": 10600,
+              "elevation": 172,
+              "tof": 20.9,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 123
+            },
+            {
+              "range": 10800,
+              "elevation": 177,
+              "tof": 21.5,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 116
+            },
+            {
+              "range": 11000,
+              "elevation": 182,
+              "tof": 22,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 116
+            },
+            {
+              "range": 11200,
+              "elevation": 187,
+              "tof": 22.5,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 116
+            },
+            {
+              "range": 11400,
+              "elevation": 192,
+              "tof": 23.1,
+              "dElev": 1,
+              "windCross": 7,
+              "windLong": 125
+            },
+            {
+              "range": 11600,
+              "elevation": 197,
+              "tof": 23.7,
+              "dElev": 2,
+              "windCross": 7,
+              "windLong": 115
+            },
+            {
+              "range": 11800,
+              "elevation": 203,
+              "tof": 24.2,
+              "dElev": 1,
+              "windCross": 8,
+              "windLong": 120
+            },
+            {
+              "range": 12000,
+              "elevation": 208,
+              "tof": 24.8,
+              "dElev": 1,
+              "windCross": 8,
+              "windLong": 124
+            },
+            {
+              "range": 12200,
+              "elevation": 214,
+              "tof": 25.4,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 134
+            },
+            {
+              "range": 12400,
+              "elevation": 220,
+              "tof": 26,
+              "dElev": 1,
+              "windCross": 8,
+              "windLong": 148
+            },
+            {
+              "range": 12600,
+              "elevation": 226,
+              "tof": 26.6,
+              "dElev": 1,
+              "windCross": 8,
+              "windLong": 152
+            },
+            {
+              "range": 12800,
+              "elevation": 232,
+              "tof": 27.3,
+              "dElev": 1,
+              "windCross": 8,
+              "windLong": 160
+            },
+            {
+              "range": 13000,
+              "elevation": 238,
+              "tof": 27.9,
+              "dElev": 2,
+              "windCross": 8,
+              "windLong": 162
+            },
+            {
+              "range": 13200,
+              "elevation": 244,
+              "tof": 28.5,
+              "dElev": 2,
+              "windCross": 9,
+              "windLong": 167
+            },
+            {
+              "range": 13400,
+              "elevation": 251,
+              "tof": 29.2,
+              "dElev": 1,
+              "windCross": 9,
+              "windLong": 187
+            },
+            {
+              "range": 13600,
+              "elevation": 258,
+              "tof": 29.8,
+              "dElev": 2,
+              "windCross": 9,
+              "windLong": 193
+            },
+            {
+              "range": 13800,
+              "elevation": 264,
+              "tof": 30.5,
+              "dElev": 2,
+              "windCross": 9,
+              "windLong": 188
+            },
+            {
+              "range": 14000,
+              "elevation": 271,
+              "tof": 31.2,
+              "dElev": 2,
+              "windCross": 9,
+              "windLong": 197
+            },
+            {
+              "range": 14200,
+              "elevation": 279,
+              "tof": 31.9,
+              "dElev": 1,
+              "windCross": 9,
+              "windLong": 188
+            },
+            {
+              "range": 14400,
+              "elevation": 286,
+              "tof": 32.6,
+              "dElev": 2,
+              "windCross": 9,
+              "windLong": 195
+            },
+            {
+              "range": 14600,
+              "elevation": 294,
+              "tof": 33.4,
+              "dElev": 1,
+              "windCross": 10,
+              "windLong": 200
+            },
+            {
+              "range": 14800,
+              "elevation": 301,
+              "tof": 34.1,
+              "dElev": 2,
+              "windCross": 10,
+              "windLong": 211
+            },
+            {
+              "range": 15000,
+              "elevation": 309,
+              "tof": 34.9,
+              "dElev": 2,
+              "windCross": 10,
+              "windLong": 231
+            },
+            {
+              "range": 15200,
+              "elevation": 318,
+              "tof": 35.7,
+              "dElev": 3,
+              "windCross": 10,
+              "windLong": 237
+            },
+            {
+              "range": 15400,
+              "elevation": 326,
+              "tof": 36.5,
+              "dElev": 3,
+              "windCross": 10,
+              "windLong": 237
+            },
+            {
+              "range": 15600,
+              "elevation": 335,
+              "tof": 37.3,
+              "dElev": 3,
+              "windCross": 11,
+              "windLong": 237
+            },
+            {
+              "range": 15800,
+              "elevation": 345,
+              "tof": 38.2,
+              "dElev": 3,
+              "windCross": 11,
+              "windLong": 244
+            },
+            {
+              "range": 16000,
+              "elevation": 354,
+              "tof": 39.1,
+              "dElev": 3,
+              "windCross": 11,
+              "windLong": 251
+            },
+            {
+              "range": 16200,
+              "elevation": 364,
+              "tof": 40,
+              "dElev": 3,
+              "windCross": 11,
+              "windLong": 271
+            },
+            {
+              "range": 16400,
+              "elevation": 374,
+              "tof": 40.9,
+              "dElev": 3,
+              "windCross": 11,
+              "windLong": 265
+            },
+            {
+              "range": 16600,
+              "elevation": 385,
+              "tof": 41.9,
+              "dElev": 3,
+              "windCross": 12,
+              "windLong": 273
+            },
+            {
+              "range": 16800,
+              "elevation": 397,
+              "tof": 42.9,
+              "dElev": 3,
+              "windCross": 12,
+              "windLong": 270
+            },
+            {
+              "range": 17000,
+              "elevation": 409,
+              "tof": 43.9,
+              "dElev": 3,
+              "windCross": 12,
+              "windLong": 290
+            },
+            {
+              "range": 17200,
+              "elevation": 422,
+              "tof": 45,
+              "dElev": 3,
+              "windCross": 12,
+              "windLong": 298
+            },
+            {
+              "range": 17400,
+              "elevation": 435,
+              "tof": 46.2,
+              "dElev": 4,
+              "windCross": 13,
+              "windLong": 307
+            },
+            {
+              "range": 17600,
+              "elevation": 450,
+              "tof": 47.4,
+              "dElev": 3,
+              "windCross": 14,
+              "windLong": 328
+            },
+            {
+              "range": 17800,
+              "elevation": 465,
+              "tof": 48.7,
+              "dElev": 4,
+              "windCross": 13,
+              "windLong": 326
+            },
+            {
+              "range": 18000,
+              "elevation": 482,
+              "tof": 50.1,
+              "dElev": 4,
+              "windCross": 14,
+              "windLong": 337
+            }
+          ]
+        },
+        {
+          "id": "m777_m107_c5_high",
+          "name": "M107 HE Charge 5 High Angle",
+          "type": "HE",
+          "variant": "high_angle",
+          "charge": 5,
+          "minRange": 10600,
+          "maxRange": 18000,
+          "dispersion": 73,
+          "ballisticTable": [
+            {
+              "range": 10600,
+              "elevation": 1275,
+              "tof": 94.7,
+              "dElev": 2,
+              "windCross": 55,
+              "windLong": 529
+            },
+            {
+              "range": 10800,
+              "elevation": 1267,
+              "tof": 94.5,
+              "dElev": 2,
+              "windCross": 54,
+              "windLong": 530
+            },
+            {
+              "range": 11000,
+              "elevation": 1260,
+              "tof": 94.3,
+              "dElev": 2,
+              "windCross": 50,
+              "windLong": 533
+            },
+            {
+              "range": 11200,
+              "elevation": 1252,
+              "tof": 94,
+              "dElev": 2,
+              "windCross": 49,
+              "windLong": 534
+            },
+            {
+              "range": 11400,
+              "elevation": 1245,
+              "tof": 93.8,
+              "dElev": 2,
+              "windCross": 48,
+              "windLong": 535
+            },
+            {
+              "range": 11600,
+              "elevation": 1237,
+              "tof": 93.6,
+              "dElev": 2,
+              "windCross": 47,
+              "windLong": 536
+            },
+            {
+              "range": 11800,
+              "elevation": 1229,
+              "tof": 93.3,
+              "dElev": 2,
+              "windCross": 46,
+              "windLong": 536
+            },
+            {
+              "range": 12000,
+              "elevation": 1221,
+              "tof": 93,
+              "dElev": 2,
+              "windCross": 44,
+              "windLong": 538
+            },
+            {
+              "range": 12200,
+              "elevation": 1213,
+              "tof": 92.8,
+              "dElev": 2,
+              "windCross": 43,
+              "windLong": 539
+            },
+            {
+              "range": 12400,
+              "elevation": 1205,
+              "tof": 92.5,
+              "dElev": 2,
+              "windCross": 44,
+              "windLong": 538
+            },
+            {
+              "range": 12600,
+              "elevation": 1197,
+              "tof": 92.2,
+              "dElev": 3,
+              "windCross": 43,
+              "windLong": 539
+            },
+            {
+              "range": 12800,
+              "elevation": 1188,
+              "tof": 91.9,
+              "dElev": 2,
+              "windCross": 44,
+              "windLong": 539
+            },
+            {
+              "range": 13000,
+              "elevation": 1180,
+              "tof": 91.6,
+              "dElev": 2,
+              "windCross": 43,
+              "windLong": 539
+            },
+            {
+              "range": 13200,
+              "elevation": 1171,
+              "tof": 91.3,
+              "dElev": 2,
+              "windCross": 41,
+              "windLong": 540
+            },
+            {
+              "range": 13400,
+              "elevation": 1162,
+              "tof": 90.9,
+              "dElev": 2,
+              "windCross": 40,
+              "windLong": 541
+            },
+            {
+              "range": 13600,
+              "elevation": 1153,
+              "tof": 90.6,
+              "dElev": 2,
+              "windCross": 39,
+              "windLong": 541
+            },
+            {
+              "range": 13800,
+              "elevation": 1144,
+              "tof": 90.3,
+              "dElev": 2,
+              "windCross": 38,
+              "windLong": 541
+            },
+            {
+              "range": 14000,
+              "elevation": 1135,
+              "tof": 89.9,
+              "dElev": 2,
+              "windCross": 39,
+              "windLong": 541
+            },
+            {
+              "range": 14200,
+              "elevation": 1125,
+              "tof": 89.5,
+              "dElev": 2,
+              "windCross": 38,
+              "windLong": 541
+            },
+            {
+              "range": 14400,
+              "elevation": 1116,
+              "tof": 89.1,
+              "dElev": 3,
+              "windCross": 36,
+              "windLong": 541
+            },
+            {
+              "range": 14600,
+              "elevation": 1106,
+              "tof": 88.7,
+              "dElev": 2,
+              "windCross": 36,
+              "windLong": 541
+            },
+            {
+              "range": 14800,
+              "elevation": 1096,
+              "tof": 88.3,
+              "dElev": 3,
+              "windCross": 36,
+              "windLong": 541
+            },
+            {
+              "range": 15000,
+              "elevation": 1086,
+              "tof": 87.8,
+              "dElev": 3,
+              "windCross": 35,
+              "windLong": 540
+            },
+            {
+              "range": 15200,
+              "elevation": 1075,
+              "tof": 87.4,
+              "dElev": 2,
+              "windCross": 34,
+              "windLong": 540
+            },
+            {
+              "range": 15400,
+              "elevation": 1064,
+              "tof": 86.9,
+              "dElev": 2,
+              "windCross": 35,
+              "windLong": 541
+            },
+            {
+              "range": 15600,
+              "elevation": 1053,
+              "tof": 86.4,
+              "dElev": 2,
+              "windCross": 33,
+              "windLong": 539
+            },
+            {
+              "range": 15800,
+              "elevation": 1042,
+              "tof": 85.9,
+              "dElev": 3,
+              "windCross": 32,
+              "windLong": 538
+            },
+            {
+              "range": 16000,
+              "elevation": 1030,
+              "tof": 85.3,
+              "dElev": 3,
+              "windCross": 32,
+              "windLong": 537
+            },
+            {
+              "range": 16200,
+              "elevation": 1018,
+              "tof": 84.8,
+              "dElev": 3,
+              "windCross": 32,
+              "windLong": 538
+            },
+            {
+              "range": 16400,
+              "elevation": 1006,
+              "tof": 84.2,
+              "dElev": 4,
+              "windCross": 32,
+              "windLong": 537
+            },
+            {
+              "range": 16600,
+              "elevation": 993,
+              "tof": 83.5,
+              "dElev": 4,
+              "windCross": 30,
+              "windLong": 534
+            },
+            {
+              "range": 16800,
+              "elevation": 979,
+              "tof": 82.8,
+              "dElev": 3,
+              "windCross": 29,
+              "windLong": 532
+            },
+            {
+              "range": 17000,
+              "elevation": 965,
+              "tof": 82.1,
+              "dElev": 4,
+              "windCross": 29,
+              "windLong": 531
+            },
+            {
+              "range": 17200,
+              "elevation": 950,
+              "tof": 81.4,
+              "dElev": 4,
+              "windCross": 28,
+              "windLong": 525
+            },
+            {
+              "range": 17400,
+              "elevation": 935,
+              "tof": 80.5,
+              "dElev": 4,
+              "windCross": 27,
+              "windLong": 522
+            },
+            {
+              "range": 17600,
+              "elevation": 918,
+              "tof": 79.7,
+              "dElev": 4,
+              "windCross": 27,
+              "windLong": 523
+            },
+            {
+              "range": 17800,
+              "elevation": 901,
+              "tof": 78.7,
+              "dElev": 5,
+              "windCross": 26,
+              "windLong": 515
+            },
+            {
+              "range": 18000,
+              "elevation": 881,
+              "tof": 77.6,
+              "dElev": 5,
+              "windCross": 25,
+              "windLong": 510
+            }
+          ]
+        }
+      ]
+    },
+    {
       "systemType": "mlrs",
       "id": "INTEGRITY_BM21",
       "name": "Integrity BM-21 Grad 122mm MLRS",

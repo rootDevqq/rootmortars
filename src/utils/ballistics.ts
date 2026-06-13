@@ -4,6 +4,8 @@ import type {
   FireSolution,
   MortarMode,
   HowitzerAmmoGroup,
+  HowitzerCharge,
+  HowitzerChargeMode,
   ProjectileType,
   Charge,
   RangeTableEntry,
@@ -74,7 +76,11 @@ function pickBestCharge(charges: Charge[], range: number): Charge | null {
   return valid.sort((a, b) => a.maxRange - b.maxRange)[0];
 }
 
-// ─── KEY FIX: strip "Low Angle" / "High Angle" suffix to group howitzer ammo ─
+// ─── KEY FIX: strip "Low/High Angle" (+ "Charge N") suffix to group howitzer ammo ─
+//
+// D-30 / M119: one shell → one low + one high table.
+// M777: one shell → N charges, each with its own low + high table. We strip both
+// the angle word and the "Charge N" token so all charges collapse into one group.
 
 export function getHowitzerAmmoGroups(weapon: WeaponSystem): HowitzerAmmoGroup[] {
   if (!weapon.projectileTypes) return [];
@@ -84,14 +90,46 @@ export function getHowitzerAmmoGroups(weapon: WeaponSystem): HowitzerAmmoGroup[]
     const key = pt.name
       .replace(/\s+(low|high)\s+angle\s*$/i, '')
       .replace(/\s+(low|high)\s*$/i, '')
+      .replace(/\s+charge\s+\d+\s*$/i, '')
       .trim();
     if (!map.has(key)) map.set(key, { id: key, name: key });
     const g = map.get(key)!;
-    if (pt.variant === 'low_angle') g.lowAngle = pt;
-    else g.highAngle = pt;
+
+    if (pt.charge != null) {
+      // Charge-based weapon: route the table into the matching charge entry.
+      if (!g.charges) g.charges = [];
+      let ch = g.charges.find(c => c.charge === pt.charge);
+      if (!ch) {
+        ch = { charge: pt.charge, minRange: Infinity, maxRange: -Infinity };
+        g.charges.push(ch);
+      }
+      if (pt.variant === 'low_angle') ch.lowAngle = pt;
+      else ch.highAngle = pt;
+      ch.minRange = Math.min(ch.minRange, pt.minRange);
+      ch.maxRange = Math.max(ch.maxRange, pt.maxRange);
+    } else {
+      if (pt.variant === 'low_angle') g.lowAngle = pt;
+      else g.highAngle = pt;
+    }
+  }
+
+  for (const g of map.values()) {
+    if (g.charges) g.charges.sort((a, b) => a.charge - b.charge);
   }
 
   return Array.from(map.values());
+}
+
+// ─── Pick lowest howitzer charge that can reach the target ───────────────────
+// Mirrors the mortar "lowest viable charge" rule: steeper arc, tighter dispersion.
+
+export function pickBestHowitzerCharge(
+  charges: HowitzerCharge[],
+  range: number,
+): HowitzerCharge | null {
+  const valid = charges.filter(c => range >= c.minRange && range <= c.maxRange);
+  if (valid.length === 0) return null;
+  return valid.sort((a, b) => a.charge - b.charge)[0];
 }
 
 // ─── Wind correction ──────────────────────────────────────────────────────────
@@ -207,6 +245,34 @@ export function calcWindCorrection(
   return { azDelta, rangeDelta, dispersion };
 }
 
+// ─── Wind correction from an embedded range table (howitzer / M777) ──────────
+// The M777 in-game tables carry their own 10 m/s wind columns (windCross mils,
+// windLong m), so we read them straight from the chosen charge's table.
+
+function windCorrectionFromTable(
+  table: RangeTableEntry[],
+  azimuthDeg: number,
+  distance: number,
+  windSpeed: number,
+  windDir: number,
+): WindCorrection | null {
+  if (windSpeed === 0) return null;
+  if (!table.some(e => e.windCross != null || e.windLong != null)) return null;
+
+  const interp = interpolateWindFromRangeTable(table, distance);
+  if (!interp) return null;
+
+  const relAngleRad = (windDir - azimuthDeg) * (Math.PI / 180);
+  const W_head  = windSpeed * Math.cos(relAngleRad);  // + = headwind
+  const W_right = windSpeed * Math.sin(relAngleRad);  // + = from right
+
+  return {
+    azDelta:    Math.round(interp.wc * W_right / 10),
+    rangeDelta: Math.round(interp.wl * W_head  / 10),
+    dispersion: 0,
+  };
+}
+
 // ─── Main fire solution calculator ───────────────────────────────────────────
 
 export interface WindOpts {
@@ -222,6 +288,7 @@ export function calculateFireSolution(
   gunPos: Position,
   targetPos: Position,
   wind?: WindOpts,
+  howitzerCharge: HowitzerChargeMode = 'auto',
 ): FireSolution | null {
   const gx = Number(gunPos.x), gy = Number(gunPos.y), gh = Number(gunPos.h);
   const tx = Number(targetPos.x), ty = Number(targetPos.y), th = Number(targetPos.h);
@@ -325,32 +392,135 @@ export function calculateFireSolution(
     const group = getHowitzerAmmoGroups(weapon).find(g => g.id === ammoId);
     if (!group) return { distance, azimuthMils, status: 'no_data', message: 'Снаряд не найден' };
 
+    // Resolve which low/high tables to use. For charge-based weapons (M777) the
+    // pair comes from the selected charge (auto = lowest charge that reaches).
+    let lowPt:  ProjectileType | undefined = group.lowAngle;
+    let highPt: ProjectileType | undefined = group.highAngle;
+    let chargeLevel: number | undefined;
+
+    if (group.charges?.length) {
+      let chosen: HowitzerCharge | null;
+      if (howitzerCharge === 'auto') {
+        chosen = pickBestHowitzerCharge(group.charges, distance);
+      } else {
+        chosen = group.charges.find(c => c.charge === howitzerCharge) ?? null;
+      }
+
+      if (!chosen) {
+        const minR = Math.min(...group.charges.map(c => c.minRange));
+        const maxR = Math.max(...group.charges.map(c => c.maxRange));
+        return {
+          distance, azimuthMils, status: 'out_of_range',
+          message: `Вне зоны • ${Math.round(distance)} м (диап. ${minR}–${maxR})`,
+        };
+      }
+
+      // Manual charge that can't reach: name the charges that can.
+      if (howitzerCharge !== 'auto' &&
+          (distance < chosen.minRange || distance > chosen.maxRange)) {
+        const reachable = group.charges
+          .filter(c => distance >= c.minRange && distance <= c.maxRange)
+          .map(c => c.charge);
+        const hint = reachable.length
+          ? `достают: ${reachable.join(', ')}`
+          : `диап. заряда ${chosen.charge}: ${chosen.minRange}–${chosen.maxRange}`;
+        return {
+          distance, azimuthMils, status: 'out_of_range',
+          message: `Заряд ${chosen.charge} не достаёт • ${Math.round(distance)} м (${hint})`,
+        };
+      }
+
+      lowPt = chosen.lowAngle;
+      highPt = chosen.highAngle;
+      chargeLevel = chosen.charge;
+    }
+
     const interpPt = (pt?: ProjectileType) => {
       if (!pt) return undefined;
       if (distance < pt.minRange || distance > pt.maxRange) return undefined;
       return interpolateTable(pt.ballisticTable, distance);
     };
 
-    const low  = interpPt(group.lowAngle);
-    const high = interpPt(group.highAngle);
+    const low  = interpPt(lowPt);
+    const high = interpPt(highPt);
 
     if (!low && !high) {
-      const pts = [group.lowAngle, group.highAngle].filter(Boolean) as ProjectileType[];
-      const minR = Math.min(...pts.map(pt => pt.minRange));
-      const maxR = Math.max(...pts.map(pt => pt.maxRange));
+      const pts = [lowPt, highPt].filter(Boolean) as ProjectileType[];
+      const minR = pts.length ? Math.min(...pts.map(pt => pt.minRange)) : 0;
+      const maxR = pts.length ? Math.max(...pts.map(pt => pt.maxRange)) : 0;
       return {
         distance, azimuthMils, status: 'out_of_range',
         message: `Вне зоны • ${Math.round(distance)} м (диап. ${minR}–${maxR})`,
       };
     }
 
+    const dispersion = lowPt?.dispersion ?? highPt?.dispersion;
+    const dH = th - gh;
+    const azimuthDeg = (azimuthMils / mils) * 360;
+
+    // Solve a single trajectory. Wind is read from THIS angle's own cross/long
+    // columns — low and high diverge hard (high-angle flies ~2.5× longer, so its
+    // crosswind drift and headwind range bias are several times larger). Then apply
+    // the per-angle height correction.
+    const solveAngle = (
+      pt: ProjectileType | undefined,
+      base: { elevation: number; tof: number | null; dElev: number } | null,
+    ) => {
+      if (!pt || !base) return undefined;
+      let interp = base;
+      let az = azimuthMils;
+      let azDelta: number | undefined;
+      let rangeDelta: number | undefined;
+
+      if (wind && wind.speed > 0) {
+        const wc = windCorrectionFromTable(
+          pt.ballisticTable, azimuthDeg, distance, wind.speed, wind.dir,
+        );
+        if (wc) {
+          azDelta = wc.azDelta;
+          rangeDelta = wc.rangeDelta;
+          az = ((azimuthMils + wc.azDelta) % mils + mils) % mils;
+          const eff = distance + wc.rangeDelta;
+          if (eff >= pt.minRange && eff <= pt.maxRange) {
+            interp = interpolateTable(pt.ballisticTable, eff) ?? base;
+          }
+        }
+      }
+
+      let elev = interp.elevation;
+      if (weapon.usesHeightCorrection && dH !== 0) {
+        if (pt.variant === 'low_angle') {
+          // Flat fire: geometric angle of site dominates (table dElev understates it).
+          elev = Math.round(elev + Math.atan2(dH, distance) * mils / (2 * Math.PI));
+        } else {
+          // Steep fire: small ballistic correction from the table's dElev.
+          elev = Math.round(elev - (interp.dElev ?? 0) * dH / 100);
+        }
+      }
+
+      return { elev, az, azDelta, rangeDelta, tof: interp.tof ?? undefined };
+    };
+
+    const sLow  = solveAngle(lowPt, low ?? null);
+    const sHigh = solveAngle(highPt, high ?? null);
+
     return {
       distance,
-      azimuthMils,
-      elevationLow:  low  ? low.elevation  : undefined,
-      elevationHigh: high ? high.elevation : undefined,
-      tof: low?.tof ?? high?.tof ?? undefined,
+      azimuthMils,                       // base (geometric) bearing
+      chargeLevel,
+      elevationLow:   sLow?.elev,
+      elevationHigh:  sHigh?.elev,
+      azimuthMilsLow:  sLow?.az,
+      azimuthMilsHigh: sHigh?.az,
+      tofLow:  sLow?.tof,
+      tofHigh: sHigh?.tof,
+      tof: sLow?.tof ?? sHigh?.tof ?? undefined,
+      windAzDeltaLow:     sLow?.azDelta,
+      windAzDeltaHigh:    sHigh?.azDelta,
+      windRangeDeltaLow:  sLow?.rangeDelta,
+      windRangeDeltaHigh: sHigh?.rangeDelta,
       status: 'ok',
+      dispersion,
     };
   }
 
@@ -419,8 +589,10 @@ export function getMaxRange(
   if (weapon.systemType === 'howitzer' || weapon.systemType === 'mlrs') {
     const group = getHowitzerAmmoGroups(weapon).find(g => g.id === ammoId);
     if (!group) return null;
-    const ranges = [group.lowAngle?.maxRange, group.highAngle?.maxRange]
-      .filter((v): v is number => v !== undefined);
+    const ranges = group.charges?.length
+      ? group.charges.map(c => c.maxRange)
+      : [group.lowAngle?.maxRange, group.highAngle?.maxRange]
+          .filter((v): v is number => v !== undefined);
     return ranges.length ? Math.max(...ranges) : null;
   }
   return null;

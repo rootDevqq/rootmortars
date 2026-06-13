@@ -118,7 +118,7 @@ const STEP_OPTIONS = [10, 25, 50, 100, 200, 500];
 export function AreaFire() {
   const {
     weaponSystems, selectedWeaponId, selectedAmmoId,
-    mortarMode, gunPos, targetPos,
+    mortarMode, howitzerCharge, gunPos, targetPos,
   } = useAppStore();
 
   const [open, setOpen]         = useState(false);
@@ -131,10 +131,11 @@ export function AreaFire() {
   const [pattern, setPattern]   = useState<FirePattern>('rows');
   const [results, setResults]   = useState<GridPoint[] | null>(null);
 
-  const weapon   = weaponSystems.find(w => w.id === selectedWeaponId);
-  const mils     = weapon ? getMilsPerCircle(weapon) : 6400;
-  const isMortar = weapon?.systemType === 'mortar';
-  const hasGun   = gunPos.x !== '' && gunPos.y !== '';
+  const weapon     = weaponSystems.find(w => w.id === selectedWeaponId);
+  const mils       = weapon ? getMilsPerCircle(weapon) : 6400;
+  const isMortar   = weapon?.systemType === 'mortar';
+  const hasCharges = !!weapon?.hasCharges;
+  const hasGun     = gunPos.x !== '' && gunPos.y !== '';
 
   const colCount    = Math.max(1, Math.floor(width  / step) + 1);
   const rowCount    = Math.max(1, Math.floor(height / step) + 1);
@@ -169,6 +170,7 @@ export function AreaFire() {
             weapon, selectedAmmoId, mortarMode,
             { x: gx, y: gy, h: gh },
             { x: px, y: py, h: targetH },
+            undefined, howitzerCharge,
           ),
         });
       }
@@ -394,6 +396,9 @@ export function AreaFire() {
                       </>
                     ) : (
                       <>
+                        {hasCharges && (
+                          <th style={{ ...thStyle, textAlign: 'right', color: '#c084fc' }}>ЗАР</th>
+                        )}
                         <th style={{ ...thStyle, textAlign: 'right', color: '#38bdf8' }}>LOW</th>
                         <th style={{ ...thStyle, textAlign: 'right', color: '#c084fc' }}>HIGH</th>
                       </>
@@ -427,6 +432,11 @@ export function AreaFire() {
                           </>
                         ) : (
                           <>
+                            {hasCharges && (
+                              <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#c084fc' : '#334155' }}>
+                                {ok && sol && sol.chargeLevel !== undefined ? sol.chargeLevel : '—'}
+                              </td>
+                            )}
                             <td style={{ ...tdStyle, textAlign: 'right', color: ok ? '#38bdf8' : '#334155' }}>
                               {ok && sol && sol.elevationLow !== undefined ? sol.elevationLow : '—'}
                             </td>
