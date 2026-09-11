@@ -434,8 +434,8 @@ export function AreaFire() {
                 <span style={{ fontSize: 10, color: '#475569' }}>
                   {reachable} / {results.length} в зоне досягаемости
                   {windActive && (
-                    <span style={{ color: weapon?.id === 'M777' ? '#fbbf24' : '#38bdf8' }}>
-                      {' · '}{weapon?.id === 'M777' ? 'ветер экспериментально' : 'ветер учтён'}
+                    <span style={{ color: '#38bdf8' }}>
+                      {' · '}ветер учтён
                     </span>
                   )}
                 </span>
