@@ -38,17 +38,33 @@ export function calcAzimuthMils(
 function interpolateTable(
   table: RangeTableEntry[],
   range: number,
-): { elevation: number; tof: number | null; dElev: number } | null {
+): { elevation: number; tof: number | null; dElev: number; angleOfImpact: number | null; elevationPerMeter: number } | null {
   if (!table || table.length === 0) return null;
   const sorted = [...table].sort((a, b) => a.range - b.range);
 
   if (range <= sorted[0].range) {
     const e = sorted[0];
-    return { elevation: e.elevation, tof: e.tof ?? null, dElev: e.dElev ?? 0 };
+    const next = sorted[1] ?? e;
+    const span = next.range - e.range;
+    return {
+      elevation: e.elevation,
+      tof: e.tof ?? null,
+      dElev: e.dElev ?? 0,
+      angleOfImpact: e.angleOfImpact ?? null,
+      elevationPerMeter: span ? (next.elevation - e.elevation) / span : 0,
+    };
   }
   if (range >= sorted[sorted.length - 1].range) {
     const e = sorted[sorted.length - 1];
-    return { elevation: e.elevation, tof: e.tof ?? null, dElev: e.dElev ?? 0 };
+    const prev = sorted[sorted.length - 2] ?? e;
+    const span = e.range - prev.range;
+    return {
+      elevation: e.elevation,
+      tof: e.tof ?? null,
+      dElev: e.dElev ?? 0,
+      angleOfImpact: e.angleOfImpact ?? null,
+      elevationPerMeter: span ? (e.elevation - prev.elevation) / span : 0,
+    };
   }
 
   for (let i = 0; i < sorted.length - 1; i++) {
@@ -58,10 +74,18 @@ function interpolateTable(
       const t = (range - lo.range) / (hi.range - lo.range);
       const tofLo = lo.tof ?? 0;
       const tofHi = hi.tof ?? 0;
+      const impactLo = lo.angleOfImpact;
+      const impactHi = hi.angleOfImpact;
       return {
-        elevation: Math.round(lo.elevation + t * (hi.elevation - lo.elevation)),
+        // Keep interpolation precise until every correction has been applied.
+        // Rounding here creates a full-mil error after height correction.
+        elevation: lo.elevation + t * (hi.elevation - lo.elevation),
         tof: (lo.tof !== null && hi.tof !== null) ? tofLo + t * (tofHi - tofLo) : null,
         dElev: (lo.dElev ?? 0) + t * ((hi.dElev ?? 0) - (lo.dElev ?? 0)),
+        angleOfImpact: impactLo != null && impactHi != null
+          ? impactLo + t * (impactHi - impactLo)
+          : impactLo ?? impactHi ?? null,
+        elevationPerMeter: (hi.elevation - lo.elevation) / (hi.range - lo.range),
       };
     }
   }
@@ -464,7 +488,13 @@ export function calculateFireSolution(
     // the per-angle height correction.
     const solveAngle = (
       pt: ProjectileType | undefined,
-      base: { elevation: number; tof: number | null; dElev: number } | null,
+      base: {
+        elevation: number;
+        tof: number | null;
+        dElev: number;
+        angleOfImpact: number | null;
+        elevationPerMeter: number;
+      } | null,
     ) => {
       if (!pt || !base) return undefined;
       let interp = base;
@@ -472,7 +502,7 @@ export function calculateFireSolution(
       let azDelta: number | undefined;
       let rangeDelta: number | undefined;
 
-      if (wind && wind.speed > 0) {
+      if (wind && wind.speed > 0 && weapon.supportsWindCorrection !== false) {
         const wc = windCorrectionFromTable(
           pt.ballisticTable, azimuthDeg, distance, wind.speed, wind.dir,
         );
@@ -489,7 +519,13 @@ export function calculateFireSolution(
 
       let elev = interp.elevation;
       if (weapon.usesHeightCorrection && dH !== 0) {
-        if (pt.variant === 'low_angle') {
+        if (interp.angleOfImpact != null && interp.angleOfImpact >= 5) {
+          // Move along the measured trajectory to the point where it crosses
+          // the target altitude, then convert that range shift back to mils.
+          // This works for both arcs because the table slope carries the sign.
+          const rangeShift = dH / Math.tan(interp.angleOfImpact * Math.PI / 180);
+          elev = Math.round(elev + interp.elevationPerMeter * rangeShift);
+        } else if (pt.variant === 'low_angle') {
           // Flat fire: geometric angle of site dominates (table dElev understates it).
           elev = Math.round(elev + Math.atan2(dH, distance) * mils / (2 * Math.PI));
         } else {
@@ -498,7 +534,7 @@ export function calculateFireSolution(
         }
       }
 
-      return { elev, az, azDelta, rangeDelta, tof: interp.tof ?? undefined };
+      return { elev: Math.round(elev), az, azDelta, rangeDelta, tof: interp.tof ?? undefined };
     };
 
     const sLow  = solveAngle(lowPt, low ?? null);

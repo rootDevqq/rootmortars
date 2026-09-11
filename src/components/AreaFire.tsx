@@ -433,7 +433,11 @@ export function AreaFire() {
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                 <span style={{ fontSize: 10, color: '#475569' }}>
                   {reachable} / {results.length} в зоне досягаемости
-                  {windActive && <span style={{ color: '#38bdf8' }}> · ветер учтён</span>}
+                  {windActive && (
+                    <span style={{ color: weapon?.id === 'M777' ? '#fbbf24' : '#38bdf8' }}>
+                      {' · '}{weapon?.id === 'M777' ? 'ветер экспериментально' : 'ветер учтён'}
+                    </span>
+                  )}
                 </span>
                 <span style={{ fontSize: 10, color: '#475569' }}>
                   {PATTERNS.find(p => p.id === pattern)?.label}

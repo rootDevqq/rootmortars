@@ -11,6 +11,7 @@ export interface RangeTableEntry {
   dElev?: number | null;
   windCross?: number | null;
   windLong?: number | null;
+  angleOfImpact?: number | null;
 }
 
 export interface Charge {
@@ -51,6 +52,7 @@ export interface WeaponSystem {
   milSystem?: MilSystem;       // howitzers / mlrs
   usesHeightCorrection?: boolean;
   hasCharges?: boolean;        // howitzer with selectable powder charges (M777)
+  supportsWindCorrection?: boolean;
   ammo?: MortarAmmo[];
   projectileTypes?: ProjectileType[];
 }

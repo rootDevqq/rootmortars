@@ -163,7 +163,7 @@ function TrajRow({
 
 // ─── Per-angle wind correction (howitzer) ────────────────────────────────────
 
-function WindBadgeHow({ sol }: { sol: FireSolution }) {
+function WindBadgeHow({ sol, experimental = false }: { sol: FireSolution; experimental?: boolean }) {
   const row = (label: string, color: string, az?: number, r?: number) => {
     if (az == null && r == null) return null;
     return (
@@ -181,6 +181,14 @@ function WindBadgeHow({ sol }: { sol: FireSolution }) {
       <span style={{ fontSize: 9, color: '#38bdf8', fontWeight: 700, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.05em' }}>
         ПОПРАВКА ВЕТЕР
       </span>
+      {experimental && (
+        <span title="Коэффициенты актуальные, но возможен остаточный постоянный снос" style={{
+          fontSize: 9, color: '#fbbf24', fontWeight: 700,
+          fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.04em',
+        }}>
+          ЭКСПЕРИМЕНТАЛЬНО
+        </span>
+      )}
       {sol.elevationLow  !== undefined && row('LOW',  '#38bdf8', sol.windAzDeltaLow,  sol.windRangeDeltaLow)}
       {sol.elevationHigh !== undefined && row('HIGH', '#c084fc', sol.windAzDeltaHigh, sol.windRangeDeltaHigh)}
     </div>
@@ -444,7 +452,7 @@ export function FireResult() {
         </div>
 
         {/* Per-angle wind correction */}
-        {howWind && <WindBadgeHow sol={fireSolution} />}
+        {howWind && <WindBadgeHow sol={fireSolution} experimental={weapon?.id === 'M777'} />}
         </>
       )}
     </div>
