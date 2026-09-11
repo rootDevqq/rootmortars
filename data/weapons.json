@@ -18,7 +18,7 @@
       "name": "Reforger FDC — PandaMods M777",
       "covers": "M107 HE, charges 1–5, low/high arcs; controlled in-game measurements",
       "url": "https://reforger-fdc.com/en/m777-artillery-calculator/",
-      "note": "PandaMods M777 2.1.2 data pack, re-transcribed 2026-08-17; wind coefficients are experimental"
+      "note": "PandaMods M777 2.1.2 data pack, re-transcribed 2026-08-17; wind coefficients validated by in-game firing"
     }
   ],
   "conventions": {
