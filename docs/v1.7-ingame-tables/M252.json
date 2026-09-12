@@ -1,0 +1,448 @@
+{
+  "_meta": {
+    "source": "in-game Ballistic Table gadget, Arma Reforger 1.7 vanilla",
+    "captured": "2026-05-28",
+    "weapon": "M252",
+    "caliber": 81,
+    "milsPerCircle": 6400,
+    "totalPagesExpected": 19,
+    "pagesCaptured": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
+    "ammoInVanilla17": ["M821 HE", "M819 Smoke", "M853A1 Illumination", "M879 Practice"],
+    "ammoMissing_vs_oldData": ["M107 HE — отсутствует в 1.7 ванили, видимо был только в моде"],
+    "fieldNotes": {
+      "range": "m, horizontal distance to target",
+      "elev": "mils elevation",
+      "tof": "seconds time of flight",
+      "dElev": "mils — change of elevation per 100m DR (height difference)",
+      "dTof": "sec — change of TOF per 100m DR (null if '-' in table)",
+      "peakAlt": "m — peak altitude of trajectory",
+      "angleOfImpact": "degrees — angle at which round hits ground",
+      "windCross": "mils — azimuth correction for 10 m/s crosswind. Scales linearly: actual = windCross * (windSpeed/10)",
+      "windLong": "m — range correction for 10 m/s headwind/tailwind. Scales linearly: actual = windLong * (windSpeed/10)"
+    },
+    "dispersionUnits": "m — value shown in upper-right of each charge table page (assumed CEP at max range)",
+    "weatherUI": "in-game Метеосводка shows: Скорость ветра X м/с, Направление ветра Y° (after 1.7.0.41 = direction FROM which wind blows)"
+  },
+  "ammo": [
+    {
+      "id": "M821",
+      "name": "M821 HE",
+      "type": "HE",
+      "charges": [
+        {
+          "ring": 0,
+          "dispersion": 10,
+          "rangeTable": [
+            { "range":  50, "elev": 1540, "tof": 13.3, "dElev":  61, "dTof": 0.1, "peakAlt": 216, "angleOfImpact": 87.6, "windCross":  91, "windLong":  3 },
+            { "range": 100, "elev": 1479, "tof": 13.2, "dElev":  62, "dTof": 0.1, "peakAlt": 214, "angleOfImpact": 84.2, "windCross":  41, "windLong":  4 },
+            { "range": 150, "elev": 1417, "tof": 13.1, "dElev":  67, "dTof": 0.2, "peakAlt": 210, "angleOfImpact": 79.9, "windCross":  24, "windLong":  4 },
+            { "range": 200, "elev": 1350, "tof": 12.9, "dElev":  70, "dTof": 0.3, "peakAlt": 204, "angleOfImpact": 76.3, "windCross":  18, "windLong":  4 },
+            { "range": 250, "elev": 1280, "tof": 12.6, "dElev":  78, "dTof": 0.3, "peakAlt": 196, "angleOfImpact": 73.5, "windCross":  15, "windLong":  5 },
+            { "range": 300, "elev": 1202, "tof": 12.3, "dElev":  94, "dTof": 0.5, "peakAlt": 185, "angleOfImpact": 68.2, "windCross":  12, "windLong":  5 },
+            { "range": 350, "elev": 1108, "tof": 11.8, "dElev": 145, "dTof": 1.0, "peakAlt": 170, "angleOfImpact": 63.1, "windCross":  10, "windLong":  5 },
+            { "range": 400, "elev":  963, "tof": 10.8, "dElev": null, "dTof": null, "peakAlt": 143, "angleOfImpact": 56.1, "windCross":   8, "windLong":  6 }
+          ]
+        },
+        {
+          "ring": 1,
+          "dispersion": 23,
+          "rangeTable": [
+            { "range": 100, "elev": 1547, "tof": 20.0, "dElev":  27, "dTof": null, "peakAlt": 491, "angleOfImpact": 87.2, "windCross": 117, "windLong": 11 },
+            { "range": 200, "elev": 1493, "tof": 19.9, "dElev":  28, "dTof": 0.1, "peakAlt": 487, "angleOfImpact": 85.2, "windCross":  66, "windLong": 12 },
+            { "range": 300, "elev": 1437, "tof": 19.8, "dElev":  28, "dTof": 0.1, "peakAlt": 480, "angleOfImpact": 82.3, "windCross":  43, "windLong": 13 },
+            { "range": 400, "elev": 1379, "tof": 19.5, "dElev":  31, "dTof": 0.1, "peakAlt": 469, "angleOfImpact": 79.2, "windCross":  32, "windLong": 14 },
+            { "range": 500, "elev": 1317, "tof": 19.3, "dElev":  32, "dTof": 0.2, "peakAlt": 455, "angleOfImpact": 76.0, "windCross":  25, "windLong": 15 },
+            { "range": 600, "elev": 1250, "tof": 18.8, "dElev":  35, "dTof": 0.2, "peakAlt": 436, "angleOfImpact": 71.5, "windCross":  20, "windLong": 16 },
+            { "range": 700, "elev": 1176, "tof": 18.3, "dElev":  43, "dTof": 0.3, "peakAlt": 412, "angleOfImpact": 68.6, "windCross":  17, "windLong": 17 },
+            { "range": 800, "elev": 1087, "tof": 17.6, "dElev":  57, "dTof": 0.6, "peakAlt": 378, "angleOfImpact": 62.9, "windCross":  14, "windLong": 18 },
+            { "range": 900, "elev":  958, "tof": 16.2, "dElev": 139, "dTof": 1.7, "peakAlt": 323, "angleOfImpact": 56.0, "windCross":  12, "windLong": 18 }
+          ]
+        },
+        {
+          "ring": 2,
+          "dispersion": 39,
+          "rangeTable": [
+            { "range":  200, "elev": 1538, "tof": 26.6, "dElev":  15, "dTof": null, "peakAlt":  870, "angleOfImpact": 87.7, "windCross": 169, "windLong": 26 },
+            { "range":  300, "elev": 1507, "tof": 26.6, "dElev":  15, "dTof": 0.1, "peakAlt":  865, "angleOfImpact": 85.2, "windCross":  88, "windLong": 27 },
+            { "range":  400, "elev": 1476, "tof": 26.5, "dElev":  16, "dTof": 0.1, "peakAlt":  860, "angleOfImpact": 84.6, "windCross":  77, "windLong": 27 },
+            { "range":  500, "elev": 1444, "tof": 26.4, "dElev":  17, "dTof": 0.1, "peakAlt":  852, "angleOfImpact": 82.1, "windCross":  54, "windLong": 29 },
+            { "range":  600, "elev": 1411, "tof": 26.2, "dElev":  17, "dTof": 0.1, "peakAlt":  843, "angleOfImpact": 80.4, "windCross":  45, "windLong": 30 },
+            { "range":  700, "elev": 1377, "tof": 26.0, "dElev":  18, "dTof": 0.1, "peakAlt":  832, "angleOfImpact": 79.6, "windCross":  41, "windLong": 31 },
+            { "range":  800, "elev": 1342, "tof": 25.8, "dElev":  18, "dTof": 0.1, "peakAlt":  818, "angleOfImpact": 77.0, "windCross":  34, "windLong": 33 },
+            { "range":  900, "elev": 1305, "tof": 25.6, "dElev":  19, "dTof": 0.2, "peakAlt":  802, "angleOfImpact": 75.2, "windCross":  30, "windLong": 34 },
+            { "range": 1000, "elev": 1267, "tof": 25.3, "dElev":  20, "dTof": 0.2, "peakAlt":  784, "angleOfImpact": 74.2, "windCross":  28, "windLong": 35 },
+            { "range": 1100, "elev": 1226, "tof": 24.9, "dElev":  22, "dTof": 0.2, "peakAlt":  762, "angleOfImpact": 70.4, "windCross":  24, "windLong": 37 },
+            { "range": 1200, "elev": 1182, "tof": 24.5, "dElev":  24, "dTof": 0.3, "peakAlt":  735, "angleOfImpact": 70.0, "windCross":  23, "windLong": 38 },
+            { "range": 1300, "elev": 1133, "tof": 24.0, "dElev":  26, "dTof": 0.4, "peakAlt":  704, "angleOfImpact": 67.5, "windCross":  21, "windLong": 39 },
+            { "range": 1400, "elev": 1077, "tof": 23.3, "dElev":  30, "dTof": 0.4, "peakAlt":  666, "angleOfImpact": 64.7, "windCross":  19, "windLong": 40 },
+            { "range": 1500, "elev": 1011, "tof": 22.4, "dElev":  42, "dTof": 0.6, "peakAlt":  616, "angleOfImpact": 60.4, "windCross":  17, "windLong": 40 },
+            { "range": 1600, "elev":  916, "tof": 21.0, "dElev": 104, "dTof": 1.8, "peakAlt":  541, "angleOfImpact": 56.4, "windCross":  15, "windLong": 40 }
+          ]
+        },
+        {
+          "ring": 3,
+          "dispersion": 54,
+          "rangeTable": [
+            { "range":  300, "elev": 1534, "tof": 31.7, "dElev":  11, "dTof": null, "peakAlt": 1236, "angleOfImpact": 87.6, "windCross": 190, "windLong": 43 },
+            { "range":  400, "elev": 1511, "tof": 31.7, "dElev":  11, "dTof": null, "peakAlt": 1231, "angleOfImpact": 85.6, "windCross": 108, "windLong": 44 },
+            { "range":  500, "elev": 1489, "tof": 31.6, "dElev":  12, "dTof": null, "peakAlt": 1227, "angleOfImpact": 85.4, "windCross": 100, "windLong": 45 },
+            { "range":  600, "elev": 1466, "tof": 31.5, "dElev":  12, "dTof": null, "peakAlt": 1220, "angleOfImpact": 83.5, "windCross":  73, "windLong": 46 },
+            { "range":  700, "elev": 1443, "tof": 31.4, "dElev":  12, "dTof": null, "peakAlt": 1212, "angleOfImpact": 82.4, "windCross":  63, "windLong": 48 },
+            { "range":  800, "elev": 1419, "tof": 31.3, "dElev":  12, "dTof": null, "peakAlt": 1203, "angleOfImpact": 81.3, "windCross":  55, "windLong": 49 },
+            { "range":  900, "elev": 1395, "tof": 31.2, "dElev":  12, "dTof": 0.1, "peakAlt": 1192, "angleOfImpact": 80.1, "windCross":  49, "windLong": 50 },
+            { "range": 1000, "elev": 1370, "tof": 31.0, "dElev":  12, "dTof": 0.1, "peakAlt": 1179, "angleOfImpact": 79.8, "windCross":  48, "windLong": 51 },
+            { "range": 1100, "elev": 1345, "tof": 30.8, "dElev":  13, "dTof": 0.1, "peakAlt": 1166, "angleOfImpact": 77.8, "windCross":  41, "windLong": 53 },
+            { "range": 1200, "elev": 1319, "tof": 30.6, "dElev":  14, "dTof": 0.1, "peakAlt": 1150, "angleOfImpact": 77.3, "windCross":  39, "windLong": 54 },
+            { "range": 1300, "elev": 1292, "tof": 30.4, "dElev":  14, "dTof": 0.2, "peakAlt": 1132, "angleOfImpact": 75.3, "windCross":  34, "windLong": 56 },
+            { "range": 1400, "elev": 1263, "tof": 30.1, "dElev":  14, "dTof": 0.1, "peakAlt": 1112, "angleOfImpact": 74.7, "windCross":  33, "windLong": 57 },
+            { "range": 1500, "elev": 1234, "tof": 29.8, "dElev":  15, "dTof": 0.2, "peakAlt": 1090, "angleOfImpact": 72.5, "windCross":  30, "windLong": 59 },
+            { "range": 1600, "elev": 1203, "tof": 29.5, "dElev":  16, "dTof": 0.2, "peakAlt": 1065, "angleOfImpact": 71.1, "windCross":  28, "windLong": 61 },
+            { "range": 1700, "elev": 1170, "tof": 29.1, "dElev":  17, "dTof": 0.3, "peakAlt": 1036, "angleOfImpact": 69.5, "windCross":  26, "windLong": 62 },
+            { "range": 1800, "elev": 1134, "tof": 28.6, "dElev":  19, "dTof": 0.3, "peakAlt": 1003, "angleOfImpact": 68.6, "windCross":  25, "windLong": 62 },
+            { "range": 1900, "elev": 1096, "tof": 28.1, "dElev":  22, "dTof": 0.4, "peakAlt":  967, "angleOfImpact": 65.9, "windCross":  23, "windLong": 64 },
+            { "range": 2000, "elev": 1052, "tof": 27.4, "dElev":  25, "dTof": 0.4, "peakAlt":  922, "angleOfImpact": 63.8, "windCross":  21, "windLong": 64 },
+            { "range": 2100, "elev": 1001, "tof": 26.6, "dElev":  31, "dTof": 0.6, "peakAlt":  867, "angleOfImpact": 61.2, "windCross":  19, "windLong": 65 },
+            { "range": 2200, "elev":  935, "tof": 25.4, "dElev":  44, "dTof": 0.8, "peakAlt":  793, "angleOfImpact": 57.8, "windCross":  18, "windLong": 64 },
+            { "range": 2300, "elev":  812, "tof": 23.0, "dElev": null, "dTof": null, "peakAlt":  648, "angleOfImpact": 50.1, "windCross":  14, "windLong": 59 }
+          ]
+        },
+        {
+          "ring": 4,
+          "dispersion": 69,
+          "rangeTable": [
+            { "range":  400, "elev": 1531, "tof": 36.3, "dElev":  9, "dTof": null, "peakAlt": 1619, "angleOfImpact": 87.6, "windCross": 208, "windLong": 63 },
+            { "range":  500, "elev": 1514, "tof": 36.3, "dElev":  9, "dTof": null, "peakAlt": 1615, "angleOfImpact": 86.0, "windCross": 127, "windLong": 65 },
+            { "range":  600, "elev": 1496, "tof": 36.2, "dElev":  9, "dTof": null, "peakAlt": 1610, "angleOfImpact": 85.2, "windCross": 106, "windLong": 66 },
+            { "range":  700, "elev": 1478, "tof": 36.2, "dElev":  9, "dTof": 0.1, "peakAlt": 1603, "angleOfImpact": 85.1, "windCross": 105, "windLong": 66 },
+            { "range":  800, "elev": 1460, "tof": 36.1, "dElev":  9, "dTof": 0.1, "peakAlt": 1596, "angleOfImpact": 83.5, "windCross":  80, "windLong": 68 },
+            { "range":  900, "elev": 1442, "tof": 36.0, "dElev":  9, "dTof": 0.1, "peakAlt": 1588, "angleOfImpact": 82.7, "windCross":  71, "windLong": 69 },
+            { "range": 1000, "elev": 1424, "tof": 35.9, "dElev": 10, "dTof": 0.1, "peakAlt": 1579, "angleOfImpact": 82.7, "windCross":  71, "windLong": 69 },
+            { "range": 1100, "elev": 1405, "tof": 35.8, "dElev":  9, "dTof": 0.1, "peakAlt": 1568, "angleOfImpact": 81.0, "windCross":  59, "windLong": 72 },
+            { "range": 1200, "elev": 1386, "tof": 35.6, "dElev": 10, "dTof": 0.1, "peakAlt": 1557, "angleOfImpact": 80.9, "windCross":  58, "windLong": 72 },
+            { "range": 1300, "elev": 1366, "tof": 35.5, "dElev":  9, "dTof": null, "peakAlt": 1543, "angleOfImpact": 79.3, "windCross":  50, "windLong": 75 },
+            { "range": 1400, "elev": 1347, "tof": 35.3, "dElev": 11, "dTof": 0.1, "peakAlt": 1530, "angleOfImpact": 78.4, "windCross":  47, "windLong": 77 },
+            { "range": 1500, "elev": 1326, "tof": 35.1, "dElev": 10, "dTof": 0.1, "peakAlt": 1513, "angleOfImpact": 78.2, "windCross":  46, "windLong": 77 },
+            { "range": 1600, "elev": 1305, "tof": 34.9, "dElev": 10, "dTof": 0.1, "peakAlt": 1496, "angleOfImpact": 76.5, "windCross":  41, "windLong": 80 },
+            { "range": 1700, "elev": 1284, "tof": 34.7, "dElev": 11, "dTof": 0.1, "peakAlt": 1478, "angleOfImpact": 75.6, "windCross":  38, "windLong": 81 },
+            { "range": 1800, "elev": 1262, "tof": 34.5, "dElev": 12, "dTof": 0.2, "peakAlt": 1458, "angleOfImpact": 74.6, "windCross":  36, "windLong": 83 },
+            { "range": 1900, "elev": 1238, "tof": 34.2, "dElev": 12, "dTof": 0.2, "peakAlt": 1434, "angleOfImpact": 73.5, "windCross":  34, "windLong": 84 },
+            { "range": 2000, "elev": 1214, "tof": 33.9, "dElev": 12, "dTof": 0.2, "peakAlt": 1410, "angleOfImpact": 71.7, "windCross":  31, "windLong": 87 },
+            { "range": 2100, "elev": 1189, "tof": 33.6, "dElev": 13, "dTof": 0.2, "peakAlt": 1381, "angleOfImpact": 72.1, "windCross":  32, "windLong": 86 },
+            { "range": 2200, "elev": 1163, "tof": 33.2, "dElev": 13, "dTof": 0.2, "peakAlt": 1352, "angleOfImpact": 70.2, "windCross":  29, "windLong": 88 },
+            { "range": 2300, "elev": 1135, "tof": 32.8, "dElev": 15, "dTof": 0.3, "peakAlt": 1318, "angleOfImpact": 69.7, "windCross":  28, "windLong": 89 },
+            { "range": 2400, "elev": 1105, "tof": 32.3, "dElev": 16, "dTof": 0.3, "peakAlt": 1281, "angleOfImpact": 67.5, "windCross":  26, "windLong": 90 },
+            { "range": 2500, "elev": 1072, "tof": 31.7, "dElev": 17, "dTof": 0.2, "peakAlt": 1238, "angleOfImpact": 66.8, "windCross":  25, "windLong": 91 },
+            { "range": 2600, "elev": 1036, "tof": 31.1, "dElev": 20, "dTof": 0.4, "peakAlt": 1189, "angleOfImpact": 64.3, "windCross":  23, "windLong": 91 },
+            { "range": 2700, "elev":  995, "tof": 30.4, "dElev": 24, "dTof": 0.5, "peakAlt": 1132, "angleOfImpact": 62.3, "windCross":  22, "windLong": 91 },
+            { "range": 2800, "elev":  946, "tof": 29.4, "dElev": 32, "dTof": 0.7, "peakAlt": 1060, "angleOfImpact": 59.8, "windCross":  20, "windLong": 91 },
+            { "range": 2900, "elev":  875, "tof": 27.9, "dElev": 60, "dTof": 1.4, "peakAlt":  953, "angleOfImpact": 56.2, "windCross":  18, "windLong": 88 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M819",
+      "name": "M819 Smoke",
+      "type": "Smoke",
+      "_note": "no ring 0 in vanilla 1.7 — smoke shell starts at ring 1",
+      "charges": [
+        {
+          "ring": 1,
+          "dispersion": 18,
+          "rangeTable": [
+            { "range": 200, "elev": 1463, "tof": 17.7, "dElev":  35, "dTof": 0.1, "peakAlt": 387, "angleOfImpact": 82.8, "windCross":  68, "windLong": 15 },
+            { "range": 250, "elev": 1428, "tof": 17.6, "dElev":  36, "dTof": 0.1, "peakAlt": 383, "angleOfImpact": 82.0, "windCross":  61, "windLong": 15 },
+            { "range": 300, "elev": 1392, "tof": 17.5, "dElev":  39, "dTof": 0.1, "peakAlt": 378, "angleOfImpact": 79.2, "windCross":  46, "windLong": 16 },
+            { "range": 350, "elev": 1353, "tof": 17.4, "dElev":  39, "dTof": 0.2, "peakAlt": 371, "angleOfImpact": 77.2, "windCross":  40, "windLong": 17 },
+            { "range": 400, "elev": 1314, "tof": 17.2, "dElev":  42, "dTof": 0.2, "peakAlt": 364, "angleOfImpact": 75.2, "windCross":  35, "windLong": 17 },
+            { "range": 450, "elev": 1272, "tof": 17.0, "dElev":  44, "dTof": 0.3, "peakAlt": 355, "angleOfImpact": 74.0, "windCross":  32, "windLong": 18 },
+            { "range": 500, "elev": 1228, "tof": 16.7, "dElev":  48, "dTof": 0.3, "peakAlt": 344, "angleOfImpact": 70.8, "windCross":  28, "windLong": 19 },
+            { "range": 550, "elev": 1180, "tof": 16.4, "dElev":  54, "dTof": 0.4, "peakAlt": 331, "angleOfImpact": 69.2, "windCross":  26, "windLong": 20 },
+            { "range": 600, "elev": 1126, "tof": 16.0, "dElev":  63, "dTof": 0.5, "peakAlt": 315, "angleOfImpact": 66.4, "windCross":  23, "windLong": 20 },
+            { "range": 650, "elev": 1063, "tof": 15.5, "dElev":  77, "dTof": 0.7, "peakAlt": 295, "angleOfImpact": 62.3, "windCross":  20, "windLong": 21 },
+            { "range": 700, "elev":  986, "tof": 14.8, "dElev": 150, "dTof": 1.6, "peakAlt": 269, "angleOfImpact": 58.2, "windCross":  18, "windLong": 21 },
+            { "range": 750, "elev":  836, "tof": 13.2, "dElev": null, "dTof": null, "peakAlt": 213, "angleOfImpact": 50.0, "windCross":  15, "windLong": 20 }
+          ]
+        },
+        {
+          "ring": 2,
+          "dispersion": 33,
+          "rangeTable": [
+            { "range":  200, "elev": 1528, "tof": 24.8, "dElev": 19, "dTof": null, "peakAlt": 756, "angleOfImpact": 86.5, "windCross": 173, "windLong": 35 },
+            { "range":  300, "elev": 1491, "tof": 24.8, "dElev": 19, "dTof": 0.1, "peakAlt": 752, "angleOfImpact": 85.5, "windCross": 131, "windLong": 35 },
+            { "range":  400, "elev": 1454, "tof": 24.6, "dElev": 20, "dTof": null, "peakAlt": 745, "angleOfImpact": 82.9, "windCross":  88, "windLong": 37 },
+            { "range":  500, "elev": 1415, "tof": 24.5, "dElev": 20, "dTof": 0.1, "peakAlt": 735, "angleOfImpact": 81.1, "windCross":  71, "windLong": 39 },
+            { "range":  600, "elev": 1375, "tof": 24.3, "dElev": 20, "dTof": 0.1, "peakAlt": 724, "angleOfImpact": 80.0, "windCross":  63, "windLong": 40 },
+            { "range":  700, "elev": 1333, "tof": 24.1, "dElev": 21, "dTof": 0.2, "peakAlt": 710, "angleOfImpact": 78.0, "windCross":  53, "windLong": 42 },
+            { "range":  800, "elev": 1290, "tof": 23.8, "dElev": 24, "dTof": 0.2, "peakAlt": 693, "angleOfImpact": 75.2, "windCross":  44, "windLong": 45 },
+            { "range":  900, "elev": 1243, "tof": 23.4, "dElev": 25, "dTof": 0.2, "peakAlt": 672, "angleOfImpact": 73.0, "windCross":  39, "windLong": 47 },
+            { "range": 1000, "elev": 1192, "tof": 23.0, "dElev": 28, "dTof": 0.3, "peakAlt": 647, "angleOfImpact": 70.6, "windCross":  35, "windLong": 48 },
+            { "range": 1100, "elev": 1135, "tof": 22.4, "dElev": 31, "dTof": 0.3, "peakAlt": 615, "angleOfImpact": 68.7, "windCross":  32, "windLong": 49 },
+            { "range": 1200, "elev": 1069, "tof": 21.7, "dElev": 38, "dTof": 0.5, "peakAlt": 576, "angleOfImpact": 65.5, "windCross":  29, "windLong": 51 },
+            { "range": 1300, "elev":  984, "tof": 20.6, "dElev": 58, "dTof": 0.9, "peakAlt": 520, "angleOfImpact": 60.4, "windCross":  25, "windLong": 51 },
+            { "range": 1400, "elev":  827, "tof": 18.2, "dElev": null, "dTof": null, "peakAlt": 408, "angleOfImpact": 52.1, "windCross":  20, "windLong": 48 }
+          ]
+        },
+        {
+          "ring": 3,
+          "dispersion": 46,
+          "rangeTable": [
+            { "range":  300, "elev": 1522, "tof": 29.7, "dElev": 13, "dTof": 0.1, "peakAlt": 1079, "angleOfImpact": 86.4, "windCross": 190, "windLong": 58 },
+            { "range":  400, "elev": 1495, "tof": 29.6, "dElev": 13, "dTof": null, "peakAlt": 1074, "angleOfImpact": 85.2, "windCross": 142, "windLong": 59 },
+            { "range":  500, "elev": 1468, "tof": 29.5, "dElev": 13, "dTof": null, "peakAlt": 1068, "angleOfImpact": 84.0, "windCross": 115, "windLong": 60 },
+            { "range":  600, "elev": 1441, "tof": 29.4, "dElev": 14, "dTof": 0.1, "peakAlt": 1060, "angleOfImpact": 82.8, "windCross":  96, "windLong": 62 },
+            { "range":  700, "elev": 1413, "tof": 29.3, "dElev": 14, "dTof": 0.1, "peakAlt": 1050, "angleOfImpact": 81.6, "windCross":  83, "windLong": 64 },
+            { "range":  800, "elev": 1384, "tof": 29.1, "dElev": 15, "dTof": 0.1, "peakAlt": 1039, "angleOfImpact": 81.0, "windCross":  77, "windLong": 65 },
+            { "range":  900, "elev": 1354, "tof": 28.9, "dElev": 15, "dTof": 0.1, "peakAlt": 1025, "angleOfImpact": 79.0, "windCross":  65, "windLong": 68 },
+            { "range": 1000, "elev": 1323, "tof": 28.7, "dElev": 15, "dTof": 0.1, "peakAlt": 1009, "angleOfImpact": 78.4, "windCross":  61, "windLong": 69 },
+            { "range": 1100, "elev": 1291, "tof": 28.4, "dElev": 16, "dTof": 0.1, "peakAlt":  991, "angleOfImpact": 76.2, "windCross":  53, "windLong": 72 },
+            { "range": 1200, "elev": 1258, "tof": 28.1, "dElev": 18, "dTof": 0.1, "peakAlt":  971, "angleOfImpact": 74.8, "windCross":  48, "windLong": 74 },
+            { "range": 1300, "elev": 1222, "tof": 27.8, "dElev": 18, "dTof": 0.2, "peakAlt":  947, "angleOfImpact": 72.4, "windCross":  43, "windLong": 76 },
+            { "range": 1400, "elev": 1184, "tof": 27.4, "dElev": 20, "dTof": 0.3, "peakAlt":  919, "angleOfImpact": 72.3, "windCross":  42, "windLong": 76 },
+            { "range": 1500, "elev": 1143, "tof": 26.9, "dElev": 22, "dTof": 0.3, "peakAlt":  887, "angleOfImpact": 69.7, "windCross":  38, "windLong": 79 },
+            { "range": 1600, "elev": 1098, "tof": 26.3, "dElev": 25, "dTof": 0.3, "peakAlt":  850, "angleOfImpact": 67.7, "windCross":  35, "windLong": 80 },
+            { "range": 1700, "elev": 1047, "tof": 25.6, "dElev": 31, "dTof": 0.5, "peakAlt":  805, "angleOfImpact": 65.3, "windCross":  32, "windLong": 81 },
+            { "range": 1800, "elev":  983, "tof": 24.6, "dElev": 37, "dTof": 0.6, "peakAlt":  745, "angleOfImpact": 62.3, "windCross":  29, "windLong": 80 },
+            { "range": 1900, "elev":  899, "tof": 23.2, "dElev": 80, "dTof": 1.5, "peakAlt":  662, "angleOfImpact": 58.1, "windCross":  26, "windLong": 79 }
+          ]
+        },
+        {
+          "ring": 4,
+          "dispersion": 57,
+          "rangeTable": [
+            { "range":  400, "elev": 1517, "tof": 33.7, "dElev": 11, "dTof": null, "peakAlt": 1389, "angleOfImpact": 86.4, "windCross": 201, "windLong":  82 },
+            { "range":  500, "elev": 1496, "tof": 33.6, "dElev": 11, "dTof": null, "peakAlt": 1384, "angleOfImpact": 85.5, "windCross": 162, "windLong":  83 },
+            { "range":  600, "elev": 1474, "tof": 33.5, "dElev": 11, "dTof": null, "peakAlt": 1377, "angleOfImpact": 84.6, "windCross": 135, "windLong":  85 },
+            { "range":  700, "elev": 1452, "tof": 33.4, "dElev": 11, "dTof": null, "peakAlt": 1370, "angleOfImpact": 83.7, "windCross": 116, "windLong":  86 },
+            { "range":  800, "elev": 1430, "tof": 33.3, "dElev": 11, "dTof": null, "peakAlt": 1361, "angleOfImpact": 83.5, "windCross": 112, "windLong":  86 },
+            { "range":  900, "elev": 1407, "tof": 33.2, "dElev": 11, "dTof": 0.1, "peakAlt": 1350, "angleOfImpact": 81.8, "windCross":  91, "windLong":  90 },
+            { "range": 1000, "elev": 1384, "tof": 33.0, "dElev": 12, "dTof": null, "peakAlt": 1338, "angleOfImpact": 81.6, "windCross":  87, "windLong":  90 },
+            { "range": 1100, "elev": 1360, "tof": 32.9, "dElev": 12, "dTof": 0.1, "peakAlt": 1324, "angleOfImpact": 79.9, "windCross":  74, "windLong":  94 },
+            { "range": 1200, "elev": 1336, "tof": 32.7, "dElev": 13, "dTof": 0.1, "peakAlt": 1309, "angleOfImpact": 78.9, "windCross":  68, "windLong":  96 },
+            { "range": 1300, "elev": 1311, "tof": 32.5, "dElev": 13, "dTof": 0.2, "peakAlt": 1292, "angleOfImpact": 77.9, "windCross":  63, "windLong":  98 },
+            { "range": 1400, "elev": 1285, "tof": 32.2, "dElev": 14, "dTof": 0.1, "peakAlt": 1273, "angleOfImpact": 76.8, "windCross":  58, "windLong": 100 },
+            { "range": 1500, "elev": 1258, "tof": 31.9, "dElev": 14, "dTof": 0.1, "peakAlt": 1251, "angleOfImpact": 75.7, "windCross":  54, "windLong": 101 },
+            { "range": 1600, "elev": 1229, "tof": 31.6, "dElev": 15, "dTof": 0.2, "peakAlt": 1227, "angleOfImpact": 74.6, "windCross":  51, "windLong": 103 },
+            { "range": 1700, "elev": 1200, "tof": 31.3, "dElev": 16, "dTof": 0.2, "peakAlt": 1201, "angleOfImpact": 73.4, "windCross":  48, "windLong": 105 },
+            { "range": 1800, "elev": 1168, "tof": 30.9, "dElev": 17, "dTof": 0.2, "peakAlt": 1170, "angleOfImpact": 72.0, "windCross":  45, "windLong": 107 },
+            { "range": 1900, "elev": 1134, "tof": 30.4, "dElev": 18, "dTof": 0.3, "peakAlt": 1135, "angleOfImpact": 71.3, "windCross":  43, "windLong": 107 },
+            { "range": 2000, "elev": 1097, "tof": 29.9, "dElev": 20, "dTof": 0.3, "peakAlt": 1096, "angleOfImpact": 69.0, "windCross":  39, "windLong": 109 },
+            { "range": 2100, "elev": 1057, "tof": 29.2, "dElev": 23, "dTof": 0.3, "peakAlt": 1051, "angleOfImpact": 67.3, "windCross":  36, "windLong": 110 },
+            { "range": 2200, "elev": 1010, "tof": 28.5, "dElev": 27, "dTof": 0.5, "peakAlt":  996, "angleOfImpact": 65.2, "windCross":  34, "windLong": 110 },
+            { "range": 2300, "elev":  955, "tof": 27.5, "dElev": 35, "dTof": 0.7, "peakAlt":  930, "angleOfImpact": 62.7, "windCross":  31, "windLong": 109 },
+            { "range": 2400, "elev":  877, "tof": 26.0, "dElev": 64, "dTof": 1.4, "peakAlt":  830, "angleOfImpact": 58.8, "windCross":  28, "windLong": 106 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M853A1",
+      "name": "M853A1 Illumination",
+      "type": "Illum",
+      "_note": "no ring 0 in vanilla 1.7 — illum shell starts at ring 1",
+      "charges": [
+        {
+          "ring": 1,
+          "dispersion": 17,
+          "rangeTable": [
+            { "range": 200, "elev": 1464, "tof": 18.1, "dElev":  36, "dTof": 0.1, "peakAlt": 403, "angleOfImpact": 83.4, "windCross": 137, "windLong": 29 },
+            { "range": 250, "elev": 1428, "tof": 18.0, "dElev":  37, "dTof": 0.1, "peakAlt": 399, "angleOfImpact": 82.6, "windCross": 121, "windLong": 29 },
+            { "range": 300, "elev": 1391, "tof": 17.9, "dElev":  39, "dTof": 0.2, "peakAlt": 393, "angleOfImpact": 80.0, "windCross":  92, "windLong": 31 },
+            { "range": 350, "elev": 1352, "tof": 17.7, "dElev":  39, "dTof": 0.1, "peakAlt": 387, "angleOfImpact": 78.2, "windCross":  79, "windLong": 33 },
+            { "range": 400, "elev": 1313, "tof": 17.6, "dElev":  42, "dTof": 0.3, "peakAlt": 379, "angleOfImpact": 76.4, "windCross":  69, "windLong": 34 },
+            { "range": 450, "elev": 1271, "tof": 17.3, "dElev":  45, "dTof": 0.2, "peakAlt": 370, "angleOfImpact": 75.3, "windCross":  65, "windLong": 35 },
+            { "range": 500, "elev": 1226, "tof": 17.1, "dElev":  49, "dTof": 0.3, "peakAlt": 358, "angleOfImpact": 71.5, "windCross":  53, "windLong": 37 },
+            { "range": 550, "elev": 1177, "tof": 16.8, "dElev":  54, "dTof": 0.5, "peakAlt": 345, "angleOfImpact": 70.9, "windCross":  51, "windLong": 37 },
+            { "range": 600, "elev": 1123, "tof": 16.3, "dElev":  65, "dTof": 0.5, "peakAlt": 328, "angleOfImpact": 68.3, "windCross":  46, "windLong": 38 },
+            { "range": 650, "elev": 1058, "tof": 15.8, "dElev":  78, "dTof": 0.7, "peakAlt": 307, "angleOfImpact": 64.4, "windCross":  40, "windLong": 39 },
+            { "range": 700, "elev":  980, "tof": 15.1, "dElev": 143, "dTof": 1.6, "peakAlt": 279, "angleOfImpact": 60.5, "windCross":  36, "windLong": 39 },
+            { "range": 750, "elev":  837, "tof": 13.5, "dElev": null, "dTof": null, "peakAlt": 225, "angleOfImpact": 53.0, "windCross":  29, "windLong": 37 }
+          ]
+        },
+        {
+          "ring": 2,
+          "dispersion": 34,
+          "rangeTable": [
+            { "range":  200, "elev": 1530, "tof": 26.2, "dElev": 18, "dTof": null, "peakAlt": 842, "angleOfImpact": 87.8, "windCross": 457, "windLong": 73 },
+            { "range":  300, "elev": 1494, "tof": 26.2, "dElev": 19, "dTof": 0.1, "peakAlt": 837, "angleOfImpact": 85.7, "windCross": 242, "windLong": 75 },
+            { "range":  400, "elev": 1457, "tof": 26.0, "dElev": 19, "dTof": null, "peakAlt": 830, "angleOfImpact": 84.2, "windCross": 183, "windLong": 77 },
+            { "range":  500, "elev": 1419, "tof": 25.9, "dElev": 19, "dTof": 0.1, "peakAlt": 820, "angleOfImpact": 82.7, "windCross": 147, "windLong": 80 },
+            { "range":  600, "elev": 1380, "tof": 25.7, "dElev": 20, "dTof": 0.1, "peakAlt": 809, "angleOfImpact": 81.9, "windCross": 132, "windLong": 81 },
+            { "range":  700, "elev": 1339, "tof": 25.4, "dElev": 21, "dTof": 0.1, "peakAlt": 794, "angleOfImpact": 79.6, "windCross": 106, "windLong": 85 },
+            { "range":  800, "elev": 1296, "tof": 25.2, "dElev": 22, "dTof": 0.2, "peakAlt": 776, "angleOfImpact": 78.0, "windCross":  92, "windLong": 88 },
+            { "range":  900, "elev": 1251, "tof": 24.8, "dElev": 25, "dTof": 0.2, "peakAlt": 754, "angleOfImpact": 76.2, "windCross":  82, "windLong": 90 },
+            { "range": 1000, "elev": 1201, "tof": 24.4, "dElev": 27, "dTof": 0.3, "peakAlt": 728, "angleOfImpact": 74.3, "windCross":  73, "windLong": 93 },
+            { "range": 1100, "elev": 1146, "tof": 23.8, "dElev": 30, "dTof": 0.3, "peakAlt": 696, "angleOfImpact": 72.1, "windCross":  65, "windLong": 95 },
+            { "range": 1200, "elev": 1083, "tof": 23.1, "dElev": 34, "dTof": 0.4, "peakAlt": 656, "angleOfImpact": 70.4, "windCross":  60, "windLong": 96 },
+            { "range": 1300, "elev": 1009, "tof": 22.2, "dElev": 47, "dTof": 0.7, "peakAlt": 604, "angleOfImpact": 66.4, "windCross":  52, "windLong": 96 },
+            { "range": 1400, "elev":  906, "tof": 20.7, "dElev": 95, "dTof": 1.5, "peakAlt": 527, "angleOfImpact": 61.7, "windCross":  44, "windLong": 94 }
+          ]
+        },
+        {
+          "ring": 3,
+          "dispersion": 48,
+          "rangeTable": [
+            { "range":  300, "elev": 1521, "tof": 31.2, "dElev": 13, "dTof": null, "peakAlt": 1191, "angleOfImpact": 87.2, "windCross": 372, "windLong": 116 },
+            { "range":  400, "elev": 1494, "tof": 31.1, "dElev": 13, "dTof": null, "peakAlt": 1186, "angleOfImpact": 86.2, "windCross": 283, "windLong": 118 },
+            { "range":  500, "elev": 1467, "tof": 31.1, "dElev": 14, "dTof": 0.1, "peakAlt": 1178, "angleOfImpact": 85.3, "windCross": 230, "windLong": 120 },
+            { "range":  600, "elev": 1439, "tof": 30.9, "dElev": 15, "dTof": null, "peakAlt": 1171, "angleOfImpact": 84.9, "windCross": 211, "windLong": 120 },
+            { "range":  700, "elev": 1410, "tof": 30.8, "dElev": 15, "dTof": 0.1, "peakAlt": 1159, "angleOfImpact": 83.3, "windCross": 165, "windLong": 124 },
+            { "range":  800, "elev": 1380, "tof": 30.6, "dElev": 15, "dTof": 0.1, "peakAlt": 1146, "angleOfImpact": 82.9, "windCross": 155, "windLong": 125 },
+            { "range":  900, "elev": 1350, "tof": 30.4, "dElev": 16, "dTof": 0.1, "peakAlt": 1131, "angleOfImpact": 81.3, "windCross": 129, "windLong": 129 },
+            { "range": 1000, "elev": 1318, "tof": 30.1, "dElev": 16, "dTof": 0.1, "peakAlt": 1113, "angleOfImpact": 80.8, "windCross": 122, "windLong": 130 },
+            { "range": 1100, "elev": 1285, "tof": 29.9, "dElev": 18, "dTof": 0.2, "peakAlt": 1093, "angleOfImpact": 79.2, "windCross": 105, "windLong": 134 },
+            { "range": 1200, "elev": 1250, "tof": 29.5, "dElev": 18, "dTof": 0.1, "peakAlt": 1070, "angleOfImpact": 78.0, "windCross":  95, "windLong": 136 },
+            { "range": 1300, "elev": 1213, "tof": 29.2, "dElev": 19, "dTof": 0.3, "peakAlt": 1044, "angleOfImpact": 76.2, "windCross":  84, "windLong": 139 },
+            { "range": 1400, "elev": 1173, "tof": 28.7, "dElev": 20, "dTof": 0.2, "peakAlt": 1012, "angleOfImpact": 75.4, "windCross":  80, "windLong": 139 },
+            { "range": 1500, "elev": 1130, "tof": 28.2, "dElev": 22, "dTof": 0.3, "peakAlt":  976, "angleOfImpact": 74.5, "windCross":  76, "windLong": 140 },
+            { "range": 1600, "elev": 1083, "tof": 27.5, "dElev": 25, "dTof": 0.3, "peakAlt":  935, "angleOfImpact": 72.9, "windCross":  70, "windLong": 141 },
+            { "range": 1700, "elev": 1029, "tof": 26.8, "dElev": 29, "dTof": 0.5, "peakAlt":  883, "angleOfImpact": 70.9, "windCross":  63, "windLong": 141 },
+            { "range": 1800, "elev":  966, "tof": 25.8, "dElev": 39, "dTof": 0.7, "peakAlt":  820, "angleOfImpact": 68.5, "windCross":  58, "windLong": 140 },
+            { "range": 1900, "elev":  881, "tof": 24.3, "dElev": 64, "dTof": 1.2, "peakAlt":  730, "angleOfImpact": 64.0, "windCross":  50, "windLong": 136 }
+          ]
+        },
+        {
+          "ring": 4,
+          "dispersion": 59,
+          "rangeTable": [
+            { "range":  400, "elev": 1515, "tof": 35.8, "dElev": 11, "dTof": null, "peakAlt": 1566, "angleOfImpact": 87.3, "windCross": 390, "windLong": 164 },
+            { "range":  500, "elev": 1493, "tof": 35.8, "dElev": 11, "dTof": 0.1, "peakAlt": 1561, "angleOfImpact": 87.2, "windCross": 356, "windLong": 164 },
+            { "range":  600, "elev": 1471, "tof": 35.7, "dElev": 11, "dTof": 0.1, "peakAlt": 1553, "angleOfImpact": 86.0, "windCross": 267, "windLong": 167 },
+            { "range":  700, "elev": 1449, "tof": 35.6, "dElev": 12, "dTof": 0.1, "peakAlt": 1545, "angleOfImpact": 85.4, "windCross": 231, "windLong": 169 },
+            { "range":  800, "elev": 1426, "tof": 35.5, "dElev": 12, "dTof": 0.1, "peakAlt": 1535, "angleOfImpact": 85.2, "windCross": 223, "windLong": 169 },
+            { "range":  900, "elev": 1403, "tof": 35.3, "dElev": 12, "dTof": 0.1, "peakAlt": 1523, "angleOfImpact": 84.0, "windCross": 181, "windLong": 173 },
+            { "range": 1000, "elev": 1379, "tof": 35.1, "dElev": 13, "dTof": null, "peakAlt": 1509, "angleOfImpact": 83.8, "windCross": 174, "windLong": 173 },
+            { "range": 1100, "elev": 1354, "tof": 35.0, "dElev": 13, "dTof": 0.1, "peakAlt": 1494, "angleOfImpact": 82.6, "windCross": 148, "windLong": 177 },
+            { "range": 1200, "elev": 1329, "tof": 34.7, "dElev": 14, "dTof": 0.1, "peakAlt": 1476, "angleOfImpact": 82.4, "windCross": 143, "windLong": 178 },
+            { "range": 1300, "elev": 1302, "tof": 34.5, "dElev": 14, "dTof": 0.1, "peakAlt": 1456, "angleOfImpact": 81.1, "windCross": 124, "windLong": 181 },
+            { "range": 1400, "elev": 1275, "tof": 34.2, "dElev": 14, "dTof": 0.1, "peakAlt": 1435, "angleOfImpact": 80.9, "windCross": 121, "windLong": 181 },
+            { "range": 1500, "elev": 1247, "tof": 33.9, "dElev": 16, "dTof": 0.2, "peakAlt": 1410, "angleOfImpact": 79.5, "windCross": 107, "windLong": 184 },
+            { "range": 1600, "elev": 1216, "tof": 33.6, "dElev": 15, "dTof": 0.2, "peakAlt": 1382, "angleOfImpact": 78.2, "windCross":  95, "windLong": 186 },
+            { "range": 1700, "elev": 1185, "tof": 33.2, "dElev": 16, "dTof": 0.3, "peakAlt": 1351, "angleOfImpact": 78.3, "windCross":  96, "windLong": 186 },
+            { "range": 1800, "elev": 1152, "tof": 32.7, "dElev": 18, "dTof": 0.2, "peakAlt": 1317, "angleOfImpact": 76.8, "windCross":  86, "windLong": 188 },
+            { "range": 1900, "elev": 1116, "tof": 32.2, "dElev": 18, "dTof": 0.3, "peakAlt": 1276, "angleOfImpact": 75.6, "windCross":  80, "windLong": 188 },
+            { "range": 2000, "elev": 1078, "tof": 31.6, "dElev": 20, "dTof": 0.3, "peakAlt": 1233, "angleOfImpact": 75.0, "windCross":  78, "windLong": 188 },
+            { "range": 2100, "elev": 1036, "tof": 30.9, "dElev": 23, "dTof": 0.4, "peakAlt": 1181, "angleOfImpact": 73.0, "windCross":  70, "windLong": 188 },
+            { "range": 2200, "elev":  988, "tof": 30.1, "dElev": 27, "dTof": 0.5, "peakAlt": 1120, "angleOfImpact": 71.4, "windCross":  65, "windLong": 186 },
+            { "range": 2300, "elev":  932, "tof": 29.0, "dElev": 32, "dTof": 0.6, "peakAlt": 1045, "angleOfImpact": 69.3, "windCross":  60, "windLong": 183 },
+            { "range": 2400, "elev":  860, "tof": 27.6, "dElev": 49, "dTof": 1.1, "peakAlt":  945, "angleOfImpact": 67.1, "windCross":  55, "windLong": 179 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M879",
+      "name": "M879 Practice",
+      "type": "Practice",
+      "_note": "training round — почти идентичен M821 HE по баллистике, но другая поправка на ветер (windCross). Если в калькуляторе показывать только боевые снаряды — можно скрыть.",
+      "charges": [
+        {
+          "ring": 0,
+          "dispersion": 10,
+          "rangeTable": [
+            { "range":  50, "elev": 1540, "tof": 13.3, "dElev":  61, "dTof": 0.1, "peakAlt": 216, "angleOfImpact": 87.6, "windCross": 88, "windLong":  3 },
+            { "range": 100, "elev": 1479, "tof": 13.2, "dElev":  62, "dTof": 0.1, "peakAlt": 214, "angleOfImpact": 84.2, "windCross": 39, "windLong":  4 },
+            { "range": 150, "elev": 1417, "tof": 13.1, "dElev":  66, "dTof": 0.2, "peakAlt": 210, "angleOfImpact": 79.9, "windCross": 23, "windLong":  4 },
+            { "range": 200, "elev": 1351, "tof": 12.9, "dElev":  71, "dTof": 0.3, "peakAlt": 204, "angleOfImpact": 76.3, "windCross": 18, "windLong":  4 },
+            { "range": 250, "elev": 1280, "tof": 12.6, "dElev":  77, "dTof": 0.3, "peakAlt": 196, "angleOfImpact": 73.4, "windCross": 15, "windLong":  5 },
+            { "range": 300, "elev": 1203, "tof": 12.3, "dElev":  94, "dTof": 0.5, "peakAlt": 186, "angleOfImpact": 68.2, "windCross": 12, "windLong":  5 },
+            { "range": 350, "elev": 1109, "tof": 11.8, "dElev": 143, "dTof": 1.0, "peakAlt": 170, "angleOfImpact": 63.1, "windCross": 10, "windLong":  5 },
+            { "range": 400, "elev":  966, "tof": 10.8, "dElev": null, "dTof": null, "peakAlt": 144, "angleOfImpact": 56.2, "windCross":  8, "windLong":  5 }
+          ]
+        },
+        {
+          "ring": 1,
+          "dispersion": 24,
+          "rangeTable": [
+            { "range": 200, "elev": 1498, "tof": 20.5, "dElev": 26, "dTof": 0.1, "peakAlt": 513, "angleOfImpact": 84.6, "windCross": 61, "windLong": 12 },
+            { "range": 300, "elev": 1446, "tof": 20.3, "dElev": 27, "dTof": 0.1, "peakAlt": 507, "angleOfImpact": 81.8, "windCross": 41, "windLong": 13 },
+            { "range": 400, "elev": 1391, "tof": 20.1, "dElev": 28, "dTof": 0.1, "peakAlt": 497, "angleOfImpact": 79.0, "windCross": 31, "windLong": 14 },
+            { "range": 500, "elev": 1334, "tof": 19.9, "dElev": 30, "dTof": 0.2, "peakAlt": 484, "angleOfImpact": 76.0, "windCross": 25, "windLong": 15 },
+            { "range": 600, "elev": 1271, "tof": 19.5, "dElev": 33, "dTof": 0.2, "peakAlt": 467, "angleOfImpact": 73.6, "windCross": 22, "windLong": 16 },
+            { "range": 700, "elev": 1205, "tof": 19.0, "dElev": 39, "dTof": 0.3, "peakAlt": 445, "angleOfImpact": 69.2, "windCross": 18, "windLong": 18 },
+            { "range": 800, "elev": 1125, "tof": 18.4, "dElev": 45, "dTof": 0.5, "peakAlt": 414, "angleOfImpact": 65.9, "windCross": 16, "windLong": 18 },
+            { "range": 900, "elev": 1026, "tof": 17.4, "dElev": 71, "dTof": 0.8, "peakAlt": 372, "angleOfImpact": 60.6, "windCross": 13, "windLong": 19 },
+            { "range": 1000, "elev":  824, "tof": 14.9, "dElev": null, "dTof": null, "peakAlt": 274, "angleOfImpact": 48.6, "windCross": 10, "windLong": 18 }
+          ]
+        },
+        {
+          "ring": 2,
+          "dispersion": 39,
+          "rangeTable": [
+            { "range":  300, "elev": 1508, "tof": 26.6, "dElev": 16, "dTof": 0.1, "peakAlt": 866, "angleOfImpact": 85.3, "windCross": 86, "windLong": 26 },
+            { "range":  400, "elev": 1476, "tof": 26.5, "dElev": 16, "dTof": 0.1, "peakAlt": 860, "angleOfImpact": 84.6, "windCross": 74, "windLong": 27 },
+            { "range":  500, "elev": 1444, "tof": 26.4, "dElev": 16, "dTof": 0.1, "peakAlt": 853, "angleOfImpact": 82.1, "windCross": 52, "windLong": 28 },
+            { "range":  600, "elev": 1411, "tof": 26.2, "dElev": 17, "dTof": 0.1, "peakAlt": 843, "angleOfImpact": 80.4, "windCross": 43, "windLong": 29 },
+            { "range":  700, "elev": 1377, "tof": 26.0, "dElev": 17, "dTof": 0.1, "peakAlt": 832, "angleOfImpact": 79.6, "windCross": 40, "windLong": 30 },
+            { "range":  800, "elev": 1342, "tof": 25.8, "dElev": 18, "dTof": 0.1, "peakAlt": 819, "angleOfImpact": 77.0, "windCross": 33, "windLong": 32 },
+            { "range":  900, "elev": 1306, "tof": 25.6, "dElev": 19, "dTof": 0.2, "peakAlt": 803, "angleOfImpact": 75.2, "windCross": 29, "windLong": 33 },
+            { "range": 1000, "elev": 1268, "tof": 25.3, "dElev": 20, "dTof": 0.2, "peakAlt": 785, "angleOfImpact": 74.2, "windCross": 28, "windLong": 34 },
+            { "range": 1100, "elev": 1227, "tof": 24.9, "dElev": 21, "dTof": 0.2, "peakAlt": 762, "angleOfImpact": 71.3, "windCross": 24, "windLong": 36 },
+            { "range": 1200, "elev": 1183, "tof": 24.5, "dElev": 23, "dTof": 0.2, "peakAlt": 736, "angleOfImpact": 69.9, "windCross": 23, "windLong": 37 },
+            { "range": 1300, "elev": 1134, "tof": 24.0, "dElev": 26, "dTof": 0.3, "peakAlt": 704, "angleOfImpact": 67.4, "windCross": 20, "windLong": 38 },
+            { "range": 1400, "elev": 1079, "tof": 23.3, "dElev": 30, "dTof": 0.4, "peakAlt": 667, "angleOfImpact": 64.7, "windCross": 19, "windLong": 39 },
+            { "range": 1500, "elev": 1013, "tof": 22.4, "dElev": 41, "dTof": 0.6, "peakAlt": 617, "angleOfImpact": 60.4, "windCross": 16, "windLong": 39 },
+            { "range": 1600, "elev":  920, "tof": 21.0, "dElev": 100, "dTof": 1.6, "peakAlt": 544, "angleOfImpact": 56.5, "windCross": 15, "windLong": 39 }
+          ]
+        },
+        {
+          "ring": 3,
+          "dispersion": 54,
+          "rangeTable": [
+            { "range":  400, "elev": 1511, "tof": 31.7, "dElev": 11, "dTof": 0.1, "peakAlt": 1229, "angleOfImpact": 85.6, "windCross": 104, "windLong": 43 },
+            { "range":  500, "elev": 1489, "tof": 31.6, "dElev": 12, "dTof": 0.1, "peakAlt": 1224, "angleOfImpact": 85.4, "windCross":  96, "windLong": 43 },
+            { "range":  600, "elev": 1466, "tof": 31.5, "dElev": 12, "dTof": null, "peakAlt": 1217, "angleOfImpact": 83.5, "windCross":  71, "windLong": 45 },
+            { "range":  700, "elev": 1443, "tof": 31.4, "dElev": 12, "dTof": 0.1, "peakAlt": 1209, "angleOfImpact": 82.3, "windCross":  61, "windLong": 46 },
+            { "range":  800, "elev": 1419, "tof": 31.3, "dElev": 12, "dTof": 0.1, "peakAlt": 1200, "angleOfImpact": 81.2, "windCross":  54, "windLong": 47 },
+            { "range":  900, "elev": 1395, "tof": 31.1, "dElev": 12, "dTof": null, "peakAlt": 1189, "angleOfImpact": 80.1, "windCross":  48, "windLong": 49 },
+            { "range": 1000, "elev": 1370, "tof": 31.0, "dElev": 12, "dTof": 0.1, "peakAlt": 1177, "angleOfImpact": 79.7, "windCross":  46, "windLong": 49 },
+            { "range": 1100, "elev": 1345, "tof": 30.8, "dElev": 13, "dTof": 0.1, "peakAlt": 1163, "angleOfImpact": 77.7, "windCross":  39, "windLong": 52 },
+            { "range": 1200, "elev": 1319, "tof": 30.6, "dElev": 13, "dTof": 0.1, "peakAlt": 1147, "angleOfImpact": 77.3, "windCross":  38, "windLong": 52 },
+            { "range": 1300, "elev": 1292, "tof": 30.4, "dElev": 14, "dTof": 0.2, "peakAlt": 1130, "angleOfImpact": 75.2, "windCross":  33, "windLong": 55 },
+            { "range": 1400, "elev": 1264, "tof": 30.1, "dElev": 14, "dTof": 0.2, "peakAlt": 1111, "angleOfImpact": 74.7, "windCross":  32, "windLong": 55 },
+            { "range": 1500, "elev": 1234, "tof": 29.8, "dElev": 15, "dTof": 0.2, "peakAlt": 1088, "angleOfImpact": 72.4, "windCross":  29, "windLong": 57 },
+            { "range": 1600, "elev": 1204, "tof": 29.4, "dElev": 17, "dTof": 0.2, "peakAlt": 1063, "angleOfImpact": 71.0, "windCross":  27, "windLong": 59 },
+            { "range": 1700, "elev": 1170, "tof": 29.0, "dElev": 17, "dTof": 0.2, "peakAlt": 1034, "angleOfImpact": 69.4, "windCross":  25, "windLong": 60 },
+            { "range": 1800, "elev": 1135, "tof": 28.6, "dElev": 19, "dTof": 0.3, "peakAlt": 1002, "angleOfImpact": 68.5, "windCross":  24, "windLong": 61 },
+            { "range": 1900, "elev": 1097, "tof": 28.0, "dElev": 22, "dTof": 0.3, "peakAlt":  965, "angleOfImpact": 65.8, "windCross":  22, "windLong": 62 },
+            { "range": 2000, "elev": 1053, "tof": 27.4, "dElev": 25, "dTof": 0.4, "peakAlt":  921, "angleOfImpact": 63.7, "windCross":  20, "windLong": 63 },
+            { "range": 2100, "elev": 1002, "tof": 26.6, "dElev": 31, "dTof": 0.6, "peakAlt":  866, "angleOfImpact": 61.1, "windCross":  19, "windLong": 63 },
+            { "range": 2200, "elev":  936, "tof": 25.4, "dElev": 44, "dTof": 0.8, "peakAlt":  792, "angleOfImpact": 57.7, "windCross":  17, "windLong": 62 },
+            { "range": 2300, "elev":  814, "tof": 23.0, "dElev": null, "dTof": null, "peakAlt":  649, "angleOfImpact": 50.1, "windCross":  14, "windLong": 57 }
+          ]
+        },
+        {
+          "ring": 4,
+          "dispersion": 68,
+          "rangeTable": [
+            { "range":  500, "elev": 1512, "tof": 35.9, "dElev":  9, "dTof": null, "peakAlt": 1582, "angleOfImpact": 85.8, "windCross": 119, "windLong": 61 },
+            { "range":  600, "elev": 1494, "tof": 35.9, "dElev":  9, "dTof": 0.1, "peakAlt": 1577, "angleOfImpact": 85.0, "windCross": 100, "windLong": 62 },
+            { "range":  700, "elev": 1476, "tof": 35.8, "dElev":  9, "dTof": null, "peakAlt": 1570, "angleOfImpact": 85.0, "windCross":  99, "windLong": 62 },
+            { "range":  800, "elev": 1458, "tof": 35.7, "dElev":  9, "dTof": null, "peakAlt": 1563, "angleOfImpact": 83.4, "windCross":  76, "windLong": 64 },
+            { "range":  900, "elev": 1440, "tof": 35.6, "dElev": 10, "dTof": null, "peakAlt": 1557, "angleOfImpact": 83.4, "windCross":  74, "windLong": 64 },
+            { "range": 1000, "elev": 1421, "tof": 35.5, "dElev": 10, "dTof": 0.1, "peakAlt": 1546, "angleOfImpact": 81.7, "windCross":  61, "windLong": 67 },
+            { "range": 1100, "elev": 1402, "tof": 35.4, "dElev": 10, "dTof": 0.1, "peakAlt": 1535, "angleOfImpact": 80.8, "windCross":  56, "windLong": 69 },
+            { "range": 1200, "elev": 1382, "tof": 35.2, "dElev": 10, "dTof": null, "peakAlt": 1523, "angleOfImpact": 80.7, "windCross":  54, "windLong": 69 },
+            { "range": 1300, "elev": 1362, "tof": 35.1, "dElev":  9, "dTof": 0.1, "peakAlt": 1510, "angleOfImpact": 79.0, "windCross":  47, "windLong": 71 },
+            { "range": 1400, "elev": 1342, "tof": 34.9, "dElev": 10, "dTof": 0.1, "peakAlt": 1495, "angleOfImpact": 78.1, "windCross":  44, "windLong": 73 },
+            { "range": 1500, "elev": 1321, "tof": 34.7, "dElev": 10, "dTof": 0.1, "peakAlt": 1479, "angleOfImpact": 77.9, "windCross":  43, "windLong": 73 },
+            { "range": 1600, "elev": 1300, "tof": 34.5, "dElev": 11, "dTof": 0.1, "peakAlt": 1462, "angleOfImpact": 76.2, "windCross":  38, "windLong": 76 },
+            { "range": 1700, "elev": 1278, "tof": 34.3, "dElev": 11, "dTof": 0.1, "peakAlt": 1444, "angleOfImpact": 76.0, "windCross":  38, "windLong": 76 },
+            { "range": 1800, "elev": 1255, "tof": 34.0, "dElev": 11, "dTof": 0.1, "peakAlt": 1421, "angleOfImpact": 74.1, "windCross":  34, "windLong": 79 },
+            { "range": 1900, "elev": 1232, "tof": 33.8, "dElev": 13, "dTof": 0.2, "peakAlt": 1399, "angleOfImpact": 73.1, "windCross":  32, "windLong": 80 },
+            { "range": 2000, "elev": 1207, "tof": 33.5, "dElev": 13, "dTof": 0.2, "peakAlt": 1373, "angleOfImpact": 72.0, "windCross":  30, "windLong": 82 },
+            { "range": 2100, "elev": 1181, "tof": 33.1, "dElev": 13, "dTof": 0.2, "peakAlt": 1344, "angleOfImpact": 71.6, "windCross":  30, "windLong": 82 },
+            { "range": 2200, "elev": 1154, "tof": 32.7, "dElev": 14, "dTof": 0.2, "peakAlt": 1314, "angleOfImpact": 69.6, "windCross":  27, "windLong": 84 },
+            { "range": 2300, "elev": 1125, "tof": 32.3, "dElev": 16, "dTof": 0.3, "peakAlt": 1279, "angleOfImpact": 69.0, "windCross":  27, "windLong": 85 },
+            { "range": 2400, "elev": 1094, "tof": 31.8, "dElev": 18, "dTof": 0.3, "peakAlt": 1241, "angleOfImpact": 66.7, "windCross":  25, "windLong": 86 },
+            { "range": 2500, "elev": 1059, "tof": 31.2, "dElev": 18, "dTof": 0.3, "peakAlt": 1195, "angleOfImpact": 65.1, "windCross":  23, "windLong": 87 },
+            { "range": 2600, "elev": 1020, "tof": 30.5, "dElev": 20, "dTof": 0.4, "peakAlt": 1142, "angleOfImpact": 64.1, "windCross":  22, "windLong": 87 },
+            { "range": 2700, "elev":  975, "tof": 29.6, "dElev": 25, "dTof": 0.4, "peakAlt": 1081, "angleOfImpact": 61.9, "windCross":  21, "windLong": 87 },
+            { "range": 2800, "elev":  918, "tof": 28.5, "dElev": 38, "dTof": 0.8, "peakAlt":  998, "angleOfImpact": 59.0, "windCross":  19, "windLong": 86 },
+            { "range": 2900, "elev":  822, "tof": 26.3, "dElev": null, "dTof": null, "peakAlt":  853, "angleOfImpact": 53.0, "windCross":  16, "windLong": 81 }
+          ]
+        }
+      ]
+    }
+  ]
+}

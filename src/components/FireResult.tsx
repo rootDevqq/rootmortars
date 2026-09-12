@@ -111,11 +111,15 @@ function buildCopyText(sol: FireSolution, mils: number, isMortar: boolean): stri
     if (sol.chargeLevel !== undefined) parts.push(`Заряд: ${sol.chargeLevel}`);
     if (sol.elevationLow !== undefined) {
       const az = formatMils(sol.azimuthMilsLow ?? sol.azimuthMils, mils);
-      parts.push(`LOW az ${az} / возв ${sol.elevationLow}` + (sol.tofLow != null ? ` / ${sol.tofLow.toFixed(1)}с` : ''));
+      parts.push(`LOW az ${az} / возв ${sol.elevationLow}`
+        + (sol.tofLow != null ? ` / ${sol.tofLow.toFixed(1)}с` : '')
+        + (sol.dispersionLow != null ? ` / разброс ${sol.dispersionLow}м` : ''));
     }
     if (sol.elevationHigh !== undefined) {
       const az = formatMils(sol.azimuthMilsHigh ?? sol.azimuthMils, mils);
-      parts.push(`HIGH az ${az} / возв ${sol.elevationHigh}` + (sol.tofHigh != null ? ` / ${sol.tofHigh.toFixed(1)}с` : ''));
+      parts.push(`HIGH az ${az} / возв ${sol.elevationHigh}`
+        + (sol.tofHigh != null ? ` / ${sol.tofHigh.toFixed(1)}с` : '')
+        + (sol.dispersionHigh != null ? ` / разброс ${sol.dispersionHigh}м` : ''));
     }
   }
   return parts.join(' | ');
@@ -124,12 +128,12 @@ function buildCopyText(sol: FireSolution, mils: number, isMortar: boolean): stri
 // ─── Per-trajectory solution row (howitzer LOW / HIGH) ───────────────────────
 
 function TrajRow({
-  label, color, az, elev, tof, mils,
-}: { label: string; color: string; az?: number; elev: number; tof?: number; mils: number }) {
+  label, color, az, elev, tof, dispersion, mils,
+}: { label: string; color: string; az?: number; elev: number; tof?: number; dispersion?: number; mils: number }) {
   const cell = (caption: string, value: React.ReactNode, valueColor: string, big = true) => (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
       <span style={{ fontSize: 8, color: '#475569', letterSpacing: '0.1em' }}>{caption}</span>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 3 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 3, whiteSpace: 'nowrap' }}>
         <span style={{
           fontSize: big ? 19 : 13, fontWeight: big ? 800 : 600,
           color: valueColor, fontFamily: 'JetBrains Mono, monospace',
@@ -140,20 +144,31 @@ function TrajRow({
   );
   return (
     <div style={{
-      display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap',
+      display: 'grid', alignItems: 'center', gap: 8,
+      gridTemplateColumns: az !== undefined
+        ? '40px repeat(4, minmax(0, 1fr))'
+        : '40px repeat(3, minmax(0, 1fr))',
       padding: '7px 10px', borderRadius: 6,
       background: '#0d1219', border: `1px solid ${color}33`,
     }}>
-      <span style={{ fontSize: 12, fontWeight: 800, color, fontFamily: 'JetBrains Mono, monospace', width: 40 }}>
+      <span style={{ fontSize: 12, fontWeight: 800, color, fontFamily: 'JetBrains Mono, monospace' }}>
         {label}
       </span>
       {az !== undefined && cell('АЗИМУТ', formatMils(az, mils), '#22c55e')}
       {cell('ВОЗВЫШ.', elev, color)}
       {tof != null && (
-        <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 'auto' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
           <span style={{ fontSize: 8, color: '#475569', letterSpacing: '0.1em' }}>TOF</span>
-          <span style={{ fontSize: 13, color: '#94a3b8', fontFamily: 'JetBrains Mono, monospace' }}>
+          <span style={{ fontSize: 13, color: '#94a3b8', fontFamily: 'JetBrains Mono, monospace', whiteSpace: 'nowrap' }}>
             {tof.toFixed(1)}с
+          </span>
+        </div>
+      )}
+      {dispersion != null && (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ fontSize: 8, color: '#475569', letterSpacing: '0.1em' }}>РАЗБРОС</span>
+          <span style={{ fontSize: 13, color: '#94a3b8', fontFamily: 'JetBrains Mono, monospace', whiteSpace: 'nowrap' }}>
+            {dispersion}м
           </span>
         </div>
       )}
@@ -175,10 +190,10 @@ function WindBadgeHow({ sol }: { sol: FireSolution }) {
   };
   return (
     <div style={{
-      display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 6, alignItems: 'center',
+      display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '3px 12px', marginTop: 6,
       padding: '4px 8px', borderRadius: 4, background: '#0c4a6e20', border: '1px solid #0c4a6e',
     }}>
-      <span style={{ fontSize: 9, color: '#38bdf8', fontWeight: 700, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.05em' }}>
+      <span style={{ gridColumn: '1 / -1', fontSize: 9, color: '#38bdf8', fontWeight: 700, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.05em' }}>
         ПОПРАВКА ВЕТЕР
       </span>
       {sol.elevationLow  !== undefined && row('LOW',  '#38bdf8', sol.windAzDeltaLow,  sol.windRangeDeltaLow)}
@@ -329,20 +344,25 @@ export function FireResult() {
               <span className="sol-unit" style={{ fontSize: 14 }}>mil</span>
               <DegBadge value={fireSolution.azimuthMils} mpc={mils} />
             </div>
-            {perAngleAz && (
-              <span style={{ fontSize: 9, color: '#64748b', marginTop: 2 }}>
-                ветер разводит LOW/HIGH — азимут ниже
-              </span>
-            )}
           </div>
 
-          {/* Distance */}
-          <div className="sol-block">
-            <span className="sol-label">Дистанция</span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-              <span className="sol-value-sm">{Math.round(fireSolution.distance)}</span>
-              <span className="sol-unit">м</span>
+          {/* Distance + howitzer charge */}
+          <div className="flex gap-4 flex-wrap">
+            <div className="sol-block">
+              <span className="sol-label">Дистанция</span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                <span className="sol-value-sm">{Math.round(fireSolution.distance)}</span>
+                <span className="sol-unit">м</span>
+              </div>
             </div>
+            {!isMortar && fireSolution.chargeLevel !== undefined && (
+              <div className="sol-block">
+                <span className="sol-label" style={{ color: '#c084fc' }}>Заряд</span>
+                <span className="sol-value-sm" style={{ color: '#c084fc' }}>
+                  {fireSolution.chargeLevel}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -401,28 +421,6 @@ export function FireResult() {
         </>
       ) : (
         <>
-        {/* Charge + dispersion summary */}
-        {(fireSolution.chargeLevel !== undefined || fireSolution.dispersion !== undefined) && (
-          <div className="flex gap-4 flex-wrap" style={{ marginBottom: 8 }}>
-            {fireSolution.chargeLevel !== undefined && (
-              <div className="sol-block">
-                <span className="sol-label" style={{ color: '#c084fc' }}>Заряд</span>
-                <span className="sol-value-md" style={{ color: '#c084fc' }}>
-                  {fireSolution.chargeLevel}
-                </span>
-              </div>
-            )}
-            {fireSolution.dispersion !== undefined && (
-              <div className="sol-block">
-                <span className="sol-label">Разброс</span>
-                <span className="sol-value-sm" style={{ color: '#94a3b8' }}>
-                  {fireSolution.dispersion} <span className="sol-unit">м</span>
-                </span>
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Per-trajectory solutions (each carries its own wind-corrected azimuth) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {fireSolution.elevationLow !== undefined && (
@@ -431,6 +429,7 @@ export function FireResult() {
               az={perAngleAz ? fireSolution.azimuthMilsLow : undefined}
               elev={fireSolution.elevationLow}
               tof={fireSolution.tofLow ?? undefined}
+              dispersion={fireSolution.dispersionLow}
             />
           )}
           {fireSolution.elevationHigh !== undefined && (
@@ -439,6 +438,7 @@ export function FireResult() {
               az={perAngleAz ? fireSolution.azimuthMilsHigh : undefined}
               elev={fireSolution.elevationHigh}
               tof={fireSolution.tofHigh ?? undefined}
+              dispersion={fireSolution.dispersionHigh}
             />
           )}
         </div>

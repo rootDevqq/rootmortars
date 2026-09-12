@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "check:data": "node scripts/validate-ballistics.cjs",
     "preview": "vite preview"
   },
   "dependencies": {

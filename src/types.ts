@@ -35,7 +35,7 @@ export interface ProjectileType {
   id: string;
   name: string;
   type: string;
-  variant: 'low_angle' | 'high_angle';
+  variant: 'low_angle' | 'high_angle' | 'standard';
   charge?: number;          // howitzers with multiple powder charges (e.g. M777)
   dispersion?: number;      // m, average dispersion for this table
   minRange: number;
@@ -53,6 +53,11 @@ export interface WeaponSystem {
   usesHeightCorrection?: boolean;
   hasCharges?: boolean;        // howitzer with selectable powder charges (M777)
   supportsWindCorrection?: boolean;
+  ammoAliases?: Array<{
+    id: string;
+    name: string;
+    sourceId: string;
+  }>;
   ammo?: MortarAmmo[];
   projectileTypes?: ProjectileType[];
 }
@@ -99,12 +104,14 @@ export interface FireSolution {
   windAzDeltaHigh?: number;
   windRangeDeltaLow?: number;
   windRangeDeltaHigh?: number;
+  dispersionLow?: number;       // m, low-angle table dispersion
+  dispersionHigh?: number;      // m, high-angle table dispersion
   status: 'ok' | 'out_of_range' | 'no_data';
   message?: string;
   // Wind correction info (only when wind speed > 0 and wind data available)
   windAzDelta?: number;         // mils added to azimuth (+ = right) — mortar
   windRangeDelta?: number;      // m added to effective range (+ = further) — mortar
-  dispersion?: number;          // m dispersion at this charge
+  dispersion?: number;          // m dispersion (mortars, or equal for both howitzer arcs)
 }
 
 // ─── Wind database ────────────────────────────────────────────────────────────

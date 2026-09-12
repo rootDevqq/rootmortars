@@ -30,4 +30,8 @@ points_my_backup.json
 *backup*.json
 .claude/
 .gemini/
-docs/
+docs/*
+!docs/v1.7-ingame-tables/
+docs/v1.7-ingame-tables/*
+!docs/v1.7-ingame-tables/M252.json
+!docs/v1.7-ingame-tables/2B14.json

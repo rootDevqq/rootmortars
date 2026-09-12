@@ -141,7 +141,23 @@ export function getHowitzerAmmoGroups(weapon: WeaponSystem): HowitzerAmmoGroup[]
     if (g.charges) g.charges.sort((a, b) => a.charge - b.charge);
   }
 
-  return Array.from(map.values());
+  const groups = Array.from(map.values());
+
+  // Some projectiles share exactly the same flight model and differ only in
+  // payload/fuze. Keep one measured table in JSON and expose lightweight ammo
+  // aliases instead of duplicating thousands of ballistic rows.
+  for (const alias of weapon.ammoAliases ?? []) {
+    const source = groups.find(g => g.id === alias.sourceId);
+    if (!source || groups.some(g => g.id === alias.id)) continue;
+    groups.push({
+      ...source,
+      id: alias.id,
+      name: alias.name,
+      charges: source.charges?.map(charge => ({ ...charge })),
+    });
+  }
+
+  return groups;
 }
 
 // ─── Pick lowest howitzer charge that can reach the target ───────────────────
@@ -392,11 +408,21 @@ export function calculateFireSolution(
     if (!interp) return { distance, azimuthMils: correctedAzMils, status: 'no_data', message: 'Ошибка интерполяции' };
 
     let elevation = interp.elevation;
-    if (weapon.usesHeightCorrection) {
-      // Higher target (th > gh) → fire further → LOWER elevation for high-angle fire.
-      // dElev is the per-100m-height-difference elevation correction; subtract it.
-      elevation = Math.round(elevation - (interp.dElev ?? 0) * (th - gh) / 100);
+    const dH = th - gh;
+    if (weapon.usesHeightCorrection && dH !== 0) {
+      if (interp.angleOfImpact != null && interp.angleOfImpact >= 5) {
+        // The table's D ELEV column is only an approximation. Follow the
+        // measured trajectory to the target altitude and convert that range
+        // shift back through the local table slope instead.
+        const rangeShift = dH / Math.tan(interp.angleOfImpact * Math.PI / 180);
+        elevation = Math.round(elevation + interp.elevationPerMeter * rangeShift);
+      } else {
+        // Older/mod tables without an impact angle retain the table fallback.
+        elevation = Math.round(elevation - (interp.dElev ?? 0) * dH / 100);
+      }
     }
+
+    elevation = Math.round(elevation);
 
     return {
       distance,
@@ -478,7 +504,6 @@ export function calculateFireSolution(
       };
     }
 
-    const dispersion = lowPt?.dispersion ?? highPt?.dispersion;
     const dH = th - gh;
     const azimuthDeg = (azimuthMils / mils) * 360;
 
@@ -534,11 +559,22 @@ export function calculateFireSolution(
         }
       }
 
-      return { elev: Math.round(elev), az, azDelta, rangeDelta, tof: interp.tof ?? undefined };
+      return {
+        elev: Math.round(elev),
+        az,
+        azDelta,
+        rangeDelta,
+        tof: interp.tof ?? undefined,
+      };
     };
 
     const sLow  = solveAngle(lowPt, low ?? null);
     const sHigh = solveAngle(highPt, high ?? null);
+    const dispersionLow = sLow ? lowPt?.dispersion : undefined;
+    const dispersionHigh = sHigh ? highPt?.dispersion : undefined;
+    const dispersion = dispersionLow != null && dispersionLow === dispersionHigh
+      ? dispersionLow
+      : undefined;
 
     return {
       distance,
@@ -555,6 +591,8 @@ export function calculateFireSolution(
       windAzDeltaHigh:    sHigh?.azDelta,
       windRangeDeltaLow:  sLow?.rangeDelta,
       windRangeDeltaHigh: sHigh?.rangeDelta,
+      dispersionLow,
+      dispersionHigh,
       status: 'ok',
       dispersion,
     };
